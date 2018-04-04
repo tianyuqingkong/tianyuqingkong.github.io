@@ -6,7 +6,7 @@ tags: ES
 # 详解ECMA-262-5 3.2章  词法环境：ECMAScript的实现
 
 
-## 导言(Intruduction)
+## 导言(Intruduction) test
 
 在这一章中我们将继续词法环境的考察.在先前的[3.1章](http://dmitrysoshnikov.com/ecmascript/es5-chapter-3-1-lexical-environments-common-theory/#environment-frames-model)我们澄清了关于这一话题的通用理论.特别是我们已经学习了环境与静态作用域以及闭包间的紧密关系.  
 
