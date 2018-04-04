@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="解构对象和数组字面量是js中最常用的标记，并且多亏JSON数据格式的流行它们成为了这面语言重要的一部分。对于定义对象和数组时相当常见的，同样从这些结构中系统的取出需要的部分也是同样常见。ES6为了简化这个过程添加了destructuring（解构：将大数据结构分解为很多小数据结构的过程）。这种中将为你展示如何使用在对象和数组上使用解构。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第五章 解构">
+<meta property="og:url" content="http://yoursite.com/2017/07/25/第5章 解构/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="解构对象和数组字面量是js中最常用的标记，并且多亏JSON数据格式的流行它们成为了这面语言重要的一部分。对于定义对象和数组时相当常见的，同样从这些结构中系统的取出需要的部分也是同样常见。ES6为了简化这个过程添加了destructuring（解构：将大数据结构分解为很多小数据结构的过程）。这种中将为你展示如何使用在对象和数组上使用解构。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-04-04T02:07:49.430Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第五章 解构">
+<meta name="twitter:description" content="解构对象和数组字面量是js中最常用的标记，并且多亏JSON数据格式的流行它们成为了这面语言重要的一部分。对于定义对象和数组时相当常见的，同样从这些结构中系统的取出需要的部分也是同样常见。ES6为了简化这个过程添加了destructuring（解构：将大数据结构分解为很多小数据结构的过程）。这种中将为你展示如何使用在对象和数组上使用解构。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/25/第5章 解构/"/>
+
+
+
+
+
+  <title>第五章 解构 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/25/第5章 解构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第五章 解构</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-25T00:00:00+08:00">
+                2017-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javscript/" itemprop="url" rel="index">
+                    <span itemprop="name">javscript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="解构"><a href="#解构" class="headerlink" title="解构"></a>解构</h3><p>对象和数组字面量是js中最常用的标记，并且多亏JSON数据格式的流行它们成为了这面语言重要的一部分。对于定义对象和数组时相当常见的，同样从这些结构中系统的取出需要的部分也是同样常见。ES6为了简化这个过程添加了destructuring（解构：将大数据结构分解为很多小数据结构的过程）。这种中将为你展示如何使用在对象和数组上使用解构。  </p>
+<a id="more"></a>
+<h4 id="为什么解构是有用的"><a href="#为什么解构是有用的" class="headerlink" title="为什么解构是有用的"></a>为什么解构是有用的</h4><p>在ES5和之前，为了从对象和数组中提取信息需要很多看起来一样的代码，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let options = &#123;</span><br><span class="line">        repeat: true,</span><br><span class="line">        save: false</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">// extract data from the object</span><br><span class="line">let repeat = options.repeat,</span><br><span class="line">    save = options.save;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码为了从对象options获取repeat和save值并将之用保存到同名的本地变量，虽然这段代码看起简单但是想象下如果你有很多变量需要赋值，你需要一个一个赋值.并且如果这是一个混乱的数据结构你需要为了一点数据而遍历整个数据结构。  </p>
+<h3 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h3><p>对象解构语法：用对象字面量赋值操作符左边部分表示，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let node = &#123;</span><br><span class="line">    type: &quot;Identifier&quot;,</span><br><span class="line">    name: &quot;foo&quot;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let &#123;type, name&#125; = node;</span><br><span class="line"></span><br><span class="line">console.log(type); // &quot;Identifier&quot;</span><br><span class="line">console.log(name); // &quot;foo&quot;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码中node.type和node.name的值分别存在了type和name中，这个语法和第4章中介绍的对象字面量初始化速记一样。标识符type和name声明为本地变量并从node对象中读取值。</p>
+<ul>
+<li>note：在使用解构声明变量（var let const）都必须提供一个初始化值（等号右边）</li>
+</ul>
+<h4 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h4><p>到目前为止对象解构都是在变量声明上，但是在赋值中也可以用解构，如下，当你在变量定义后想重新赋值时：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let node = &#123;</span><br><span class="line">    type: &quot;Identifier&quot;,</span><br><span class="line">    name: &quot;foo&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    type = &quot;Literal&quot;,</span><br><span class="line">    name = 5;</span><br><span class="line"></span><br><span class="line">    // assign different values using destructuring</span><br><span class="line">    (&#123; type, name &#125; = node);</span><br><span class="line"></span><br><span class="line">    console.log(type);      // &quot;Identifier&quot;</span><br><span class="line">    console.log(name);      // &quot;foo&quot;</span><br></pre></td></tr></table></figure></p>
+<p>在上面代码中，对象node中type和name在声明的同时赋值初始化，同时两个同名变量type和name声明并赋值初始化。下一行代码中利用解构变量从node对象中读取相应的值，注意你必须在解构赋值语句两步加园括号。这是因为花括号一般期待为一个块级语句，同时块级语句是不能出现在赋值语句左边的。加上圆括号后的花括号表示不应该解释为块级语句而应该解释为表达式。</p>
+<p>一个解构赋值表达式的求值结果为表达式右边(=号的后面)，这意味着你可以在任何需要使用解构赋值表达式求值结果的地方地方使用。如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">let node = &#123;</span><br><span class="line">        type: &quot;Identifier&quot;,</span><br><span class="line">        name: &quot;foo&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    type = &quot;Literal&quot;,</span><br><span class="line">    name = 5;</span><br><span class="line"></span><br><span class="line">function outputInfo(value) &#123;</span><br><span class="line">    console.log(value === node);        // true</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">outputInfo(&#123; type, name &#125; = node);</span><br><span class="line"></span><br><span class="line">console.log(type);      // &quot;Identifier&quot;</span><br><span class="line">console.log(name);      // &quot;foo&quot;</span><br></pre></td></tr></table></figure></p>
+<p>调用函数uptpuInfo()时传入了一个解构赋值表达式。这个表达式求值结果为node，同时type和name都被赋值。</p>
+<ul>
+<li>warning： 如果解构赋值表达式的(=号后面的表达式)右边求值为null或者undefined则会抛出一个错误，这是因为任何尝试在null或者undefined读取属性都将抛出一个运行时错误。</li>
+</ul>
+<h4 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h4><p>当你在使用解构赋值语句时，你指定的本地变量在对象上并不存在同名属性时，本地变量会被赋值为undefined,如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let node = &#123;</span><br><span class="line">        type: &quot;Identifier&quot;,</span><br><span class="line">        name: &quot;foo&quot;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">let &#123; type, name, value &#125; = node;</span><br><span class="line"></span><br><span class="line">console.log(type);      // &quot;Identifier&quot;</span><br><span class="line">console.log(name);      // &quot;foo&quot;</span><br><span class="line">console.log(value);     // undefined</span><br></pre></td></tr></table></figure></p>
+<p>这段单面定义了一个多余的本地变量value并且尝试赋值，但是在node上并没有对应的value属性，所以最终被赋值为undefined。  </p>
+<p>你可以选择性的为特定不存在的属性添加默认值，你只需要在指定属性名后面加上=和相应的默认值，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let node = &#123;</span><br><span class="line">        type: &quot;Identifier&quot;,</span><br><span class="line">        name: &quot;foo&quot;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">let &#123; type, name, value = true &#125; = node;</span><br><span class="line"></span><br><span class="line">console.log(type);      // &quot;Identifier&quot;</span><br><span class="line">console.log(name);      // &quot;foo&quot;</span><br><span class="line">console.log(value);     // true</span><br></pre></td></tr></table></figure></p>
+<p>在这段例子中，变量value被赋予了true的默认值，默认值只有在node上没有对应属性或者属性值为undefined时起效，这个和第三章中函数的默认参数相似。</p>
+<h4 id="赋予不同的本地变量名"><a href="#赋予不同的本地变量名" class="headerlink" title="赋予不同的本地变量名"></a>赋予不同的本地变量名</h4><p>目前为止，每个解构赋值都是利用的对象属性名和本地变量名相同的条件，但是ES6允许你使用不同名字来赋值，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let node = &#123;</span><br><span class="line">        type: &quot;Identifier&quot;,</span><br><span class="line">        name: &quot;foo&quot;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">let &#123; type: localType, name: localName &#125; = node;</span><br><span class="line"></span><br><span class="line">console.log(localType);     // &quot;Identifier&quot;</span><br><span class="line">console.log(localName);     // &quot;foo&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="数组解构"><a href="#数组解构" class="headerlink" title="数组解构"></a>数组解构</h4><p>数组解构语法与对象解构语法相当相似，它只是用数组字面量语法代替了对象字面量语法而已，具体的解构操作由数组中的位置决定，而不是对象中属性名。如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];</span><br><span class="line"></span><br><span class="line">let [ firstColor, secondColor ] = colors;</span><br><span class="line"></span><br><span class="line">console.log(firstColor);        // &quot;red&quot;</span><br><span class="line">console.log(secondColor);       // &quot;green&quot;</span><br></pre></td></tr></table></figure></p>
+<p>这里的数组解构将数组中”red”和”green”值存在变量firstColor和secondColor上，之所以会这样是因为它们在数组中的位置，至于变量名字可以随便取，如果在对应位置没有响应的变量名解构将忽略它。记住解构过程是不会给不数组本身。  </p>
+<p>在数组解构中你也可以省略掉你不想要的值只在对应位置提供相应的变量名，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];</span><br><span class="line"></span><br><span class="line">let [ , , thirdColor ] = colors;</span><br><span class="line"></span><br><span class="line">console.log(thirdColor);        // &quot;blue&quot;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码利用了解构赋值来获取数组(colors)里的第三项。在thridColor前面的逗号都是数组项的占位符，你可以轻松的选出数组中间位置的变量而不需要提供前面变量的名字。  </p>
+<ul>
+<li><strong>warning</strong>：和对象解构一样你必须为初始化值通过var，let，const  </li>
+</ul>
+<h4 id="解构赋值-1"><a href="#解构赋值-1" class="headerlink" title="解构赋值"></a>解构赋值</h4><p>你也利用解构来赋值，但是和对象解构不一样的是你需要为变量加一层大括号，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ],</span><br><span class="line">    firstColor = &quot;black&quot;,</span><br><span class="line">    secondColor = &quot;purple&quot;;</span><br><span class="line"></span><br><span class="line">[ firstColor, secondColor ] = colors;</span><br><span class="line"></span><br><span class="line">console.log(firstColor);        // &quot;red&quot;</span><br><span class="line">console.log(secondColor);       // &quot;green&quot;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码中的解构赋值和前一次的数组解构例子相似，唯一的不同是firstColor和secondColor先定义，大多数这些就是你需要知道关于数组解构的东西了，但是更多的是你会发现知道这些就已经很有用了。  </p>
+<p>数组解构赋值有一个非常独特用处，那就是交换两个变量值。值的交换在排序算数中是一种相当常规的操作，在ES5中交换两个变量值需要一个临时变量，如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// Swapping variables in ECMAScript 5</span><br><span class="line">let a = 1,</span><br><span class="line">    b = 2,</span><br><span class="line">    tmp;</span><br><span class="line"></span><br><span class="line">tmp = a;</span><br><span class="line">a = b;</span><br><span class="line">b = tmp;</span><br><span class="line"></span><br><span class="line">console.log(a);     // 2</span><br><span class="line">console.log(b);     // 1</span><br></pre></td></tr></table></figure></p>
+<p>ES5中交换a和b值中间变量tmp是必不可少的，利用解构赋值就不再需要这样的额外变量，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// Swapping variables in ECMAScript 6</span><br><span class="line">let a = 1,</span><br><span class="line">    b = 2;</span><br><span class="line"></span><br><span class="line">[ a, b ] = [ b, a ];</span><br><span class="line"></span><br><span class="line">console.log(a);     // 2</span><br><span class="line">console.log(b);     // 1</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>Warning</strong>: 和对象解构相同当解构赋值表达式右边数组项有求值为null或undefined时都将抛出一个错误。  </li>
+</ul>
+<h4 id="默认值-1"><a href="#默认值-1" class="headerlink" title="默认值"></a>默认值</h4><p>数组解构赋值运行你为数组中任何位置项提供默认值，同样的当给定的位置不存在，或者存在值为undefined时这个默认值被使用，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let colors = [ &quot;red&quot; ];</span><br><span class="line"></span><br><span class="line">let [ firstColor, secondColor = &quot;green&quot; ] = colors;</span><br><span class="line"></span><br><span class="line">console.log(firstColor);        // &quot;red&quot;</span><br><span class="line">console.log(secondColor);       // &quot;green&quot;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码中，colors数组只有一项，所以并没有为secondColor所匹配项，但是因为secondColor有默认项，最终它的值就为默认项值。  </p>
+<h4 id="复杂数组解构"><a href="#复杂数组解构" class="headerlink" title="复杂数组解构"></a>复杂数组解构</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let colors = [ &quot;red&quot;, [ &quot;green&quot;, &quot;lightgreen&quot; ], &quot;blue&quot; ];</span><br><span class="line"></span><br><span class="line">// later</span><br><span class="line"></span><br><span class="line">let [ firstColor, [ secondColor ] ] = colors;</span><br><span class="line"></span><br><span class="line">console.log(firstColor);        // &quot;red&quot;</span><br><span class="line">console.log(secondColor);       // &quot;green&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="不定项数组解构"><a href="#不定项数组解构" class="headerlink" title="不定项数组解构"></a>不定项数组解构</h4><p>第三章为函数引进了不定参数，同样数组解构也有类似的概念不定项(rest items),不定项用…加一个变量名语法表示数组中其余项，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];</span><br><span class="line"></span><br><span class="line">let [ firstColor, ...restColors ] = colors;</span><br><span class="line"></span><br><span class="line">console.log(firstColor);        // &quot;red&quot;</span><br><span class="line">console.log(restColors.length); // 2</span><br><span class="line">console.log(restColors[0]);     // &quot;green&quot;</span><br><span class="line">console.log(restColors[1]);     // &quot;blue&quot;</span><br></pre></td></tr></table></figure></p>
+<p>colors中的第一项赋值给firstColor，然后其余项赋值给一个新数组restColors.   </p>
+<p>js数组能力中有一项明显的遗漏那就是复制，在ES5中，开发者常常使用concat()方法来代替复制数组方法，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// cloning an array in ECMAScript 5</span><br><span class="line">var colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];</span><br><span class="line">var clonedColors = colors.concat();</span><br><span class="line"></span><br><span class="line">console.log(clonedColors);      //&quot;[red,green,blue]&quot;</span><br></pre></td></tr></table></figure></p>
+<p>concat()方法意在将两个数组连接，当调用时没有传参将返回调用者的一份复制，在ES6中，在ES6中可以用数据结构中的不定项做相同的事情，如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// cloning an array in ECMAScript 6</span><br><span class="line">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];</span><br><span class="line">let [ ...clonedColors ] = colors;</span><br><span class="line"></span><br><span class="line">console.log(clonedColors);      //&quot;[red,green,</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p><strong>warning</strong>: 不定项在数组解构时必须为最后一项，不定项后面不能添加逗号如果有将报错。   </p>
+<h3 id="混合解构"><a href="#混合解构" class="headerlink" title="混合解构"></a>混合解构</h3><p>对象和数组解构可以一起使用，这样你就可以从一个对象数组相互嵌套的解构中提取想要的值。如：   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> let node = &#123;</span><br><span class="line">        type: &quot;Identifier&quot;,</span><br><span class="line">        name: &quot;foo&quot;,</span><br><span class="line">        loc: &#123;</span><br><span class="line">            start: &#123;</span><br><span class="line">                line: 1,</span><br><span class="line">                column: 1</span><br><span class="line">            &#125;,</span><br><span class="line">            end: &#123;</span><br><span class="line">                line: 1,</span><br><span class="line">                column: 4</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        range: [0, 3]</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">let &#123;</span><br><span class="line">    loc: &#123; start &#125;,</span><br><span class="line">    range: [ startIndex ]</span><br><span class="line">&#125; = node;</span><br><span class="line"></span><br><span class="line">console.log(start.line);        // 1</span><br><span class="line">console.log(start.column);      // 1</span><br><span class="line">console.log(startIndex);        // 0</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这段代码将node.loc.start和node.range[0]的值提取到对应的start和startIndex中了，利用这种混合解构你就可以从JSON中提取任何你想要的值。  </p>
+<h3 id="解构参数"><a href="#解构参数" class="headerlink" title="解构参数"></a>解构参数</h3><p>解构拥有很多有用的使用场景，其中之一就为函数传参时.当js函数需要接受很多参数项时，一个常见的模式创建一个option对象来指定这些参数，如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// properties on options represent additional parameters</span><br><span class="line">function setCookie(name, value, options) &#123;</span><br><span class="line"></span><br><span class="line">    options = options || &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    let secure = options.secure,</span><br><span class="line">        path = options.path,</span><br><span class="line">        domain = options.domain,</span><br><span class="line">        expires = options.expires;</span><br><span class="line"></span><br><span class="line">    // code to set the cookie</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// third argument maps to options</span><br><span class="line">setCookie(&quot;type&quot;, &quot;js&quot;, &#123;</span><br><span class="line">    secure: true,</span><br><span class="line">    expires: 60000</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>许多的js库都包含setCookie()这个函数，函数name和value参数必选，但是secure,path,domain,expires可选，既然这些属性顺序都没有优先级，将这些属性添加到一个对象的属性上是一个不错的方法，但是这样一来你就不能通过看函数定义知道要传入哪些参数，你必须看函数体。  </p>
+<p>解构参数提供了一个更好替代方案，这样你就可以看函数定义而知道要传哪些参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function setCookie(name, value, &#123; secure, path, domain, expires &#125;) &#123;</span><br><span class="line"></span><br><span class="line">    // code to set the cookie</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setCookie(&quot;type&quot;, &quot;js&quot;, &#123;</span><br><span class="line">    secure: true,</span><br><span class="line">    expires: 60000</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="必传的解构参数"><a href="#必传的解构参数" class="headerlink" title="必传的解构参数"></a>必传的解构参数</h4><p>解构参数有一个奇怪的地方是，在使用解构参数时如果没有提供默认值和调用时并没传解构的对象将会报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// Error!</span><br><span class="line">setCookie(&quot;type&quot;, &quot;js&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>第三个参数缺失时，其值如预想一样将被设为undifined,造成错误的原因是因为解构参数实际上就是解构声明的简写，当调用setCookie()时，js引擎实际会这样做：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function setCookie(name, value, options) &#123;</span><br><span class="line"></span><br><span class="line">    let &#123; secure, path, domain, expires &#125; = options;</span><br><span class="line"></span><br><span class="line">    // code to set the cookie</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果解构参数是必选的，这样的行为是正常的，但是如果你的解构参数时可选时，你可以为解构参数提供一个默认值，如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function setCookie(name, value, &#123; secure, path, domain, expires &#125; = &#123;&#125;) &#123;</span><br><span class="line"></span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="解构参数默认值"><a href="#解构参数默认值" class="headerlink" title="解构参数默认值"></a>解构参数默认值</h4><p>你可以为解构参数指定默认值，这和你解构赋值时很像。只需要在参数后面添加等号和特定的默认参数值，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function setCookie(name, value,</span><br><span class="line">    &#123;</span><br><span class="line">        secure = false,</span><br><span class="line">        path = &quot;/&quot;,</span><br><span class="line">        domain = &quot;example.com&quot;,</span><br><span class="line">        expires = new Date(Date.now() + 360000000)</span><br><span class="line">    &#125; = &#123;&#125;</span><br><span class="line">) &#123;</span><br><span class="line"></span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/10/第4章 对象/" rel="next" title="第四章 对象">
+                <i class="fa fa-chevron-left"></i> 第四章 对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/09/event-loop/" rel="prev" title="浏览器异步之macrotask与microtask">
+                浏览器异步之macrotask与microtask <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#解构"><span class="nav-number">1.</span> <span class="nav-text">解构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么解构是有用的"><span class="nav-number">1.1.</span> <span class="nav-text">为什么解构是有用的</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象解构"><span class="nav-number">2.</span> <span class="nav-text">对象解构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解构赋值"><span class="nav-number">2.1.</span> <span class="nav-text">解构赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#默认值"><span class="nav-number">2.2.</span> <span class="nav-text">默认值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#赋予不同的本地变量名"><span class="nav-number">2.3.</span> <span class="nav-text">赋予不同的本地变量名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组解构"><span class="nav-number">2.4.</span> <span class="nav-text">数组解构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解构赋值-1"><span class="nav-number">2.5.</span> <span class="nav-text">解构赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#默认值-1"><span class="nav-number">2.6.</span> <span class="nav-text">默认值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复杂数组解构"><span class="nav-number">2.7.</span> <span class="nav-text">复杂数组解构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不定项数组解构"><span class="nav-number">2.8.</span> <span class="nav-text">不定项数组解构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混合解构"><span class="nav-number">3.</span> <span class="nav-text">混合解构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解构参数"><span class="nav-number">4.</span> <span class="nav-text">解构参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#必传的解构参数"><span class="nav-number">4.1.</span> <span class="nav-text">必传的解构参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解构参数默认值"><span class="nav-number">4.2.</span> <span class="nav-text">解构参数默认值</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

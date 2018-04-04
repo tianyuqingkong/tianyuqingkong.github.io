@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="1 导言  HTTP通常用于分配信息的系统，在这里性能可以通过利用响应存储得到提升，这份文档定义 HTTP/1.1关于缓存和再利用响应消息的部分.     一个HTTP缓存除了包括响应消息的本地存储控制还包括检索，删除，控制存储消息本身.一个缓存了可缓存的响应和等效的普通响应相比使用更少的响应时间和带宽消耗.任何的用户(client)和服务(server)都可以使用缓存，但是被当做隧道(tunne">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RFC 7234">
+<meta property="og:url" content="http://yoursite.com/2017/10/23/test1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1 导言  HTTP通常用于分配信息的系统，在这里性能可以通过利用响应存储得到提升，这份文档定义 HTTP/1.1关于缓存和再利用响应消息的部分.     一个HTTP缓存除了包括响应消息的本地存储控制还包括检索，删除，控制存储消息本身.一个缓存了可缓存的响应和等效的普通响应相比使用更少的响应时间和带宽消耗.任何的用户(client)和服务(server)都可以使用缓存，但是被当做隧道(tunne">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-04-04T02:07:49.414Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RFC 7234">
+<meta name="twitter:description" content="1 导言  HTTP通常用于分配信息的系统，在这里性能可以通过利用响应存储得到提升，这份文档定义 HTTP/1.1关于缓存和再利用响应消息的部分.     一个HTTP缓存除了包括响应消息的本地存储控制还包括检索，删除，控制存储消息本身.一个缓存了可缓存的响应和等效的普通响应相比使用更少的响应时间和带宽消耗.任何的用户(client)和服务(server)都可以使用缓存，但是被当做隧道(tunne">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/23/test1/"/>
+
+
+
+
+
+  <title>RFC 7234 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/test1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RFC 7234</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-23T00:00:00+08:00">
+                2017-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-导言"><a href="#1-导言" class="headerlink" title="1 导言"></a>1 导言</h2><p>  HTTP通常用于分配信息的系统，在这里性能可以通过利用响应存储得到提升，这份文档定义 HTTP/1.1关于缓存和再利用响应消息的部分.  </p>
+<p>  一个HTTP缓存除了包括响应消息的本地存储控制还包括检索，删除，控制存储消息本身.一个缓存了可缓存的响应和等效的普通响应相比使用更少的响应时间和带宽消耗.任何的用户(client)和服务(server)都可以使用缓存，但是被当做隧道(tunnel)的服务不能使用.  </p>
+<p>  共享缓存(shared cache)的响应存储可以被多用户再次利用，通常共享缓存被部署为中介的一部分.相反的私有缓存(private cache)只能被一个用户检查到，通常私有缓存被部署为用户代理的一部分.  </p>
+<p>  在HTTP/1.1中缓存通过再利用先前的响应满足现有请求而达到明显提高效率的目标.一个已存储的缓存被认为”新鲜”(fresh)必须先满足4.2定义部分，那么这个响应可以再利用并且不用”检验”(validation：向源服务器检查看缓存响应是否对于这个请求仍然有效).一个新鲜的响应可以每次重利用因此可以有效的减少延迟的网络管理.当缓存响应不再新鲜是，它也许还可以利用比如通过检验再更新新鲜度(4.3)或者服务源unavailable(4.2.4).<br>  <a id="more"></a></p>
+<h3 id="1-1-一致性和错误处理"><a href="#1-1-一致性和错误处理" class="headerlink" title="1.1 一致性和错误处理"></a>1.1 一致性和错误处理</h3><p>  关键字如”必须”，”必须不”，”必要的”，”将会”，”将不会”,”应该”，”应该不”，”建议”，”也许”，”选择性的”这些在文档中出现的都将在[RFC2119]得到解释.    </p>
+<p>  一致性准则和常规错误处理都在[RFC7230]中得到定义.</p>
+<h2 id="2-缓存系统概览"><a href="#2-缓存系统概览" class="headerlink" title="2 缓存系统概览"></a>2 缓存系统概览</h2><p>  正确的缓存系统应该保持HTTP传输中的语法，同时应该消除已经存在于缓存中的传输信息.虽然缓存行为在HTTP中完全是一个可选项.但是你可以将再利用缓存响应当做可取的并且这种再利用是不需要要求或者本地配置来强制的默认行为.因此HTTP的缓存配置是用来强制性规定缓存行为来满足一些我们想要的特性，而不是像托管一样总是缓存再利用一些特定的响应.    </p>
+<p>  每个缓存记录包含一个缓存键和一个或者多个http响应，这些响应对应着先前使用同一个键值的请求.一个最常见形式的缓存记录为成功的检索请求： ie,200(OK).然而，它也可能缓存一个永久性重定向301，否认结果404，不完全结果206，或者缓存一个除了GET以外的方法.  </p>
+<p>  基本的缓存键值包含请求方法和目标URI，因为HTTP缓存通常只缓存GET方法返回的请求，许多缓存简单的去掉其他方法并只用URI当做基本的缓存键值.  </p>
+<p>  如果一个请求的目标为内容协商，它的缓存体也许会包含多种响应，每种不同响应通过第二键值做区分(4.1)</p>
+<h2 id="3-在缓存中存储响应的过程"><a href="#3-在缓存中存储响应的过程" class="headerlink" title="3 在缓存中存储响应的过程"></a>3 在缓存中存储响应的过程</h2><p>  缓存前提条件：</p>
+<ul>
+<li>请求方法必须能被缓存所理解并且被定义为可缓存类型</li>
+<li>响应状态码必须能被缓存理解</li>
+<li>缓存指令”no-store”(5.2)不能出现在请求或者响应头中</li>
+<li>共享缓存在响应中缓存指令不能出现”private”(5.2.2.6)否则共享缓存不生效</li>
+<li>共享缓存中权限认证头信息(4.2 of[RFC7235])不能出现响应头，除非响应中有明确允许其可以缓存(3.2)</li>
+<li><p>其中之一的响应：</p>
+<ul>
+<li>包含一个Expires头信息(5.3)</li>
+<li>包含一个max-age 的缓存指令(5.2.2.8)</li>
+<li>在共享缓存缓存中，包含一个 s-maxage缓存指令(5.2.2.9)</li>
+<li>包含一个Cache Control 扩展(5.2.3)允许其可以被缓存</li>
+<li>包含一个被定义为可缓存的状态码(4.2.2)</li>
+<li>包含一个public的缓存指令(5.2.2.5)<br>注意以上的满足条件都可以被cache-control扩展所重写(5.2.3)    </li>
+</ul>
+<p>在这段内容中，如果表现出与缓存相关的行为时，这时缓存已经”理解”一个请求方法或响应状态码.  </p>
+<p>注意，通常系统中，一些缓存将不会存储一个既没有明确的过期时间也没有缓存验证器的响应.但是缓存也没禁止缓存这样的响应.  </p>
+<h3 id="3-1-存储不完全响应"><a href="#3-1-存储不完全响应" class="headerlink" title="3.1 存储不完全响应"></a>3.1 存储不完全响应</h3><h3 id="3-2-存储权限认证请求的响应"><a href="#3-2-存储权限认证请求的响应" class="headerlink" title="3.2 存储权限认证请求的响应"></a>3.2 存储权限认证请求的响应</h3><p>除非缓存指令指定，否则共享缓存不能用于缓存拥有权限认证请求返回的响应.(4.2 of [RFC7235]).<br>在这份规格中，下面的Cache-Control的响应指令中有这些指令： must-revalidate， public， s-maxage.  </p>
+<p>注意在缓存响应中包含”must-revalidate” 和/或”s-maxage”的响应指令则不允许过期存储被共享存储(4.2.4). 特别是在响应中要么包含”max-age=0, must-revalidate”或者”s-maxage=0”则表明后续请求都必须通过源服务器否认验证才能使用.</p>
+<h3 id="3-3-混合部分内容"><a href="#3-3-混合部分内容" class="headerlink" title="3.3 混合部分内容"></a>3.3 混合部分内容</h3><h2 id="4-从缓存到响应的构成"><a href="#4-从缓存到响应的构成" class="headerlink" title="4 从缓存到响应的构成"></a>4 从缓存到响应的构成</h2><p>当发起请求时，利用缓存必须满足以下条件：</p>
+<ul>
+<li>请求为有效请求URI，并且在缓存中能匹配到</li>
+<li>请求方法和所匹配的缓存允许其用来展现请求</li>
+<li>所选择的请求头被匹配的缓存所命中(nomiated：4.1)</li>
+<li>请求头中不能包含pragma = no-cache的请求头(5.4),或者请求头中有缓存指令包含no-cache,除非存储的缓存已经成功的验证.</li>
+<li>存储的响应没有包含no-cache缓存指令，除非已经验证成功</li>
+<li>存储的响应时一下之一： <ul>
+<li>新鲜(fresh:4.2)</li>
+<li>允许其过期响应(4.2.4)</li>
+<li>验证成功(4.3)</li>
+</ul>
+</li>
+</ul>
+<p>注意上面的条件都有可能被cache-contral扩展所重写(4.2.3)<br>当一个存储好的响应被用来满足一个没有验证的请求时，这个缓存必须产生一个Age头(5.1),并且替换在响应中任何等价于current_age的值(4.2.3)</p>
+<h3 id="4-1-使用Vary当做第二存储键值"><a href="#4-1-使用Vary当做第二存储键值" class="headerlink" title="4.1 使用Vary当做第二存储键值"></a>4.1 使用Vary当做第二存储键值</h3><h3 id="4-2-新鲜度"><a href="#4-2-新鲜度" class="headerlink" title="4.2 新鲜度"></a>4.2 新鲜度</h3><p>一个新鲜响应代表着它的生命周期还没过期，相反的是过期响应.    </p>
+<p>一个响应的新鲜度生命周期是从其源服务器产生到过期的时间，明确过期时间：当存储的响应过了期明确的过期时间这就意味着响应必须通过源服务器验证后才能使用。当一个缓存没有明确的过期时间时启发式过期时间就会被缓存赋予.  </p>
+<p>一个响应的年龄(age)表示其从源服务器所产生到当前的时间差，或者从源服务器验证成功到目前的时间差.  </p>
+<p>当一个响应在缓存中新鲜时，它可以满足其后的相同请求并不需要访问源服务器，因此相当高效.  </p>
+<p>决定新鲜度的最主要机制通常为源服务器提供一个明确在未来过期的时间(5.3)，或者响应提供一个max-age指令(5.2.2.8).</p>
+<p>因为源服务器不总是提供一个明确的过期时间，缓存也可以允许其使用启发式过期时间(4.2.4)  </p>
+<p>具体的计算规则：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response_is_fresh = (freshness_lifetime &gt; current_age)</span><br></pre></td></tr></table></figure>
+<p>freshness_lifetime定义在4.2.1;current_age定义在4.2.3  </p>
+<p>客户端可以在请求中使用max-age或者min-fresh的响应指令来放松或加固信所对应响应新鲜度的计算<br>(5.2.1)   </p>
+<p>注意新鲜度只能应用与缓存系统;它不能用户强迫客户端刷新其展示或者重新加载资源，第6部分将会解释缓存和历史机制的区别.  </p>
+<h4 id="4-2-1-计算新鲜度生命周期"><a href="#4-2-1-计算新鲜度生命周期" class="headerlink" title="4.2.1 计算新鲜度生命周期"></a>4.2.1 计算新鲜度生命周期</h4><p>一个缓存可以通过如下最先匹配的规则来计算器生命周期(称:freshness_lifetime):</p>
+</li>
+<li>如果缓存被共享并且响应中有s-maxage缓存指令</li>
+<li>如果响应中有缓存指令max-age</li>
+<li>如果头信息中存在Exoires，用它的值减去响应头的Date值</li>
+<li><p>使用启发式生命周期(4.2.2)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">//下面是 http权威指南 服务端新鲜度计算伪代码比较易懂</span><br><span class="line">sub server_freshness_limit</span><br><span class="line">&#123;</span><br><span class="line">  local($heuristic,$server_freshness_limit,$time_since_last_modify);</span><br><span class="line">  $heuristic = 0;</span><br><span class="line">  if ($Max_Age_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $server_freshness_limit = $Max_Age_value;</span><br><span class="line">  &#125;</span><br><span class="line">  elseif ($Expires_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $server_freshness_limit = $Expires_value - $Date_value;</span><br><span class="line">  &#125;</span><br><span class="line">  elseif ($Last_Modified_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $time_since_last_modify = max(0, $Date_value -</span><br><span class="line">  　　　　　　　　 $Last_Modified_value);</span><br><span class="line">    $server_freshness_limit = int($time_since_last_modify *</span><br><span class="line">  　　　　　　　　 $lm_factor);</span><br><span class="line">    $heuristic = 1;</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    $server_freshness_limit = $default_cache_min_lifetime;</span><br><span class="line">    $heuristic = 1;</span><br><span class="line">  &#125;</span><br><span class="line">  if ($heuristic)</span><br><span class="line">  &#123;</span><br><span class="line">    if ($server_freshness_limit &gt; $default_cache_max_lifetime)</span><br><span class="line">    &#123; $server_freshness_limit = $default_cache_max_lifetime; &#125;</span><br><span class="line">    if ($server_freshness_limit &lt; $default_cache_min_lifetime)</span><br><span class="line">    &#123; $server_freshness_limit = $default_cache_min_lifetime; &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return($server_freshness_limit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">sub client_modified_freshness_limit</span><br><span class="line">&#123;</span><br><span class="line">  $age_limit = server_freshness_limit( ); ## From Example 7-2</span><br><span class="line">  if ($Max_Stale_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    if ($Max_Stale_value == $INT_MAX)</span><br><span class="line">    &#123; $age_limit = $INT_MAX; &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123; $age_limit = server_freshness_limit( ) + $Max_Stale_value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  if ($Min_Fresh_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $age_limit = min($age_limit, server_freshness_limit( ) -</span><br><span class="line">  　　　　　　　$Min_Fresh_value_set);</span><br><span class="line">  &#125;</span><br><span class="line">  if ($Max_Age_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $age_limit = min($age_limit, $Max_Age_value);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意计算过程并不会时钟抖动，因为所有的信息都来自源服务器.  </p>
+<p>当响应头有多余一个值的指令信息(e.g. 两个过期响应头，多个Cache-Contorl: max-age指令)，这些值都会被当做无效值.缓存鼓励其响应拥有无效生命新鲜度来让它过期.  </p>
+<h4 id="4-2-2-启发式-Heuristic-新鲜度计算"><a href="#4-2-2-启发式-Heuristic-新鲜度计算" class="headerlink" title="4.2.2 启发式(Heuristic)新鲜度计算"></a>4.2.2 启发式(Heuristic)新鲜度计算</h4><p>如果源服务器没有提供一个明确的过期时间，缓存也许可以使用一定算法来利用其他头信息来(如Last-Modified)来推算一个合理的过期时间，这份文档并不会提供具体算法，但是可以为一些边界情况加一些限制。  </p>
+<p>缓存只有在没有一个明确的过期时间时才可以使用启发式新鲜度时间，根据在第3部分的缓存的前置条件。只有两种可能，一是响应状态码位可缓存的(6.1 of[RFC7231])且没有明确过期时间，二是被标记为可以缓存(e.g. 有”public”缓存指令)且没有明确过期时间.  </p>
+<p>如果存储响应有头信息Last-Modified(2.2 of [RFC7232]),缓存鼓励这个启发式过期时间为从现在到Last-Modified值之间差的某一比例.通常这个比例也许为10%.  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">freshness_lefetime = (date - Last-Modified)*10%</span><br></pre></td></tr></table></figure>
+<p>当启发式过期时间用于新鲜度生命周期，其中current_age的值已经超过24小时时缓存应该产生一个113 warn-code的头信息(5.5.4).  </p>
+<h4 id="4-2-3-计算年龄-age"><a href="#4-2-3-计算年龄-age" class="headerlink" title="4.2.3 计算年龄(age)"></a>4.2.3 计算年龄(age)</h4><p>头信息的Age通常用来表示从缓存获取响应的年龄时间.age的值通常由响应被产生时或被重新验证过起来估算.本质上来说Age的值由两部分之和，一是响应在缓存中驻存时间，二是响应在网络中转换的时间.   </p>
+<p>如下值用来age值的计算:  </p>
+<ul>
+<li><p>“age_value”这个条目指的是头信息Age的值(5.1),这个值是以一种合适的算法系统计算而出，或者当它不存在的时候则为0</p>
+</li>
+<li><p>date_value这个条目的值为头信息Date的值  </p>
+</li>
+<li><p>now这个条目值指的是执行计算时的时间点  </p>
+</li>
+<li><p>request_time这个时间指的是请求从缓存中返回的时间点</p>
+</li>
+<li><p>response_time主机接受响应的时间点</p>
+</li>
+</ul>
+<p>响应age可以通过两种完全独立的方法计算  </p>
+<ul>
+<li><p>1.”apprent_age”:如果在本地时钟和源服务器时钟合理同步时 结果=response_time - date_value. 如果解构等于负数，结果被零替换.  </p>
+</li>
+<li><p>2.”corrected_age_value”,如果所有的缓存都遵循HTTP/1.1,缓存必须就必须将这个值理为与请求初始化成功相关，而不是与响应接受相关  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apparent_age = max(0, response_time - date_value);</span><br><span class="line">response_delay = response_time = request_time;</span><br><span class="line">corrected_age_value = age_value + response_delay</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>  这两者相结合就是  </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">corrent_initial_age = max(apparent_age, corrented_age_value);</span><br></pre></td></tr></table></figure>
+<p>  current_age 的值：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">resident_time = now -response_time;</span><br><span class="line">current_age  = corrented_initial_age + resident_time</span><br></pre></td></tr></table></figure></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//这一版是http权威指南上的感觉更好理解</span><br><span class="line">$apparent_age = max(0, $time_got_response - $Date_header_value);</span><br><span class="line">$corrected_apparent_age = max($apparent_age, $Age_header_value);</span><br><span class="line">$response_delay_estimate = ($time_got_response - $time_issued_request);</span><br><span class="line">$age_when_document_arrived_at_our_cache =</span><br><span class="line">$corrected_apparent_age + $response_delay_estimate;</span><br><span class="line">$how_long_copy_has_been_in_our_cache = $current_time - $time_got_response;</span><br><span class="line">$age = $age_when_document_arrived_at_our_cache +</span><br><span class="line">$how_long_copy_has_been_in_our_cache;</span><br></pre></td></tr></table></figure>
+<h4 id="4-2-4-提供过期响应"><a href="#4-2-4-提供过期响应" class="headerlink" title="4.2.4 提供过期响应"></a>4.2.4 提供过期响应</h4><p>  一个”过期(stale)”响应要么有明确的过期信息或许是已经过期的通过启发式新鲜度计算的值.  </p>
+<p>  如果通过缓存指令致使明确过期的响应(e.g, no-store, no-cache,must-revalidate,s-maxage, proxy-revalidate)，缓存一定不能返回过期响应.  </p>
+<p>  除非失去连接一般缓存不会返回过期响应(i.e:不能连接到源服务器或者发现一个前进路径),另外明确指出可以返回过期响应也可以(e.g: 通过max-stale 请求指令)  </p>
+<p>  缓存在返回过期响应时响应头应该有110 warn-code(5.5.1),同样的在失去连接情况下返回过期响应，响应头有112 warn-code  </p>
+<p>  在前往一个没有Age头信息的响应如果响应已经过期缓存不应该产生一个新的warning头信息. 缓存不需要为一个仅仅因为传输而过期的响应而验证.</p>
+<h3 id="4-3"><a href="#4-3" class="headerlink" title="4.3"></a>4.3</h3><p>  当一个缓存拥有一个或者多个缓存响应对应一个请求URI但是却无法提供给这个请求(e.g:因为这些缓存不新鲜，或者没有被选择4.1)，这样的话可以利用条件请求机制(conditional request machanism[RFC7232])转发请求给下一个到达的服务器来选择正确的响应来使用，一般可以通过更新存储的元数据或者更新一个完全新的响应.这个过程被称为验证存储响应.  </p>
+<h4 id="4-3-1-发送一个验证请求"><a href="#4-3-1-发送一个验证请求" class="headerlink" title="4.3.1 发送一个验证请求"></a>4.3.1 发送一个验证请求</h4><h4 id="5-Cache-Control"><a href="#5-Cache-Control" class="headerlink" title="5 Cache-Control"></a>5 Cache-Control</h4>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//这份图表来自 RFC2616</span><br><span class="line"> Cache-Control   = &quot;Cache-Control&quot; &quot;:&quot; 1#cache-directive</span><br><span class="line">  cache-directive = cache-request-directive</span><br><span class="line">       | cache-response-directive</span><br><span class="line">  cache-request-directive =</span><br><span class="line">         &quot;no-cache&quot;                          ; Section 14.9.1</span><br><span class="line">       | &quot;no-store&quot;                          ; Section 14.9.2</span><br><span class="line">       | &quot;max-age&quot; &quot;=&quot; delta-seconds         ; Section 14.9.3, 14.9.4</span><br><span class="line">       | &quot;max-stale&quot; [ &quot;=&quot; delta-seconds ]   ; Section 14.9.3</span><br><span class="line">       | &quot;min-fresh&quot; &quot;=&quot; delta-seconds       ; Section 14.9.3</span><br><span class="line">       | &quot;no-transform&quot;                      ; Section 14.9.5</span><br><span class="line">       | &quot;only-if-cached&quot;                    ; Section 14.9.4</span><br><span class="line">       | cache-extension                     ; Section 14.9.6</span><br><span class="line">   cache-response-directive =</span><br><span class="line">         &quot;public&quot;                               ; Section 14.9.1</span><br><span class="line">       | &quot;private&quot; [ &quot;=&quot; &lt;&quot;&gt; 1#field-name &lt;&quot;&gt; ] ; Section 14.9.1</span><br><span class="line">       | &quot;no-cache&quot; [ &quot;=&quot; &lt;&quot;&gt; 1#field-name &lt;&quot;&gt; ]; Section 14.9.1</span><br><span class="line">       | &quot;no-store&quot;                             ; Section 14.9.2</span><br><span class="line">       | &quot;no-transform&quot;                         ; Section 14.9.5</span><br><span class="line">       | &quot;must-revalidate&quot;                      ; Section 14.9.4</span><br><span class="line">       | &quot;proxy-revalidate&quot;                     ; Section 14.9.4</span><br><span class="line">       | &quot;max-age&quot; &quot;=&quot; delta-seconds            ; Section 14.9.3</span><br><span class="line">       | &quot;s-maxage&quot; &quot;=&quot; delta-seconds           ; Section 14.9.3</span><br><span class="line">       | cache-extension                        ; Section 14.9.6</span><br><span class="line">  cache-extension = token [ &quot;=&quot; ( token | quoted-string ) ]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/19/test/" rel="next" title="http">
+                <i class="fa fa-chevron-left"></i> http
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/25/缓存详解/" rel="prev" title="http缓存详解">
+                http缓存详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-导言"><span class="nav-number">1.</span> <span class="nav-text">1 导言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-一致性和错误处理"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 一致性和错误处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-缓存系统概览"><span class="nav-number">2.</span> <span class="nav-text">2 缓存系统概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-在缓存中存储响应的过程"><span class="nav-number">3.</span> <span class="nav-text">3 在缓存中存储响应的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-存储不完全响应"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 存储不完全响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-存储权限认证请求的响应"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 存储权限认证请求的响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-混合部分内容"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 混合部分内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-从缓存到响应的构成"><span class="nav-number">4.</span> <span class="nav-text">4 从缓存到响应的构成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-使用Vary当做第二存储键值"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 使用Vary当做第二存储键值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-新鲜度"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 新鲜度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-计算新鲜度生命周期"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1 计算新鲜度生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-启发式-Heuristic-新鲜度计算"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2 启发式(Heuristic)新鲜度计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-计算年龄-age"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 计算年龄(age)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-4-提供过期响应"><span class="nav-number">4.2.4.</span> <span class="nav-text">4.2.4 提供过期响应</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3"><span class="nav-number">4.3.</span> <span class="nav-text">4.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-1-发送一个验证请求"><span class="nav-number">4.3.1.</span> <span class="nav-text">4.3.1 发送一个验证请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Cache-Control"><span class="nav-number">4.3.2.</span> <span class="nav-text">5 Cache-Control</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

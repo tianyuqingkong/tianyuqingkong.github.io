@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="1 HTTP缓存概述http缓存是一种利用第一次请求后保存副本其后的请求可以利用缓存响应的技术，它的主要目的为节省流量以及增加资源响应速度。   1.1 HTTP缓存的基本机制每次如果要获取缓存就得走过一套缓存机制，具体如下图：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http缓存详解">
+<meta property="og:url" content="http://yoursite.com/2017/10/25/缓存详解/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1 HTTP缓存概述http缓存是一种利用第一次请求后保存副本其后的请求可以利用缓存响应的技术，它的主要目的为节省流量以及增加资源响应速度。   1.1 HTTP缓存的基本机制每次如果要获取缓存就得走过一套缓存机制，具体如下图：">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2017/10/25/缓存详解/cacheMechanism.png">
+<meta property="og:image" content="http://yoursite.com/2017/10/25/缓存详解/cacheType.png">
+<meta property="og:image" content="http://yoursite.com/2017/10/25/缓存详解/employCache.png">
+<meta property="og:updated_time" content="2018-04-04T02:07:49.430Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="http缓存详解">
+<meta name="twitter:description" content="1 HTTP缓存概述http缓存是一种利用第一次请求后保存副本其后的请求可以利用缓存响应的技术，它的主要目的为节省流量以及增加资源响应速度。   1.1 HTTP缓存的基本机制每次如果要获取缓存就得走过一套缓存机制，具体如下图：">
+<meta name="twitter:image" content="http://yoursite.com/2017/10/25/缓存详解/cacheMechanism.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/25/缓存详解/"/>
+
+
+
+
+
+  <title>http缓存详解 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/缓存详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">http缓存详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-25T00:00:00+08:00">
+                2017-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/http/" itemprop="url" rel="index">
+                    <span itemprop="name">http</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-HTTP缓存概述"><a href="#1-HTTP缓存概述" class="headerlink" title="1 HTTP缓存概述"></a>1 HTTP缓存概述</h2><p>http缓存是一种利用第一次请求后保存副本其后的请求可以利用缓存响应的技术，它的主要目的为节省流量以及增加资源响应速度。  </p>
+<h3 id="1-1-HTTP缓存的基本机制"><a href="#1-1-HTTP缓存的基本机制" class="headerlink" title="1.1 HTTP缓存的基本机制"></a>1.1 HTTP缓存的基本机制</h3><p>每次如果要获取缓存就得走过一套缓存机制，具体如下图：<br><img src="/2017/10/25/缓存详解/cacheMechanism.png" alt="cacheMechanism"><br><a id="more"></a><br>用户发起请求后，会现在缓存中查找是否存在相匹配的缓存，如果没有就向源服务器发起一个请求，如果有的话就会检测这个缓存是否”新鲜”，如果新鲜的话就直接将缓存返回用户，若不新鲜就会向源服务器发送带有验证标识的请求来验证是否可以使用这个已经过期的缓存，若这个验证标识都通过了验证那么就会向发送一个304(not modified)响应，这个响应没有对应的响应体它只会更新缓存的新鲜度，若未通过则重新返回一个带有响应体的响应。<br>概况起来可以如下：</p>
+<ul>
+<li>(1) 接收——缓存从网络中读取抵达的请求报文。</li>
+<li>(2) 解析——缓存对报文进行解析，提取出 URL 和各种首部。</li>
+<li>(3) 查询——缓存查看是否有本地副本可用，如果没有，就获取一份副本（并将其保<br>存在本地） 。</li>
+<li>(4) 新鲜度检测——缓存查看已缓存副本是否足够新鲜，如果不是，就询问服务器是<br>否有任何更新。</li>
+<li>(5) 创建响应——缓存会用新的首部和已缓存的主体来构建一条响应报文。</li>
+<li>(6) 发送——缓存通过网络将响应发回给客户端。</li>
+<li><p>(7) 日志——缓存可选地创建一个日志文件条目来描述这个事务</p>
+</li>
+<li><p>note： 上面都是理想情况下比如说没有cache-control的控制，都是可缓存的响应，响应都成功之类。  </p>
+</li>
+</ul>
+<h3 id="1-2-缓存基本种类"><a href="#1-2-缓存基本种类" class="headerlink" title="1.2 缓存基本种类"></a>1.2 缓存基本种类</h3><p>缓存可以被单个用户使用，也可以被成千上万人使用。单用户缓存被称为”私用缓存(private cache)”,一般的浏览器都具有内置的私有缓存，多用户缓存被称为”共享缓存(shared cache)”一般由共享代理服务器来实现或者叫代理缓存(proxy cache)。</p>
+<ul>
+<li>note： 缓存一般情况下都是多级缓存<br><img src="/2017/10/25/缓存详解/cacheType.png" alt="cacheMechanism"></li>
+</ul>
+<h3 id="1-3-控制缓存cache-control"><a href="#1-3-控制缓存cache-control" class="headerlink" title="1.3 控制缓存cache-control"></a>1.3 控制缓存cache-control</h3><p>缓存机制由服务端和客服务共同实现默认缓存机制，但是可以通过cache-control与其他的头信息配合修改默认缓存的行为，比如说一般默认缓存GET请求，但是可以通过cache-control：public指令来让POST也可以缓存。具体的指令如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//这份图表来自 RFC2616</span><br><span class="line"> Cache-Control   = &quot;Cache-Control&quot; &quot;:&quot; 1#cache-directive</span><br><span class="line">  cache-directive = cache-request-directive</span><br><span class="line">       | cache-response-directive</span><br><span class="line">  cache-request-directive =</span><br><span class="line">         &quot;no-cache&quot;                          ; Section 14.9.1</span><br><span class="line">       | &quot;no-store&quot;                          ; Section 14.9.2</span><br><span class="line">       | &quot;max-age&quot; &quot;=&quot; delta-seconds         ; Section 14.9.3, 14.9.4</span><br><span class="line">       | &quot;max-stale&quot; [ &quot;=&quot; delta-seconds ]   ; Section 14.9.3</span><br><span class="line">       | &quot;min-fresh&quot; &quot;=&quot; delta-seconds       ; Section 14.9.3</span><br><span class="line">       | &quot;no-transform&quot;                      ; Section 14.9.5</span><br><span class="line">       | &quot;only-if-cached&quot;                    ; Section 14.9.4</span><br><span class="line">       | cache-extension                     ; Section 14.9.6</span><br><span class="line">   cache-response-directive =</span><br><span class="line">         &quot;public&quot;                               ; Section 14.9.1</span><br><span class="line">       | &quot;private&quot; [ &quot;=&quot; &lt;&quot;&gt; 1#field-name &lt;&quot;&gt; ] ; Section 14.9.1</span><br><span class="line">       | &quot;no-cache&quot; [ &quot;=&quot; &lt;&quot;&gt; 1#field-name &lt;&quot;&gt; ]; Section 14.9.1</span><br><span class="line">       | &quot;no-store&quot;                             ; Section 14.9.2</span><br><span class="line">       | &quot;no-transform&quot;                         ; Section 14.9.5</span><br><span class="line">       | &quot;must-revalidate&quot;                      ; Section 14.9.4</span><br><span class="line">       | &quot;proxy-revalidate&quot;                     ; Section 14.9.4</span><br><span class="line">       | &quot;max-age&quot; &quot;=&quot; delta-seconds            ; Section 14.9.3</span><br><span class="line">       | &quot;s-maxage&quot; &quot;=&quot; delta-seconds           ; Section 14.9.3</span><br><span class="line">       | cache-extension                        ; Section 14.9.6</span><br><span class="line">  cache-extension = token [ &quot;=&quot; ( token | quoted-string ) ]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>note:cache-control指令是单向的，请求有响应不一定有，并且在计算如新鲜度的时候优先级不一样。</li>
+</ul>
+<h4 id="1-3-1-缓存方式控制"><a href="#1-3-1-缓存方式控制" class="headerlink" title="1.3.1 缓存方式控制"></a>1.3.1 缓存方式控制</h4><p>控制缓存方式的有这几种no-cache,no-store,public,priviate</p>
+<ul>
+<li>no-cache：<br>在请求”no-cache”指令暗示着缓存必须在成功的从源服务器上验证后才能使用，在响应中也一样。</li>
+</ul>
+<ul>
+<li>no-store:<br>包含这个存储指令暗示缓存一定不能存储请求或响应的任何部分，”一定不能存储”在这个语境中意味着缓存一定不能有意的将信息储存在固态存储器上，同时在信息转发后尽快尽力将其内存中移除。  </li>
+</ul>
+<p>这个指令并不可靠且没有充分的机制来保障其隐私。特别是在恶意或协商缓存中也许不会识别，并且在和网络通信过程中可能被黑掉。  </p>
+<p>注意：如果一个请求中包含这个指令并且在缓存中找到匹配响应，那么这个no-store请求指令并不能适用于这个已经存储好的响应。</p>
+<ul>
+<li><p>public：<br>这个响应指令暗示着任何缓存都可以存储这个响应，哪怕这个响应默认不可缓存，或者只能缓存在私有缓存(包含认证信息的响应只能是私有缓存，默认情况下只有特定响应状态码的响应才能存储)</p>
+</li>
+<li><p>private<br>这个缓存指令暗示响应消息只能被单个用户存储，一定不能被共享缓存所存储。如果响应默认不能缓存但是有私有存储指令后也可以变得可缓存。</p>
+</li>
+</ul>
+<h3 id="1-4-新鲜度检测"><a href="#1-4-新鲜度检测" class="headerlink" title="1.4 新鲜度检测"></a>1.4 新鲜度检测</h3><p>新鲜度检测与使用时期(age)和新鲜生存期(freshness_lifttime)相关，具体如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$is_fresh_enough = ($age &lt; $freshness_lifetime);</span><br></pre></td></tr></table></figure></p>
+<p>age表示的是响应从源服务器响应(或在验证后)之后经历的总时间，这其中包括在因特网和网关中游荡的时间，中间节点缓存存储时间，以及响应在你的缓存停留的时间。具体计算如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$apparent_age = max(0, $time_got_response - $Date_header_value);</span><br><span class="line">$corrected_apparent_age = max($apparent_age, $Age_header_value);</span><br><span class="line">$response_delay_estimate = ($time_got_response - $time_issued_request);</span><br><span class="line">$age_when_document_arrived_at_our_cache =</span><br><span class="line">$corrected_apparent_age + $response_delay_estimate;</span><br><span class="line"></span><br><span class="line">$how_long_copy_has_been_in_our_cache = $current_time - $time_got_response;</span><br><span class="line"></span><br><span class="line">$age = $age_when_document_arrived_at_our_cache +</span><br><span class="line">$how_long_copy_has_been_in_our_cache;</span><br></pre></td></tr></table></figure></p>
+<p>freshness_lifttime表示缓存生存的时间长度，有服务器响应和客户端请求共同决定，服务器端响应如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">sub server_freshness_limit</span><br><span class="line">&#123;</span><br><span class="line">  local($heuristic,$server_freshness_limit,$time_since_last_modify);</span><br><span class="line">  $heuristic = 0;</span><br><span class="line">  if ($Max_Age_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $server_freshness_limit = $Max_Age_value;</span><br><span class="line">  &#125;</span><br><span class="line">  elseif ($Expires_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $server_freshness_limit = $Expires_value - $Date_value;</span><br><span class="line">  &#125;</span><br><span class="line">  elseif ($Last_Modified_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $time_since_last_modify = max(0, $Date_value -</span><br><span class="line">  　　　　　　　　 $Last_Modified_value);</span><br><span class="line">    $server_freshness_limit = int($time_since_last_modify *</span><br><span class="line">  　　　　　　　　 $lm_factor);</span><br><span class="line">    $heuristic = 1;</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    $server_freshness_limit = $default_cache_min_lifetime;</span><br><span class="line">    $heuristic = 1;</span><br><span class="line">  &#125;</span><br><span class="line">  if ($heuristic)</span><br><span class="line">  &#123;</span><br><span class="line">    if ($server_freshness_limit &gt; $default_cache_max_lifetime)</span><br><span class="line">    &#123; $server_freshness_limit = $default_cache_max_lifetime; &#125;</span><br><span class="line">    if ($server_freshness_limit &lt; $default_cache_min_lifetime)</span><br><span class="line">    &#123; $server_freshness_limit = $default_cache_min_lifetime; &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return($server_freshness_limit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>客户端的请求如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">sub client_modified_freshness_limit</span><br><span class="line">&#123;</span><br><span class="line">  $age_limit = server_freshness_limit( ); ## From Example 7-2</span><br><span class="line">  if ($Max_Stale_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    if ($Max_Stale_value == $INT_MAX)</span><br><span class="line">    &#123; $age_limit = $INT_MAX; &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123; $age_limit = server_freshness_limit( ) + $Max_Stale_value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  if ($Min_Fresh_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $age_limit = min($age_limit, server_freshness_limit( ) -</span><br><span class="line">  　　　　　　　$Min_Fresh_value_set);</span><br><span class="line">  &#125;</span><br><span class="line">  if ($Max_Age_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $age_limit = min($age_limit, $Max_Age_value);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>明显最终客户端cache-control的优先级要大一些</p>
+<h3 id="1-5-响应过期验证"><a href="#1-5-响应过期验证" class="headerlink" title="1.5 响应过期验证"></a>1.5 响应过期验证</h3><p>在缓存文档过期前，缓存任意使用这些响应，而不需和源服务器相关联，但是一旦响应过期缓存的响应就必须与源服务器进行一次验证，验证这些响应是否在之后被修改过。如果修改过就必须返回一份新的响应。  </p>
+<p>在验证中可以提供以下请求头进行验证：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">If-Modified-Since: &apos;Last-Modified 的值&apos;</span><br><span class="line">If-None-Match: &apos;ETag&apos;</span><br></pre></td></tr></table></figure></p>
+<p>If-Modified-Since包含的是文件上次修改的时间，如果源服务器上次修改的实际小于或者等于这个值时，就返回304并更新缓存新鲜度.<br>If-Node-Match包含的是响应中的Etag值，这个值是通过哈希计算信息产生的独一无二标记值，如果源服务器的Etag和这个值相同则返回304并更新缓存新鲜度.<br>如果验证没通过则返回一个全新的响应。</p>
+<h2 id="2-如何利用缓存"><a href="#2-如何利用缓存" class="headerlink" title="2 如何利用缓存"></a>2 如何利用缓存</h2><p>更多地利用缓存资源，可以提高网站的性能和相应速度。为了优化缓存，过期时间设置得尽量长是一种很好的策略。对于定期或者频繁更新的资源，这么做是比较稳妥的，但是对于那些长期不更新的资源会有点问题。这些固定的资源在一定时间内受益于这种长期保持的缓存策略，但一旦要更新就会很困难。特指网页上引入的一些js/css文件，当它们变动时需要尽快更新线上资源。  </p>
+<p>web开发者发明了一种 Steve Sounders 称作加速（译者注：revving）的技术[1] 。不频繁更新的文件会使用特定的命名方式：在URL后面（通常是文件名后面）会加上版本号。加上版本号后的资源就被视作一个完全新的独立的资源，同时拥有一年甚至更长的缓存过期时长。但是这么做也存在一个弊端，所有引用这个资源的地方都需要更新链接。web开发者们通常会采用自动化构建工具在实际工作中完成这些琐碎的工作。当低频更新的资源（js/css）变动了，只用在高频变动的资源文件（html）里做入口的改动。  </p>
+<p>这种方法还有一个好处：同时更新两个缓存资源不会造成部分缓存先更新而引起新旧文件内容不一致。对于互相有依赖关系的css和js文件，避免这种不一致性是非常重要的。<br><img src="/2017/10/25/缓存详解/employCache.png" alt="employCache"></p>
+<p>  参考：</p>
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc7234#section-5.2" target="_blank" rel="noopener">RFC7234</a></li>
+<li><a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8" target="_blank" rel="noopener">RFC2616</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ" target="_blank" rel="noopener">HTTP 缓存 |MDN</a></li>
+<li><a href="https://developers.google.cn/web/fundamentals/performance/optimizing-content-efficiency/http-caching" target="_blank" rel="noopener">HTTP 缓存 | google</a></li>
+<li><a href="https://book.douban.com/subject/10746113/" target="_blank" rel="noopener">HTTP权威指南</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/23/test1/" rel="next" title="RFC 7234">
+                <i class="fa fa-chevron-left"></i> RFC 7234
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/29/初识REST/" rel="prev" title="初识RESTful">
+                初识RESTful <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-HTTP缓存概述"><span class="nav-number">1.</span> <span class="nav-text">1 HTTP缓存概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-HTTP缓存的基本机制"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 HTTP缓存的基本机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-缓存基本种类"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 缓存基本种类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-控制缓存cache-control"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 控制缓存cache-control</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-缓存方式控制"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1 缓存方式控制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-新鲜度检测"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 新鲜度检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-响应过期验证"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 响应过期验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-如何利用缓存"><span class="nav-number">2.</span> <span class="nav-text">2 如何利用缓存</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

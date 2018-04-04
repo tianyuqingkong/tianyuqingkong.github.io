@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="字符串与正则表达式字符串无疑在编程中最重要的类型之一，它们几乎出现在每个高级程序语言中，并且能高效的运用它们是开发者创造有用程序的基础，甚至于正则表达能给开发者额外的能力使用字符串也变得非常重要。记住这些事实以后，ECMAScript6的创建者通过对字符串和正则增加新属性和长久以来缺失的方法来达到提升。这章中我们将一一浏览这两种改变。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第二章 字符串与正则表达式">
+<meta property="og:url" content="http://yoursite.com/2017/06/24/第2章 字符串与正则表达式/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="字符串与正则表达式字符串无疑在编程中最重要的类型之一，它们几乎出现在每个高级程序语言中，并且能高效的运用它们是开发者创造有用程序的基础，甚至于正则表达能给开发者额外的能力使用字符串也变得非常重要。记住这些事实以后，ECMAScript6的创建者通过对字符串和正则增加新属性和长久以来缺失的方法来达到提升。这章中我们将一一浏览这两种改变。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-04-04T02:07:49.430Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第二章 字符串与正则表达式">
+<meta name="twitter:description" content="字符串与正则表达式字符串无疑在编程中最重要的类型之一，它们几乎出现在每个高级程序语言中，并且能高效的运用它们是开发者创造有用程序的基础，甚至于正则表达能给开发者额外的能力使用字符串也变得非常重要。记住这些事实以后，ECMAScript6的创建者通过对字符串和正则增加新属性和长久以来缺失的方法来达到提升。这章中我们将一一浏览这两种改变。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/24/第2章 字符串与正则表达式/"/>
+
+
+
+
+
+  <title>第二章 字符串与正则表达式 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/24/第2章 字符串与正则表达式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第二章 字符串与正则表达式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-24T00:00:00+08:00">
+                2017-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javscript/" itemprop="url" rel="index">
+                    <span itemprop="name">javscript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="字符串与正则表达式"><a href="#字符串与正则表达式" class="headerlink" title="字符串与正则表达式"></a>字符串与正则表达式</h2><p>字符串无疑在编程中最重要的类型之一，它们几乎出现在每个高级程序语言中，并且能高效的运用它们是开发者创造有用程序的基础，甚至于正则表达能给开发者额外的能力使用字符串也变得非常重要。记住这些事实以后，ECMAScript6的创建者通过对字符串和正则增加新属性和长久以来缺失的方法来达到提升。这章中我们将一一浏览这两种改变。<br><a id="more"></a></p>
+<h3 id="更好的Unicode支持"><a href="#更好的Unicode支持" class="headerlink" title="更好的Unicode支持"></a>更好的Unicode支持</h3><p>在ECMAScript6之前，javscript字符串以16位字符编码（UTF-16）。每连续的16位是一个编码单位代表一个字符。所有的字符串属性和方法如length属性，charAt()方法都是基于16位编码单位，16位通常是满足包含的任何字符，但是多亏字符扩展到Unicode以后就不再满足了。</p>
+<h3 id="UTF-16编码字"><a href="#UTF-16编码字" class="headerlink" title="UTF-16编码字"></a>UTF-16编码字</h3><p>限制着字符长度到16位是不可能满足Uncode声明提供一个为全球每个字符提供一个独一无二的标识符的目的。那些全局独一无二的标识符被称作码字，从简单的数字0开始，码字正是你也许会想的字符编码，一个数字代表一个字符，一个字符编码必须让码字编译成内部对应关系（如UTF-16）的代码单元，一个码字可以由多个代码单元组成。 </p>
+<p>在UTF-16中第一个2^16^的码字代表一个单独16位代码单元，这个区域的被称作BMP，任何不在这个范围内的码字被当做在其中一个补充平面中，在补充平面中的码字不再能单独用16字节表示。在UTF-16通过引进代理编码对来解决这个问题，代理编码对表示一个码子用两个16字节编码单元表示，这就意味着任何一个单独字符在字符串中要么用一个（16字节BMP）或者两个（32字节）编码单元表示。  </p>
+<p>在ECAMScript5中，所有的字符串操作都是基于一个16位编码单元的，这意味着你会在UTF-16中包含代理编码对中得到意想不到的结果，如下例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var text = &quot;𠮷&quot;;</span><br><span class="line"></span><br><span class="line">console.log(text.length);           // 2</span><br><span class="line">console.log(/^.$/.test(text));      // false</span><br><span class="line">console.log(text.charAt(0));        // &quot;&quot;</span><br><span class="line">console.log(text.charAt(1));        // &quot;&quot;</span><br><span class="line">console.log(text.charCodeAt(0));    // 55362</span><br><span class="line">console.log(text.charCodeAt(1));    // 57271</span><br></pre></td></tr></table></figure></p>
+<p>这个单独的Unicode字符”𠮷”使用代理编码对表示的，并且在javascript中字符串操作都是把这个字符当做两个16位字符。这意味着：</p>
+<ul>
+<li>当text的长度应该为1时结果为2</li>
+<li>一个正则表达式在匹配单个字符串的时候失败，这是因为js把它当做两个字符</li>
+<li>字符串方法chartAt()不能返回一个正确字符串，因为没有一个与之对应的可打印16位编码。  </li>
+</ul>
+<p>chatCodeAt()方法也不能识别对应字符属性。它只返回与编码单元对应的16位数字，但这就是你能在ECMAScript5中得到最为接近text真实值的方法。  </p>
+<p>在另一方面ECMAScript6，强制性UTF-16字符串编码来解决像上面的强调的问题，一系列的基于代理编码对标准编码，其余的这个章节将示例这些标准。</p>
+<h4 id="codePointAt-方法"><a href="#codePointAt-方法" class="headerlink" title="codePointAt()方法"></a>codePointAt()方法</h4><p>在ECMAScript6中添加了一个完全支持UTF-16的方法codePointAt(),这个方法将根据给定的字符串位置检索对应Unicode编码，这个方法接受的是编码单元位置而不是字符位置并且返回一个整数，如下例代码所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var text = &quot;𠮷a&quot;;</span><br><span class="line"></span><br><span class="line">console.log(text.charCodeAt(0));    // 55362</span><br><span class="line">console.log(text.charCodeAt(1));    // 57271</span><br><span class="line">console.log(text.charCodeAt(2));    // 97</span><br><span class="line"></span><br><span class="line">console.log(text.codePointAt(0));   // 134071</span><br><span class="line">console.log(text.codePointAt(1));   // 57271</span><br><span class="line">console.log(text.codePointAt(2));   // 97</span><br></pre></td></tr></table></figure></p>
+<p>当为BMP字符时codePointAt()方法和charCodeAt()返回是相同的，上例中第一个在text中字符是非BMP字符这意味着这个字符由两个编码单元组成，同时长度属性为3而不是2。当参数为0时方法charCodeAt()只返回第一个编码单元，但是codePointAt()不管字码包含是不是多个编码单元都将返回一个完整的字码。两个方法在参数为1（第一个字符的第二个编码单元）和2（’a’字符）时返回的都一致。  </p>
+<p>在字符上调用codePointAt()方法是最简单判定字符是否用一个或者两个编码单元（注：这里原作者写的是code points 但是应该是code units 编码单元）,如下面这个函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function is32Bit(c) &#123;</span><br><span class="line">    return c.codePointAt(0) &gt; 0xFFFF;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(is32Bit(&quot;𠮷&quot;));         // true</span><br><span class="line">console.log(is32Bit(&quot;a&quot;));</span><br></pre></td></tr></table></figure></p>
+<p>上例中用十六进制的FFFF表示16字节，所以任何超过这个数字的码字一定有两个编码单元构成的（总共32字节）</p>
+<h4 id="方法String-fromCodePoint"><a href="#方法String-fromCodePoint" class="headerlink" title="方法String.fromCodePoint()"></a>方法String.fromCodePoint()</h4><p>当ECMAScript 提供一个方法将字符转换为数字，同样也会提供一个将数字转换到字符的。如下例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(String.fromCodePoint(134071));  // &quot;𠮷&quot;</span><br></pre></td></tr></table></figure></p>
+<p>你把String.fromCodePoint()当做String.fromCharCode()升级版就可以了。当字符在BMP范围内时两者都返回相同的结构。只有当字符范围超出了BMP时才会有区别。</p>
+<h4 id="方法normalize"><a href="#方法normalize" class="headerlink" title="方法normalize()"></a>方法normalize()</h4><p>Unicode另一个有趣的地方是，不同的字符在排序或者比较的时候被认为相等。这里有两种不同的方式定义这些关系，首先规范性的相等指的是两个序列码点在各个方面都看起来都可以相互替换。如一个由两个字符拼接起来的的字符可以规范性的相等与另一个字符。第二种关系为兼容性的相等，两个兼容性相等的序列码点看起来不同但是可以在某些情况下互换。<br>因为这些关系某些本质上相同的文本可能包含不同的码点序列，如字符”æ”和包含两个字符”ae”也许可以互换但是严格上并不相等触发用某种方式标准化。  </p>
+<p> ECMAScript6 为Unicode标准化提供了normalize()方法，这个方法可以接受以下字符串参数进行Unicode标准化。</p>
+<ul>
+<li>“NFC” 默认</li>
+<li>“NFD”</li>
+<li>“NFKC”</li>
+<li><p>“NFKD”<br>解释这四种方式的差别超出了本书的范围了，只要记住当比较字符串时，两个字符串必须标准化为同一种格式后再比较，如下例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> var normalized = values.map(function(text) &#123;</span><br><span class="line">    return text.normalize();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">normalized.sort(function(first, second) &#123;</span><br><span class="line">    if (first &lt; second) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125; else if (first === second) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>上面的代码将在value数组中的字符串同一标准化后才能进行准确的排序，你也可以在原始数组上调用normalize(),如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> values.sort(function(first, second) &#123;</span><br><span class="line">    var firstNormalized = first.normalize(),</span><br><span class="line">        secondNormalized = second.normalize();</span><br><span class="line"></span><br><span class="line">    if (firstNormalized &lt; secondNormalized) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125; else if (firstNormalized === secondNormalized) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p> 再次说明，用相同的方式序列号是相当重要的，上面的例子用的是默认的NFC，但是你也可以轻松指定其中一种，如下：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">values.sort(function(first, second) &#123;</span><br><span class="line">    var firstNormalized = first.normalize(&quot;NFD&quot;),</span><br><span class="line">        secondNormalized = second.normalize(&quot;NFD&quot;);</span><br><span class="line"></span><br><span class="line">    if (firstNormalized &lt; secondNormalized) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125; else if (firstNormalized === secondNormalized) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p> 你之前也许从来没有担心过Unicode标准化，那么你也许现在不会过多使用这个方法，但是如果你曾经开发过国际化应用，你绝对发现normalize()相当有用。</p>
+<p> 在ECMAScript中不止这些方法对Unicode字符串进行了改进，es6还增加了两个有用的语法。</p>
+<h3 id="正则表达式中u修饰符"><a href="#正则表达式中u修饰符" class="headerlink" title="正则表达式中u修饰符"></a>正则表达式中u修饰符</h3><p> 通过正则表达式你可以对字符串完成许多普通的操作，但是记住，正则表达式是以16位字节的编码单元代表一个字符作为前提的，为了解决这个问题ECMAScript6定义了表示Unicode标准的u修饰符。</p>
+<h4 id="实战修饰符u"><a href="#实战修饰符u" class="headerlink" title="实战修饰符u"></a>实战修饰符u</h4><p>当一个正则表达式设置了修饰符u时，就将模式从编码单元切换到字符模式。这意味着正则表达式能正确识别字符串中代理编码对，看下面代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var text = &quot;𠮷&quot;;</span><br><span class="line"></span><br><span class="line">console.log(text.length);           // 2</span><br><span class="line">console.log(/^.$/.test(text));      // false</span><br><span class="line">console.log(/^.$/u.test(text));     // true</span><br></pre></td></tr></table></figure></p>
+<p>正则表达式/^.$/将匹配一个字符串只包含一个字符，当没有设置u修饰符的时候，正则表达式基于编码单元匹配，所以日语字符（用两个编码单元表示）将不会被这个正则表达式匹配，一旦设置u修饰符后正则表达式基于字符而不是编码单元匹配所以能匹配日语字符。  </p>
+<h4 id="计算码位数量"><a href="#计算码位数量" class="headerlink" title="计算码位数量"></a>计算码位数量</h4><p>不幸的是，ECMAScript6并没提供计算字符串的码点数方法，但是通过u修饰符，你可以使用正则表达式计算出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function codePointLength(text) &#123;</span><br><span class="line">    var result = text.match(/[\s\S]/gu);</span><br><span class="line">    return result ? result.length : 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(codePointLength(&quot;abc&quot;));    // 3</span><br><span class="line">console.log(codePointLength(&quot;𠮷bc&quot;));   // 3</span><br></pre></td></tr></table></figure></p>
+<p>这个例子中调用match()来匹配text，在Unicode中的字符串”abc”和”𠮷bc”都包含3个字符，所以长度也是3.  </p>
+<h4 id="检查u修饰符支持程度"><a href="#检查u修饰符支持程度" class="headerlink" title="检查u修饰符支持程度"></a>检查u修饰符支持程度</h4><p>既然u修饰符时新的语法变化，在不兼容ECMAScript6的js引擎中使用将会导致一个语法错误。最安全的检查支持程度的函数如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function hasRegExpU() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        var pattern = new RegExp(&quot;.&quot;, &quot;u&quot;);</span><br><span class="line">        return true;</span><br><span class="line">    &#125; catch (ex) &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个方法中在RegExp构造器总使用u修饰符参数，在支持这个语法的老js引擎中也会正确，但是在不支持的引擎中将会报错。</p>
+<h3 id="其他关于字符串的改变"><a href="#其他关于字符串的改变" class="headerlink" title="其他关于字符串的改变"></a>其他关于字符串的改变</h3><p>js的字符串总是落后与其他相似特性的语言，如只有在ECMACript5中strings最终得到了trim()方法，而在ES6中将会用新的方法继续扩展解析字符串能力。</p>
+<h4 id="识别子字符串的方法"><a href="#识别子字符串的方法" class="headerlink" title="识别子字符串的方法"></a>识别子字符串的方法</h4><p>在js中第一个被引进来判定字符串是否包含其他字符串的方法，但在ES6中包含如下3个方法，他们被设计成相同的作用：</p>
+<ul>
+<li>方法includes() 包含指定文本返回true否则返回false</li>
+<li>方法startWith() 包含以指定文本开始的String返回true否则返回false</li>
+<li>方法endWith() 包含以指定文本结束的String返回true否则返回false</li>
+</ul>
+<p>每个方法接受两个参数：一个搜索文本和一个可选的搜索起点下标，当连个参数都提供时，includes()和startWith()从下标处开始匹配同时endsWith()从匹配字符长度减去下标处开始搜索，当第二个参数省略掉后，includes()和startWith()从字符串开头开始匹配，endWith()从最后开始匹配，事实上第二个参数将减少搜寻的数量，这里是例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var msg = &quot;Hello world!&quot;;</span><br><span class="line"></span><br><span class="line">console.log(msg.startsWith(&quot;Hello&quot;));       // true</span><br><span class="line">console.log(msg.endsWith(&quot;!&quot;));             // true</span><br><span class="line">console.log(msg.includes(&quot;o&quot;));             // true</span><br><span class="line"></span><br><span class="line">console.log(msg.startsWith(&quot;o&quot;));           // false</span><br><span class="line">console.log(msg.endsWith(&quot;world!&quot;));        // true</span><br><span class="line">console.log(msg.includes(&quot;x&quot;));             // false</span><br><span class="line"></span><br><span class="line">console.log(msg.startsWith(&quot;o&quot;, 4));        // true</span><br><span class="line">console.log(msg.endsWith(&quot;o&quot;, 8));          // true</span><br><span class="line">console.log(msg.includes(&quot;o&quot;, 8));          // false</span><br></pre></td></tr></table></figure></p>
+<p>前六个示例中都没有设置第二个参数，所以如果需要的话它们将匹配整个字符串。最后三个示例中只匹配了部分字符串。msg.startsWith(“o”, 4)从msg下标4开始匹配。msg.endsWith(“o”,8)是从字符串下标4开始，因为字符串长度12减8等于4。msg.includes(“o”, 8)是从字符串下标8开始的这正是”world”中的”r”。  </p>
+<p>这几个方法最终都返回boolean值，如果你想要获取实际匹配的下标可以用indexOf()或者lastIndexOf()</p>
+<h4 id="repeat-方法"><a href="#repeat-方法" class="headerlink" title="repeat()方法"></a>repeat()方法</h4><p>ES6对字符串新加了一个repeat()方法,这个方法接受一个数字参数表示这个字符串重复的次数，它会返回一个规定重复次数新字符串。如下例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;x&quot;.repeat(3));         // &quot;xxx&quot;</span><br><span class="line">console.log(&quot;hello&quot;.repeat(2));     // &quot;hellohello&quot;</span><br><span class="line">console.log(&quot;abc&quot;.repeat(4));       // &quot;abcabcabcabc&quot;</span><br></pre></td></tr></table></figure></p>
+<p>这个方法比上面所有的方法简单，在操作文本时尤其有用，特别是在代码格式化工具中的创建缩减基本，像下面：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// indent using a specified number of spaces</span><br><span class="line">var indent = &quot; &quot;.repeat(4),</span><br><span class="line">    indentLevel = 0;</span><br><span class="line"></span><br><span class="line">// whenever you increase the indent</span><br><span class="line">var newIndent = indent.repeat(++indentLevel);</span><br></pre></td></tr></table></figure></p>
+<p>调用第一个repeat()时创建了4个空格的字符串，然后用变量indentLevel跟踪缩减基本，最后再调用repeat()加上递增变量indentLevel控制空格的个数。</p>
+<h3 id="其他关于正则表达式的变化"><a href="#其他关于正则表达式的变化" class="headerlink" title="其他关于正则表达式的变化"></a>其他关于正则表达式的变化</h3><p>在javascript中正则表达式对于操作字符串是相当重要，像这门语言的其他部分，它们在最近的版本中都没有太多的变化，然而ES6也随着字符串的改变而改变更新。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/20/第1章 块级绑定/" rel="next" title="第一章 块级绑定">
+                <i class="fa fa-chevron-left"></i> 第一章 块级绑定
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/30/第3章 函数/" rel="prev" title="第三章 函数">
+                第三章 函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串与正则表达式"><span class="nav-number">1.</span> <span class="nav-text">字符串与正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更好的Unicode支持"><span class="nav-number">1.1.</span> <span class="nav-text">更好的Unicode支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UTF-16编码字"><span class="nav-number">1.2.</span> <span class="nav-text">UTF-16编码字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#codePointAt-方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">codePointAt()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法String-fromCodePoint"><span class="nav-number">1.2.2.</span> <span class="nav-text">方法String.fromCodePoint()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法normalize"><span class="nav-number">1.2.3.</span> <span class="nav-text">方法normalize()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式中u修饰符"><span class="nav-number">1.3.</span> <span class="nav-text">正则表达式中u修饰符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实战修饰符u"><span class="nav-number">1.3.1.</span> <span class="nav-text">实战修饰符u</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算码位数量"><span class="nav-number">1.3.2.</span> <span class="nav-text">计算码位数量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查u修饰符支持程度"><span class="nav-number">1.3.3.</span> <span class="nav-text">检查u修饰符支持程度</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他关于字符串的改变"><span class="nav-number">1.4.</span> <span class="nav-text">其他关于字符串的改变</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#识别子字符串的方法"><span class="nav-number">1.4.1.</span> <span class="nav-text">识别子字符串的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#repeat-方法"><span class="nav-number">1.4.2.</span> <span class="nav-text">repeat()方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他关于正则表达式的变化"><span class="nav-number">1.5.</span> <span class="nav-text">其他关于正则表达式的变化</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
