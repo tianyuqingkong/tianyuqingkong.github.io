@@ -11,11 +11,16 @@ categories:
 2. [基本环境搭建](#base)
 3. [如何写博客](#write)
 4. [如何上传文章或博客系统修改](#upload)
+5. [对博客系统进行修改(未完待续)](#modifiy)
 
 
 <!--more-->
+## <span id="github_ssh">(1)github与ssh</span>
 
-## <span id="base">基本环境搭建</span>
+* 先将ssh添加到github上避免每次上传文章时都要输入账号密码
+
+
+## <span id="base">(2)基本环境搭建</span>
 
 * git clone git@github.com:tianyuqingkong/tianyuqingkong.github.io.git localFileName (将源代码下载本地)
 
@@ -32,14 +37,16 @@ categories:
 ![base](hexo多人博客使用指南/base.png)
 
 
-## <span id="write">如何写博客</span>
+## <span id="write">(3)如何写博客</span>
 
 * 写博客主要在source的_posts下面利用markdown写相应的文章，具体语法可以参考[markdown语法](https://www.jianshu.com/p/b03a8d7b1719)
 
 * hexo写博客可以参照 [hexo文档](https://hexo.io/zh-cn/docs/),这里面主要有三个命令[hexo generate](https://hexo.io/zh-cn/docs/generating.html)生成命令，[hexo server](https://hexo.io/zh-cn/docs/server.html)服务命令，[hexo deploy](https://hexo.io/zh-cn/docs/deployment.html)部署命令
 
 
-## <span id="upload">如何上传文章或博客系统修改</span>
+## <span id="upload">(4)如何上传文章或博客系统修改</span>
+
+* 记得每次上传前使用git pull(先将更新从远端拉取)
 
 * hexo deploy (将静态文件提交到master)
 
