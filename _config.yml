@@ -80,4 +80,5 @@ theme: next
 deploy:
   type: git
   repo: git@github.com:tianyuqingkong/tianyuqingkong.github.io.git
+  branch: master
 
