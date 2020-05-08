@@ -1,3 +1,4 @@
+---
 title: docker网络
 date: 2020/3/13
 categories:
@@ -8,6 +9,7 @@ categories:
 Docker的网络环境隔离使用的是Linux Namespace技术进行网络隔离的，每一个 network namespace都有一个独立的网络环境其中包括：网卡,路由，iptable规则等。  
  整体架构如下图：
  ![docker-network-type](docker网络/docker-network-type.png)
+ <!--more-->
 
  ### 1.1 docker四种网络模式
 隔离性由强到弱如下:  
