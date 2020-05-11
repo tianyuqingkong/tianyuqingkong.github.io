@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="第2章  有意义的名称2.2 名副其实 变量 函数或类的名称都应该已经回复了所有的大问题。它应该告诉你，它为什么会存在，它做什么事，应该怎么用。如果名称需要注释来补充，那就不算是名副其实。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码整洁之道">
+<meta property="og:url" content="http://yoursite.com/2017/10/10/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93--%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第2章  有意义的名称2.2 名副其实 变量 函数或类的名称都应该已经回复了所有的大问题。它应该告诉你，它为什么会存在，它做什么事，应该怎么用。如果名称需要注释来补充，那就不算是名副其实。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-10-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-06T06:06:49.971Z">
+<meta property="article:author" content="John Doe - zh-tw - en">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2017/10/10/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93--%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>代码整洁之道 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/10/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93--%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe - zh-tw - en">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          代码整洁之道
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-10 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-10T00:00:00+08:00">2017-10-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-06 14:06:49" itemprop="dateModified" datetime="2020-05-06T14:06:49+08:00">2020-05-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A6%82%E4%BD%95%E5%86%99%E4%BB%A3%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">如何写代码</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="第2章-有意义的名称"><a href="#第2章-有意义的名称" class="headerlink" title="第2章  有意义的名称"></a>第2章  有意义的名称</h2><h3 id="2-2-名副其实"><a href="#2-2-名副其实" class="headerlink" title="2.2 名副其实"></a>2.2 名副其实</h3><ul>
+<li>变量 函数或类的名称都应该已经回复了所有的大问题。它应该告诉你，它为什么会存在，它做什么事，应该怎么用。如果名称需要注释来补充，那就不算是名副其实。<a id="more"></a>
+
+</li>
+</ul>
+<h3 id="2-3-避免误导"><a href="#2-3-避免误导" class="headerlink" title="2.3 避免误导"></a>2.3 避免误导</h3><h4 id="程序员必须避免留下掩藏代码本意的错误线索。"><a href="#程序员必须避免留下掩藏代码本意的错误线索。" class="headerlink" title="程序员必须避免留下掩藏代码本意的错误线索。"></a>程序员必须避免留下掩藏代码本意的错误线索。</h4><ul>
+<li>1.避免使用与本意相悖的的词： 别用accountArray来指称一组账号，除非它真的是Array类型。</li>
+<li>2.提防使用差别较小的名称。</li>
+<li>3.别用人眼误导性名称：小写i和大写O和常量“1”与“0”很相似。  </li>
+</ul>
+<h3 id="2-4-做有意义的区分"><a href="#2-4-做有意义的区分" class="headerlink" title="2.4 做有意义的区分"></a>2.4 做有意义的区分</h3><ul>
+<li>废话是另一种没意义的区分。如果有一个Product类。如果还有一个ProductInfo或ProductDate类，那它们的名称虽然不同，意思却无区别</li>
+</ul>
+<h3 id="2-5-使用读得出来的名称"><a href="#2-5-使用读得出来的名称" class="headerlink" title="2.5 使用读得出来的名称"></a>2.5 使用读得出来的名称</h3><h3 id="2-6-使用可搜索的名称"><a href="#2-6-使用可搜索的名称" class="headerlink" title="2.6 使用可搜索的名称"></a>2.6 使用可搜索的名称</h3><ul>
+<li>单字母名称和数字常量有个问题，就是很难在大篇文字中找出来。单字母的名称仅用于短方法中的本地变量，名称长短应与其作用域大小相对应。</li>
+</ul>
+<h3 id="2-9-类名"><a href="#2-9-类名" class="headerlink" title="2.9 类名"></a>2.9 类名</h3><ul>
+<li>类名和对象名应该是具体的名称或名词短语，如Customer，WikiPage，Account，AddressParser。避免使用不具体的Manager,Processor,Data,Info这样的类名。类名不应该是动词。</li>
+</ul>
+<h3 id="2-10-方法名"><a href="#2-10-方法名" class="headerlink" title="2.10 方法名"></a>2.10 方法名</h3><ul>
+<li>方法名应当是动词或者动词短语，如postPayment,deletePage,或save</li>
+</ul>
+<h3 id="2-12-保持命名风格统一"><a href="#2-12-保持命名风格统一" class="headerlink" title="2.12 保持命名风格统一"></a>2.12 保持命名风格统一</h3><ul>
+<li>fetch,retrieve,get意思上相当相近，如在同一个项目中只使用一个则阅读起来相当明了。</li>
+</ul>
+<h3 id="2-16-添加有意义的语境"><a href="#2-16-添加有意义的语境" class="headerlink" title="2.16 添加有意义的语境"></a>2.16 添加有意义的语境</h3><ul>
+<li>通常添加前缀为读者提供语境，会让读者明白这些变量是某一个更大结构的一部分。</li>
+</ul>
+<h3 id="2-17-不要添加没用的语境"><a href="#2-17-不要添加没用的语境" class="headerlink" title="2.17 不要添加没用的语境"></a>2.17 不要添加没用的语境</h3><ul>
+<li>如果短名称足够清楚，就要比长名称好。别给名称添加不必要的语境。</li>
+</ul>
+<h2 id="第3章-函数"><a href="#第3章-函数" class="headerlink" title="第3章 函数"></a>第3章 函数</h2><h3 id="3-1-短小"><a href="#3-1-短小" class="headerlink" title="3.1 短小"></a>3.1 短小</h3><ul>
+<li>函数第一规则就是要短小，每行都不应该有150个字符那么长。函数也不应该有100行那么长，20行封顶最佳。</li>
+</ul>
+<h3 id="3-2-只做一件事"><a href="#3-2-只做一件事" class="headerlink" title="3.2 只做一件事"></a>3.2 只做一件事</h3><ul>
+<li>1.如果函数只是做了该函数名下同一抽象层的步骤，则函数还是做了一件事</li>
+<li>2.要判断函数是否不止做了一件事，还有一个方法，就是看是否能再拆出一个函数，该函数不仅是单纯的重新诠释其实现。</li>
+</ul>
+<h3 id="3-3-每个函数一个抽象层级"><a href="#3-3-每个函数一个抽象层级" class="headerlink" title="3.3 每个函数一个抽象层级"></a>3.3 每个函数一个抽象层级</h3><ul>
+<li>我们想让代码拥有自顶向下的阅读顺序。我们想要每个函数后面都跟着位于下一抽象层级的函数，这个样子我们查看函数列表时，就能依循抽象层级向下阅读了。</li>
+</ul>
+<h3 id="3-4-switch语句"><a href="#3-4-switch语句" class="headerlink" title="3.4 switch语句"></a>3.4 switch语句</h3><ul>
+<li>我们无法避开switch语句，不过还是能确保每个switch都埋在较低的抽象层级，而且永远不重复</li>
+</ul>
+<h3 id="3-5-使用描述性的名称"><a href="#3-5-使用描述性的名称" class="headerlink" title="3.5 使用描述性的名称"></a>3.5 使用描述性的名称</h3><ul>
+<li>别害怕长名称。长而具有描述性的名称，要比短而费解的名称好。</li>
+</ul>
+<h3 id="3-6-函数参数"><a href="#3-6-函数参数" class="headerlink" title="3.6 函数参数"></a>3.6 函数参数</h3><ul>
+<li>1.对于输入参数最理想的参数数量是零，其次是一，再次是二，应当尽力避免三</li>
+<li>2.不要通过参数输出（也是就通常的对象改变影响外部对象），我们惯于通过参数输入函数，通过返回值从函数中输出。我们不太期望信息通过参数输出。</li>
+<li>3.标示参数丑陋不堪。向函数传入布尔值简直就是骇人听闻的做法，着意味着大声宣布本函数不止做一件事。</li>
+</ul>
+<h3 id="3-7-无副作用"><a href="#3-7-无副作用" class="headerlink" title="3.7 无副作用"></a>3.7 无副作用</h3><ul>
+<li>有副作用的函数，都是具有破坏性的，会导致古怪的时序耦合及顺序</li>
+</ul>
+<h3 id="3-8-分割指令与询问"><a href="#3-8-分割指令与询问" class="headerlink" title="3.8 分割指令与询问"></a>3.8 分割指令与询问</h3><ul>
+<li>函数要么做什么事，要么回答什么事，但二者不可兼得。函数应该修改某个对象的状态，或者返回该对象的有关信息。</li>
+</ul>
+<h3 id="3-9-使用异常代替返回错误码"><a href="#3-9-使用异常代替返回错误码" class="headerlink" title="3.9 使用异常代替返回错误码"></a>3.9 使用异常代替返回错误码</h3><ul>
+<li>将指令式函数错误代码返回一反面违反了分割指令与询问，另一方面有可能导致更深层的嵌套解构。使用try/catch将错误处理代码从主路径中分离出。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">if(delatePage(page)  &#x3D;&#x3D; E_OK) &#123;</span><br><span class="line">    if(registry.deleteReference(page.name) &#x3D;&#x3D; E_OK) &#123;</span><br><span class="line">        if(configKeys.deleteKey(page.name.makeKey()) &#x3D;&#x3D; E_OK )&#123;</span><br><span class="line">            console.log(&quot;page deleted&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            console.log(&quot;configKey not deleted&quot;);</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        console.log(&quot;deletReference from regitry failed&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    console.log(&quot;delete failed&quot;);</span><br><span class="line">    return E_ERROR;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">    deletePage(page);</span><br><span class="line">    registry.deleteReerence(page.name);</span><br><span class="line">    configKegs.deleteKey(page.name.makeKey());</span><br><span class="line">&#125; catch(e)&#123;</span><br><span class="line">    console.log(e.message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-9-1-抽离try-catch代码块"><a href="#3-9-1-抽离try-catch代码块" class="headerlink" title="3.9.1 抽离try/catch代码块"></a>3.9.1 抽离try/catch代码块</h4><ul>
+<li>将try/catch代码块从主体中抽离出来，形成单独的函数。代码更整洁</li>
+</ul>
+<h3 id="3-10-别重复自己"><a href="#3-10-别重复自己" class="headerlink" title="3.10 别重复自己"></a>3.10 别重复自己</h3><ul>
+<li>重复可能是软件中一切的邪恶根源</li>
+</ul>
+<h3 id="3-12-如何写出这样的函数"><a href="#3-12-如何写出这样的函数" class="headerlink" title="3.12 如何写出这样的函数"></a>3.12 如何写出这样的函数</h3><ul>
+<li>写代码和写文章一样都是需要打磨的，一开始的混乱需要一点点的改变 </li>
+</ul>
+<h2 id="第五章-格式"><a href="#第五章-格式" class="headerlink" title="第五章 格式"></a>第五章 格式</h2><h3 id="5-2-垂直格式"><a href="#5-2-垂直格式" class="headerlink" title="5.2 垂直格式"></a>5.2 垂直格式</h3><ul>
+<li>单个文件代码行数在500行以下平均在100左右是一个很好的建议。</li>
+</ul>
+<h4 id="5-2-2-概念间垂直方向上的区隔"><a href="#5-2-2-概念间垂直方向上的区隔" class="headerlink" title="5.2.2 概念间垂直方向上的区隔"></a>5.2.2 概念间垂直方向上的区隔</h4><ul>
+<li>几乎说有代码都是从上往下读，从左往右读。每行展示一个表达式或一个子句，每组代码行展示一条完整的思路。这些思路用空白行区隔开来。</li>
+</ul>
+<h4 id="5-2-3-垂直方向上的靠近"><a href="#5-2-3-垂直方向上的靠近" class="headerlink" title="5.2.3 垂直方向上的靠近"></a>5.2.3 垂直方向上的靠近</h4><ul>
+<li>如果说空白行隔离概念。靠近的代码行则暗示它们之间紧密关系。所以，紧密相关的代码应该相互靠近。</li>
+</ul>
+<h4 id="5-2-4-垂直距离"><a href="#5-2-4-垂直距离" class="headerlink" title="5.2.4 垂直距离"></a>5.2.4 垂直距离</h4><p>关系密切的概念应该相互靠近。  </p>
+<ul>
+<li>如变量声明应尽可能靠近其使用位置</li>
+<li>相关函数：若某个函数调用了另一个，就应该把它们放在一起，而且调用者应该尽可能放在被调用者上面.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">let request &#x3D; null;</span><br><span class="line">let crawler &#x3D; null;</span><br><span class="line"></span><br><span class="line">function makeResponse(context, request)&#123;</span><br><span class="line">    let pageName &#x3D; getPageName(request, &quot;FrontPage&quot;);</span><br><span class="line">    loadPage(pageName, context);</span><br><span class="line">    if(page &#x3D;&#x3D; null)&#123;</span><br><span class="line">        return notFoundResponse(context, request);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return makePageResponse(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function getPageName()&#123;&#125;</span><br><span class="line">    function loadPage()&#123;&#125;</span><br><span class="line">    function notFoundResponse()&#123;&#125;</span><br><span class="line">    function makePageResponse()&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>概念相关：概念相关的代码应该放在一起。相关性越强，彼此之间的距离就该越短，相关性赖在如函数间调用，或者使用某个变量，也可能来自执行相似操作的一组函数。</li>
+</ul>
+<h4 id="5-2-5垂直顺序"><a href="#5-2-5垂直顺序" class="headerlink" title="5.2.5垂直顺序"></a>5.2.5垂直顺序</h4><ul>
+<li>一般而言，我们想自上向下展示函数调用顺序。也就是说，被调用的函数应该放在执行调用的额函数下面。 我们希望最重要的概念先出来，指望以包括最少细节的方式表述它们，我们希望底层细节最后出来，而不是一开始就沉迷于细节。</li>
+</ul>
+<h4 id="5-3-1-水平方向上的间隔与靠近"><a href="#5-3-1-水平方向上的间隔与靠近" class="headerlink" title="5.3.1 水平方向上的间隔与靠近"></a>5.3.1 水平方向上的间隔与靠近</h4><ul>
+<li>我们使用空格字符将彼此紧密的连接到一起，也用空格字符将相关性较弱的事物隔开。</li>
+</ul>
+<h2 id="第6章-对象和数据结构"><a href="#第6章-对象和数据结构" class="headerlink" title="第6章 对象和数据结构"></a>第6章 对象和数据结构</h2><ul>
+<li>类并不是间断的取赋值，更多是抽象接口，以便用户无需了解数据的实际就能操作数据本体<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function Point()&#123;</span><br><span class="line">    let x;</span><br><span class="line">    let y;</span><br><span class="line"></span><br><span class="line">    function getX()&#123;</span><br><span class="line">        return x;</span><br><span class="line">    &#125;</span><br><span class="line">    function getY()&#123;</span><br><span class="line">        return Y;</span><br><span class="line">    &#125;</span><br><span class="line">    function getArea()&#123;</span><br><span class="line">        return x*y*2;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return &#123;</span><br><span class="line">        x:getX，</span><br><span class="line">        y:getY,</span><br><span class="line">        area:getArea</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/10/09/font-size%20with%20line-height/" rel="prev" title="font-size with line-height">
+      <i class="fa fa-chevron-left"></i> font-size with line-height
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/10/11/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js--%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="next" title="深入浅出Node.js">
+      深入浅出Node.js <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第2章-有意义的名称"><span class="nav-number">1.</span> <span class="nav-text">第2章  有意义的名称</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-名副其实"><span class="nav-number">1.1.</span> <span class="nav-text">2.2 名副其实</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-避免误导"><span class="nav-number">1.2.</span> <span class="nav-text">2.3 避免误导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#程序员必须避免留下掩藏代码本意的错误线索。"><span class="nav-number">1.2.1.</span> <span class="nav-text">程序员必须避免留下掩藏代码本意的错误线索。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-做有意义的区分"><span class="nav-number">1.3.</span> <span class="nav-text">2.4 做有意义的区分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-使用读得出来的名称"><span class="nav-number">1.4.</span> <span class="nav-text">2.5 使用读得出来的名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-使用可搜索的名称"><span class="nav-number">1.5.</span> <span class="nav-text">2.6 使用可搜索的名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-类名"><span class="nav-number">1.6.</span> <span class="nav-text">2.9 类名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-方法名"><span class="nav-number">1.7.</span> <span class="nav-text">2.10 方法名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-12-保持命名风格统一"><span class="nav-number">1.8.</span> <span class="nav-text">2.12 保持命名风格统一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-16-添加有意义的语境"><span class="nav-number">1.9.</span> <span class="nav-text">2.16 添加有意义的语境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-17-不要添加没用的语境"><span class="nav-number">1.10.</span> <span class="nav-text">2.17 不要添加没用的语境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3章-函数"><span class="nav-number">2.</span> <span class="nav-text">第3章 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-短小"><span class="nav-number">2.1.</span> <span class="nav-text">3.1 短小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-只做一件事"><span class="nav-number">2.2.</span> <span class="nav-text">3.2 只做一件事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-每个函数一个抽象层级"><span class="nav-number">2.3.</span> <span class="nav-text">3.3 每个函数一个抽象层级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-switch语句"><span class="nav-number">2.4.</span> <span class="nav-text">3.4 switch语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-使用描述性的名称"><span class="nav-number">2.5.</span> <span class="nav-text">3.5 使用描述性的名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-函数参数"><span class="nav-number">2.6.</span> <span class="nav-text">3.6 函数参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-无副作用"><span class="nav-number">2.7.</span> <span class="nav-text">3.7 无副作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-分割指令与询问"><span class="nav-number">2.8.</span> <span class="nav-text">3.8 分割指令与询问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9-使用异常代替返回错误码"><span class="nav-number">2.9.</span> <span class="nav-text">3.9 使用异常代替返回错误码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-9-1-抽离try-catch代码块"><span class="nav-number">2.9.1.</span> <span class="nav-text">3.9.1 抽离try&#x2F;catch代码块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-别重复自己"><span class="nav-number">2.10.</span> <span class="nav-text">3.10 别重复自己</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-12-如何写出这样的函数"><span class="nav-number">2.11.</span> <span class="nav-text">3.12 如何写出这样的函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-格式"><span class="nav-number">3.</span> <span class="nav-text">第五章 格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-垂直格式"><span class="nav-number">3.1.</span> <span class="nav-text">5.2 垂直格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-2-概念间垂直方向上的区隔"><span class="nav-number">3.1.1.</span> <span class="nav-text">5.2.2 概念间垂直方向上的区隔</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-3-垂直方向上的靠近"><span class="nav-number">3.1.2.</span> <span class="nav-text">5.2.3 垂直方向上的靠近</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-4-垂直距离"><span class="nav-number">3.1.3.</span> <span class="nav-text">5.2.4 垂直距离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-5垂直顺序"><span class="nav-number">3.1.4.</span> <span class="nav-text">5.2.5垂直顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-1-水平方向上的间隔与靠近"><span class="nav-number">3.1.5.</span> <span class="nav-text">5.3.1 水平方向上的间隔与靠近</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第6章-对象和数据结构"><span class="nav-number">4.</span> <span class="nav-text">第6章 对象和数据结构</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe - zh-tw - en</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe - zh-tw - en</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

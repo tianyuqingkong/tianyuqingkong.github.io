@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="函数函数在任何语言中都是相当重要的一部分，在ES6之前，js的函数从这门语言被创建起就没有改变过。它留下了一些列问题和怪异行为从而直接导致了更加容易出错和实现基本的功能需要更多的代码。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第三章 函数">
+<meta property="og:url" content="http://yoursite.com/2017/06/30/%E7%AC%AC3%E7%AB%A0%20%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="函数函数在任何语言中都是相当重要的一部分，在ES6之前，js的函数从这门语言被创建起就没有改变过。它留下了一些列问题和怪异行为从而直接导致了更加容易出错和实现基本的功能需要更多的代码。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-06-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-06T06:06:49.980Z">
+<meta property="article:author" content="John Doe - zh-tw - en">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2017/06/30/%E7%AC%AC3%E7%AB%A0%20%E5%87%BD%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>第三章 函数 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/30/%E7%AC%AC3%E7%AB%A0%20%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe - zh-tw - en">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          第三章 函数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-06-30 00:00:00" itemprop="dateCreated datePublished" datetime="2017-06-30T00:00:00+08:00">2017-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-06 14:06:49" itemprop="dateModified" datetime="2020-05-06T14:06:49+08:00">2020-05-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>函数在任何语言中都是相当重要的一部分，在ES6之前，js的函数从这门语言被创建起就没有改变过。它留下了一些列问题和怪异行为从而直接导致了更加容易出错和实现基本的功能需要更多的代码。  </p>
+<a id="more"></a>
+
+<h3 id="函数中的默认参数值"><a href="#函数中的默认参数值" class="headerlink" title="函数中的默认参数值"></a>函数中的默认参数值</h3><p>js中函数独特之处在于不管函数声明定义了多少个参数实际调用时可以传任何数量的参数，这个特性可以让你将函数定义成可以处理不同数量参数的函数，当参数没有传时通常由默认值填充。这个章节将讲解如何通过argument对象上的一些重要信息在ES6前后使用默认参数，使用参数表达式和其他的TDZ。</p>
+<h4 id="在ES5中模仿默认参数值"><a href="#在ES5中模仿默认参数值" class="headerlink" title="在ES5中模仿默认参数值"></a>在ES5中模仿默认参数值</h4><p>在ES5之前你会使用下例方式来创建一个拥有默认参数值的函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function makeRequest(url, timeout, callback) &#123;</span><br><span class="line"></span><br><span class="line">    timeout &#x3D; timeout || 2000;</span><br><span class="line">    callback &#x3D; callback || function() &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; the rest of the function</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，timeout和callback时间上都是可选参数，这是因为它们在调用时没有传入时都会有一个默认值。逻辑或运算符（||）当第一个为假时总会返回第二个的值，既然形参没有提过就会被置为undefined,逻辑或运算符常常被用在提供默认参数，这里有一个漏洞，在实际调用中timeout也可能为0，因为0在boolean()求值为false所以timeout将会被替换为200.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function makeRequest(url, timeout, callback) &#123;</span><br><span class="line"></span><br><span class="line">    timeout &#x3D; (typeof timeout !&#x3D;&#x3D; &quot;undefined&quot;) ? timeout : 2000;</span><br><span class="line">    callback &#x3D; (typeof callback !&#x3D;&#x3D; &quot;undefined&quot;) ? callback : function() &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; the rest of the function</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果要让这个方法更安全，这需要更多额外的代码，许多流行的js库使用这种方式来提供默认参数。</p>
+<h4 id="在ES6中的默认参数值"><a href="#在ES6中的默认参数值" class="headerlink" title="在ES6中的默认参数值"></a>在ES6中的默认参数值</h4><p>ES6中提供默认参数值将要容易很多，当执行函数时参数没有正常传入通过初始化参数提供默认参数值。如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function makeRequest(url, timeout &#x3D; 2000, callback &#x3D; function() &#123;&#125;) &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; the rest of the function</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数只期待第一个参数传入，其余的两个参数拥有默认参数值，这样的结果是函数体将更加小巧这是因为你不需要添加代码来检查缺省参数。  </p>
+<p>当调用makeRequest()时传入三个参数，默认参数将不起效，如下例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; uses default timeout and callback</span><br><span class="line">makeRequest(&quot;&#x2F;foo&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; uses default callback</span><br><span class="line">makeRequest(&quot;&#x2F;foo&quot;, 500);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; doesn&#39;t use defaults</span><br><span class="line">makeRequest(&quot;&#x2F;foo&quot;, 500, function(body) &#123;</span><br><span class="line">    doSomething(body);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>ES6认为url是必须的，这就是为什么”/foo”在三次调用makeRequest()时都传入，而其余两个拥有默认参数值被当成可选项。  </p>
+<p>可以为任何参数指定默认参数值，包括哪些在函数声明中前面参数没有默认参数值的，如下是可以的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function makeRequest(url, timeout &#x3D; 2000, callback) &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; the rest of the function</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个例子中，timeout的默认参数只有在第二个参数没有传入，或者传入undefined起效：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; uses default timeout</span><br><span class="line">makeRequest(&quot;&#x2F;foo&quot;, undefined, function(body) &#123;</span><br><span class="line">    doSomething(body);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; uses default timeout</span><br><span class="line">makeRequest(&quot;&#x2F;foo&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; doesn&#39;t use default timeout</span><br><span class="line">makeRequest(&quot;&#x2F;foo&quot;, null, function(body) &#123;</span><br><span class="line">    doSomething(body);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在这些例子中只有传入null才会被当做有效值，其余的都将使用默认参数值。</p>
+<h4 id="默认参数值是如何影响arguments对象"><a href="#默认参数值是如何影响arguments对象" class="headerlink" title="默认参数值是如何影响arguments对象"></a>默认参数值是如何影响arguments对象</h4><p>记住arguments对象在使用默认参数值时表现会有一些不一样，zaiES5非严格模式中，arguments对象的改变将反应到形参上，这里是一些代理来解释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function mixArgs(first, second) &#123;</span><br><span class="line">    console.log(first &#x3D;&#x3D;&#x3D; arguments[0]);</span><br><span class="line">    console.log(second &#x3D;&#x3D;&#x3D; arguments[1]);</span><br><span class="line">    first &#x3D; &quot;c&quot;;</span><br><span class="line">    second &#x3D; &quot;d&quot;;</span><br><span class="line">    console.log(first &#x3D;&#x3D;&#x3D; arguments[0]);</span><br><span class="line">    console.log(second &#x3D;&#x3D;&#x3D; arguments[1]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mixArgs(&quot;a&quot;, &quot;b&quot;);</span><br></pre></td></tr></table></figure>
+<p>这里是输出:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">true</span><br><span class="line">true</span><br><span class="line">true</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<p>在ES5中arguments对象与形参总是同步更新，当frist和second被赋予新的值，arguments[0]和arguments[1]也相应的更新，当使用===比较时会得到ture。  </p>
+<p>但是在ES5严格模式中消除这些在argumnets对象让人疑惑的地方，在严格模式中arguments将不会和形参同步更新，这里同样是mixArgs()函数但是是在严格模式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function mixArgs(first, second) &#123;</span><br><span class="line">    &quot;use strict&quot;;</span><br><span class="line"></span><br><span class="line">    console.log(first &#x3D;&#x3D;&#x3D; arguments[0]);</span><br><span class="line">    console.log(second &#x3D;&#x3D;&#x3D; arguments[1]);</span><br><span class="line">    first &#x3D; &quot;c&quot;;</span><br><span class="line">    second &#x3D; &quot;d&quot;</span><br><span class="line">    console.log(first &#x3D;&#x3D;&#x3D; arguments[0]);</span><br><span class="line">    console.log(second &#x3D;&#x3D;&#x3D; arguments[1]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mixArgs(&quot;a&quot;, &quot;b&quot;);</span><br></pre></td></tr></table></figure>
+<p>调用mixArgs输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">true</span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">false</span><br></pre></td></tr></table></figure>
+<p>这次当改变first和second并没有影响arguments对象，使用输出结果将是你正常期待的。<br>在ES6中不顾是不是严格模式当使用默认参数值将会导致argument对象的表现行为像是在ES5中严格模式一样，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; not in strict mode</span><br><span class="line">function mixArgs(first, second &#x3D; &quot;b&quot;) &#123;</span><br><span class="line">    console.log(arguments.length);</span><br><span class="line">    console.log(first &#x3D;&#x3D;&#x3D; arguments[0]);</span><br><span class="line">    console.log(second &#x3D;&#x3D;&#x3D; arguments[1]);</span><br><span class="line">    first &#x3D; &quot;c&quot;;</span><br><span class="line">    second &#x3D; &quot;d&quot;</span><br><span class="line">    console.log(first &#x3D;&#x3D;&#x3D; arguments[0]);</span><br><span class="line">    console.log(second &#x3D;&#x3D;&#x3D; arguments[1]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mixArgs(&quot;a&quot;);</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">false</span><br><span class="line">false</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，arguments.length为1这是因为只有一个产生传入，同时这也意味着arguments[1]位undefined，这意味着first等于arguments[0],同时改变first和seond将不会反应到arguments，这种表现行为在严格和非严格模式都是可行的，所以你可以通过arguments总是获取调用函数时实参的值。  </p>
+<h4 id="默认参数表达式"><a href="#默认参数表达式" class="headerlink" title="默认参数表达式"></a>默认参数表达式</h4><p>默认参数值中最有趣的是默认值不一定是原始值，你也可以通过执行一个函数来获取默认参数值像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function getValue() &#123;</span><br><span class="line">    return 5;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function add(first, second &#x3D; getValue()) &#123;</span><br><span class="line">    return first + second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(add(1, 1));     &#x2F;&#x2F; 2</span><br><span class="line">console.log(add(1));        &#x2F;&#x2F; 6</span><br></pre></td></tr></table></figure>
+<p>这里第二个参数没有提供，getvalue()被调用获取正确的默认参数值，记住getVlue()只有在调用add()是没有传入第二个参数时才被调用，在函数声明解析的时候不会被调用，这意味着如果getvalue()被重写了，他可能返回不同的值，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">let value &#x3D; 5;</span><br><span class="line"></span><br><span class="line">function getValue() &#123;</span><br><span class="line">    return value++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function add(first, second &#x3D; getValue()) &#123;</span><br><span class="line">    return first + second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(add(1, 1));     &#x2F;&#x2F; 2</span><br><span class="line">console.log(add(1));        &#x2F;&#x2F; 6</span><br><span class="line">console.log(add(1));        &#x2F;&#x2F; 7</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，value的值以5开始并且在每次调用getVlau()后递增，当第二次调用add(1)时返回7这是因为value递增过了。  </p>
+<p>这个行为特征又引进了新的能力，你可以使用前面的参数作为后面参数的默认参数值，这里是例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function add(first, second &#x3D; first) &#123;</span><br><span class="line">    return first + second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(add(1, 1));     &#x2F;&#x2F; 2</span><br><span class="line">console.log(add(1));        &#x2F;&#x2F; 2</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，第二个参数的默认值是第一个参数，这意味着只需传入一个参数让两个参数拥有相同的值，所以add(1,1)返回和add(1)一样，想更远一些，你可以将第一个参数当做第二个参数的默认参数表达式中的参数，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function getValue(value) &#123;</span><br><span class="line">    return value + 5;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function add(first, second &#x3D; getValue(first)) &#123;</span><br><span class="line">    return first + second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(add(1, 1));     &#x2F;&#x2F; 2</span><br><span class="line">console.log(add(1));        &#x2F;&#x2F; 7</span><br></pre></td></tr></table></figure>
+<p>这个例子中设置second等于getValue(first)返回的值，所以add(1,1)任然等于2，add(1)返回7。<br>在调用add(undefined,1)时将会抛出一个错误，因为second是在first之后定义，因此不能将不存在的变量赋值为默认参数，为了理解为什么会这样，重新理解下TDZ很重要。</p>
+<h4 id="默认参数值中的TDZ"><a href="#默认参数值中的TDZ" class="headerlink" title="默认参数值中的TDZ"></a>默认参数值中的TDZ</h4><p>第一章中介绍的暂时性死区(TDZ)是针对的let和const，并且在默认参数值中当参数不能获取到时也有一个TDZ，和let声明相似的是每个参数创建一个绑定标识符，这个标识符在没有初始化前访问将抛出一个错误，参数的初始化是发生在函数调用时，既不是在传值时也不在使用默认参数值时。  </p>
+<p>为了探究默认参数值的TDZ，再看一下默认参数表达式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function getValue(value) &#123;</span><br><span class="line">    return value + 5;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function add(first, second &#x3D; getValue(first)) &#123;</span><br><span class="line">    return first + second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(add(1, 1));     &#x2F;&#x2F; 2</span><br><span class="line">console.log(add(1));        &#x2F;&#x2F; 7</span><br></pre></td></tr></table></figure>
+<p>调用add(1,1)和add(1)实际上相当于执行了创建first和second参数值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; JavaScript representation of call to add(1, 1)</span><br><span class="line">let first &#x3D; 1;</span><br><span class="line">let second &#x3D; 1;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; JavaScript representation of call to add(1)</span><br><span class="line">let first &#x3D; 1;</span><br><span class="line">let second &#x3D; getValue(first);</span><br></pre></td></tr></table></figure>
+<p>当第一次执行add()时，first和second绑定被添加到一个参数特定的TDZ中(和let的运行方式相同)，所以当second可以用first来初始化因为first在那个时候已经初始化了，反过来就不可以，现在看重写add()函数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function add(first &#x3D; second, second) &#123;</span><br><span class="line">    return first + second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(add(1, 1));         &#x2F;&#x2F; 2</span><br><span class="line">console.log(add(undefined, 1)); &#x2F;&#x2F; throws error</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中调用add(1,1)和add(undefined, 1)对应着下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; JavaScript representation of call to add(1, 1)</span><br><span class="line">let first &#x3D; 1;</span><br><span class="line">let second &#x3D; 1;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; JavaScript representation of call to add(undefined, 1)</span><br><span class="line">let first &#x3D; second;</span><br><span class="line">let second &#x3D; 1;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中调用add(undefined,1)将抛出一个错误，这是因为在初始化first时second还没有初始化，在这个时候second在TDZ中任何对second的引用都将抛出一个错误，这和第一章中讨论的let绑定一样。  </p>
+<h3 id="匿名参数"><a href="#匿名参数" class="headerlink" title="匿名参数"></a>匿名参数</h3><p>到目前为止，这章中只是覆盖了函数定义中的命名参数，但是js函数没有限制你传入参数数量和命名参数数量的关系，你可以多传也可以少传与命名参数数量，默认参数值是处理少传参数的情况，并且ES6也在寻求多传参数的情况。  </p>
+<h4 id="在ES5中的匿名参数"><a href="#在ES5中的匿名参数" class="headerlink" title="在ES5中的匿名参数"></a>在ES5中的匿名参数</h4><p>早些时候js提供了arguments对象来检查当在函数定义时没有一一指定每一个参数而调用时函数的所有参数，在大多数情况下检测arguments有效，经过处理起来有些麻烦，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function pick(object) &#123;</span><br><span class="line">    let result &#x3D; Object.create(null);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; start at the second parameter</span><br><span class="line">    for (let i &#x3D; 1, len &#x3D; arguments.length; i &lt; len; i++) &#123;</span><br><span class="line">        result[arguments[i]] &#x3D; object[arguments[i]];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let book &#x3D; &#123;</span><br><span class="line">    title: &quot;Understanding ECMAScript 6&quot;,</span><br><span class="line">    author: &quot;Nicholas C. Zakas&quot;,</span><br><span class="line">    year: 2015</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let bookData &#x3D; pick(book, &quot;author&quot;, &quot;year&quot;);</span><br><span class="line"></span><br><span class="line">console.log(bookData.author);   &#x2F;&#x2F; &quot;Nicholas C. Zakas&quot;</span><br><span class="line">console.log(bookData.year);     &#x2F;&#x2F; 2015</span><br></pre></td></tr></table></figure>
+<p>这个函数在模仿Underscore.js库的pick()方法，这个方法返回一个给定对象子集的副本，这个例子中只有第一个参数为原始对象外其他都是要返回对象的属性。  </p>
+<p>对于pick()函数这里有几点需要注意的，首先这个函数对于能处理多个参数的暗示一点都不明显，第二点，因为第一个参数命名且直接使用的，当你在寻找属性来复制时，你必须要从arguments下标1而不是0开始，记住正确的使用arguments并不难，但是这需要你多记一件事了。</p>
+<h4 id="不定参数-rest-parameters"><a href="#不定参数-rest-parameters" class="headerlink" title="不定参数(rest parameters)"></a>不定参数(rest parameters)</h4><p>不定参数是由三个点(…)加上一个命名参数组成，这个命名参数变成一个包含其余传入函数参数的数组，看pick()是如何用多用参数重写的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function pick(object, ...keys) &#123;</span><br><span class="line">    let result &#x3D; Object.create(null);</span><br><span class="line"></span><br><span class="line">    for (let i &#x3D; 0, len &#x3D; keys.length; i &lt; len; i++) &#123;</span><br><span class="line">        result[keys[i]] &#x3D; object[keys[i]];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个版本中的函数，keys就是不定参数它包含了在object之后传入的所有参数（不像arguments包含所有传入参数）这意味着你可以在从头开始遍历keys不用担心出错，作为福利你可以通过看函数就知道他可以处理任意数量的参数。  </p>
+<ul>
+<li>notes:不定参数不会影响函数的length属性，这个属性只受命名参数个数影响，pick()的length值为1因为只有一个命名参数。  </li>
+</ul>
+<h4 id="不定参数的限制"><a href="#不定参数的限制" class="headerlink" title="不定参数的限制"></a>不定参数的限制</h4><p>这里有两条对不定参数的限制，首先一个函数只能有一个不定参数，并且不定参数一定只能是最后一个，如下代码将不会起效：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Syntax error: Can&#39;t have a named parameter after rest parameters</span><br><span class="line">function pick(object, ...keys, last) &#123;</span><br><span class="line">    let result &#x3D; Object.create(null);</span><br><span class="line"></span><br><span class="line">    for (let i &#x3D; 0, len &#x3D; keys.length; i &lt; len; i++) &#123;</span><br><span class="line">        result[keys[i]] &#x3D; object[keys[i]];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里参数last接在不定参数keys后面，将会造成一个语法错误。  </p>
+<p>第二个限制是不定参数不能在对象字面量setter使用，这意味着下面代码将会造成一个语法错误:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let object &#x3D; &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Syntax error: Can&#39;t use rest param in setter</span><br><span class="line">    set name(...value) &#123;</span><br><span class="line">        &#x2F;&#x2F; do something</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个限制存在是因为对象字面量setters限制为个参数，不定参数定义上来说可以是无限个参数，所以在这样的上下午中不能使用。  </p>
+<h4 id="不定参数对arguments对象的影响"><a href="#不定参数对arguments对象的影响" class="headerlink" title="不定参数对arguments对象的影响"></a>不定参数对arguments对象的影响</h4><p>在ES中不定参数被设计成取代arguments，在原来的ES4中废除了arguments和新增不定参数允许传入不受限制数量的参数，ES4最终没能实现，但是这个这个想法保留下来了并在ES6中被重新引进了，尽管aguments没有从这门语言中移除。   </p>
+<p>arguments对象和不定参数在函数被调用是共同反应着传入的参数，如下例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function checkArgs(...args) &#123;</span><br><span class="line">    console.log(args.length);</span><br><span class="line">    console.log(arguments.length);</span><br><span class="line">    console.log(args[0], arguments[0]);</span><br><span class="line">    console.log(args[1], arguments[1]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">checkArgs(&quot;a&quot;, &quot;b&quot;);</span><br></pre></td></tr></table></figure>
+<p>调用checkArgs()输出:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">2</span><br><span class="line">a a</span><br><span class="line">b b</span><br></pre></td></tr></table></figure>
+<p>arguments对象那个仍然反应着传入的参数不管有没使用不定参数。  </p>
+<p>你所知道的全部是可以开始使用不定参数了。</p>
+<h4 id="Function构造器新增特性"><a href="#Function构造器新增特性" class="headerlink" title="Function构造器新增特性"></a>Function构造器新增特性</h4><p>Function构造器作为js的一部分并不经常使用，它能让你动态的创建函数，构造器的参数为生成函数的参数和函数体（字符串），这里是例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var add &#x3D; new Function(&quot;first&quot;, &quot;second&quot;, &quot;return first + second&quot;);</span><br><span class="line"></span><br><span class="line">console.log(add(1, 1));     &#x2F;&#x2F; 2</span><br></pre></td></tr></table></figure>
+
+<p>ES6允许Function构造器使用默认参数和不定参数，你只需添加相应的标示如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var add &#x3D; new Function(&quot;first&quot;, &quot;second &#x3D; first&quot;,</span><br><span class="line">        &quot;return first + second&quot;);</span><br><span class="line"></span><br><span class="line">console.log(add(1, 1));     &#x2F;&#x2F; 2</span><br><span class="line">console.log(add(1));        &#x2F;&#x2F; 2</span><br></pre></td></tr></table></figure>
+
+<p>这个例子中second被赋予first的默认值。  </p>
+<p>对于不定参数你只需添加… 在最后一个参数，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var pickFirst &#x3D; new Function(&quot;...args&quot;, &quot;return args[0]&quot;);</span><br><span class="line"></span><br><span class="line">console.log(pickFirst(1, 2));   &#x2F;&#x2F; 1</span><br></pre></td></tr></table></figure>
+
+<h3 id="展开运算符"><a href="#展开运算符" class="headerlink" title="展开运算符"></a>展开运算符</h3><p>与不定参数最相关的是展开运算符，不定参数允许你用多个独立的参数合并为一个数组，然而展开运算符允许你用一个给定数组分割成独立的项当做参数传入函数，看Math.max()方法，它允许你接受任意数量的参数并返回其中值最高的，这里是使用的例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let value1 &#x3D; 25,</span><br><span class="line">    value2 &#x3D; 50;</span><br><span class="line"></span><br><span class="line">console.log(Math.max(value1, value2));      &#x2F;&#x2F; 50</span><br></pre></td></tr></table></figure>
+<p>当你处理只有两个值是Math.max()非常简单，传入两个值返回最高的，但是你要使用一个数组传入时？Math.max()不允许你使用数组，在早先的ES5中，你要么被这个数组困住要么使用apply()如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let values &#x3D; [25, 50, 75, 100]</span><br><span class="line"></span><br><span class="line">console.log(Math.max.apply(Math, values));  &#x2F;&#x2F; 100</span><br></pre></td></tr></table></figure>
+<p>这种解决方案会生效，但是使用apply()这种方式有点令人困惑，加了这段额外代码后这实际上看起来抽象了。  </p>
+<p>ES6中扩展运算符让这种情况看起来更容易，你可以传入数组进去而不是使用apply(),js引擎将数组拆分成独立的参数，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let values &#x3D; [25, 50, 75, 100]</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; equivalent to</span><br><span class="line">&#x2F;&#x2F; console.log(Math.max(25, 50, 75, 100));</span><br><span class="line">console.log(Math.max(...values));</span><br></pre></td></tr></table></figure>
+<p>现在调用Math.max()看起来更加的方便了并且避免了this的绑定（调用Math.max.apply的第一个参数）。  </p>
+<p>你也可以将展开运算符和其他参数混用。如果你想让Math.max()返回的最小值为0时（只是防止负数的情况）。你可以传入一个展开运算符的参数和另一个其他参数，入下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let values &#x3D; [-25, -50, -75, -100]</span><br><span class="line"></span><br><span class="line">console.log(Math.max(...values, 0));        &#x2F;&#x2F; 0</span><br></pre></td></tr></table></figure>
+<p>在这个例子中传入Math.max()的最后参数为0，这个参数是在展开运算符参数后的参数。</p>
+<h3 id="ES6中name属性"><a href="#ES6中name属性" class="headerlink" title="ES6中name属性"></a>ES6中name属性</h3><p>介于可以有不同的方法定义一个函数，识别函数在js中可能会有些挑战。另外匿名函数表达式在栈轨迹的结果常常难以解读直接导致了debuging有点困难。综合这些原因，ES6为函数添加name属性。  </p>
+<h4 id="选择一个合适的名字"><a href="#选择一个合适的名字" class="headerlink" title="选择一个合适的名字"></a>选择一个合适的名字</h4><p>所以的函数在ES6程序中都将有一个合适值的name属性，为了看看实际程序中到底如何，看下面程序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function doSomething() &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var doAnotherThing &#x3D; function() &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">console.log(doSomething.name);          &#x2F;&#x2F; &quot;doSomething&quot;</span><br><span class="line">console.log(doAnotherThing.name);       &#x2F;&#x2F; &quot;doAnotherThing&quot;</span><br></pre></td></tr></table></figure>
+<p>在上面的代码中，dosomthing()有一个name属性等于”dosomething”因为这是一个函数声明，匿名函数表达式doantherThing()有一个name属性等于”doAntherThing”这是因为这是表达式赋于的名字。</p>
+<h4 id="特殊情况下的name属性"><a href="#特殊情况下的name属性" class="headerlink" title="特殊情况下的name属性"></a>特殊情况下的name属性</h4><p>对于函数声明和匿名函数表达式的名字是容易找到的，ES6为了让所有的函数都要合适的name属性做了更多的事，看如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var doSomething &#x3D; function doSomethingElse() &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var person &#x3D; &#123;</span><br><span class="line">    get firstName() &#123;</span><br><span class="line">        return &quot;Nicholas&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    sayName: function() &#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(doSomething.name);      &#x2F;&#x2F; &quot;doSomethingElse&quot;</span><br><span class="line">console.log(person.sayName.name);   &#x2F;&#x2F; &quot;sayName&quot;</span><br><span class="line"></span><br><span class="line">var descriptor &#x3D; Object.getOwnPropertyDescriptor(person, &quot;firstName&quot;);</span><br><span class="line">console.log(descriptor.get.name); &#x2F;&#x2F; &quot;get firstName&quot;</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，doSomething.name是”doSomethingElse”这是因为匿名函数表达式拥有自己的名字，并且这个名字优先于被赋予变量的名字。person.sayName()的name属性为”sayName”,这是因为这个值是在字面量对象的值。相似的person.sayName()实际上是一个getter函数，但是有点不同的是name属性为”get firstName”,setter函数也会在前面添加”set”(不管是setter还是getter函数都必须使用Object.getOwnPropertyDescriptor()来检索)   </p>
+<p>这里有两个关于函数name属性的特殊情况，当使用bind()后返回的函数它们的name属性都将在前面加上”bound”属性，当函数是使用Function构造器生成的都将有个”anonymous”的name属性，如下例:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var doSomething &#x3D; function() &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">console.log(doSomething.bind().name);   &#x2F;&#x2F; &quot;bound doSomething&quot;</span><br><span class="line"></span><br><span class="line">console.log((new Function()).name);     &#x2F;&#x2F; &quot;anonymous&quot;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中绑定函数的name属性总是在前面加上”bound”字符串，所以绑定版的doSomething() name属性为”bound doSomething”。</p>
+<p>记住name的值对于任何函数都不一定是同一个name值。name属性是让你debugging的，而不是使用name的值得到函数的引用。  </p>
+<h4 id="澄清函数的多重性"><a href="#澄清函数的多重性" class="headerlink" title="澄清函数的多重性"></a>澄清函数的多重性</h4><p>在早先的ES5中函数在调用时有没使用new具有多重性，当使用了new这时函数内部的this值是一个新对象并且默认将新对象返回，如下代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person &#x3D; new Person(&quot;Nicholas&quot;);</span><br><span class="line">var notAPerson &#x3D; Person(&quot;Nicholas&quot;);</span><br><span class="line"></span><br><span class="line">console.log(person);        &#x2F;&#x2F; &quot;[Object object]&quot;</span><br><span class="line">console.log(notAPerson);    &#x2F;&#x2F; &quot;undefined&quot;</span><br></pre></td></tr></table></figure>
+<p>当没有使用new调用Person()时创造的notPerson值为undefined(并且在非严格模式的全局对象变量上设置name属性)，通常在js中函数首字母大写暗示是一个用new调用的函数。这样的多重意义调用在ES6中也做了相应的改变。  </p>
+<p>在js中函数拥有两个不同的内部专用方法分别是：[[Call]]和[[Construct]]。当函数调用时没有使用new，[[Call]]方法被执行了，它的表现形式为函数体内部代码执行了。当一个函数调用时使用了new，这时[[Construct]]方法被调用了。方法[[Counstruct]]表达创建一个新对象，调用一个新目标，同时用this设置新目标来执行函数体，一个拥有[[Construct]]的函数别叫做构造器。  </p>
+<ul>
+<li>记住不是所有的函数有[[Construct]]方法，所以不是所有函数可以使用new调用，在接下来讨论的箭头函数就没有[[Constuct]]函数。</li>
+</ul>
+<h3 id="在ES5中一个函数是如何调用"><a href="#在ES5中一个函数是如何调用" class="headerlink" title="在ES5中一个函数是如何调用"></a>在ES5中一个函数是如何调用</h3><p>在ES5中判断一个函数是否是用new调用最流行的方法是使用instanceof，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    if (this instanceof Person) &#123;</span><br><span class="line">        this.name &#x3D; name;   &#x2F;&#x2F; using new</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        throw new Error(&quot;You must use new with Person.&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person &#x3D; new Person(&quot;Nicholas&quot;);</span><br><span class="line">var notAPerson &#x3D; Person(&quot;Nicholas&quot;);  &#x2F;&#x2F; throws error</span><br></pre></td></tr></table></figure>
+<p>这里用this的值来检查是不是构造器的实例，如果是，代码将正常执行，如果this不是Person的实例将抛出一个错误，这是因为[[Constuct]]方法创建了一个Person实例并复制给this。但是这种方法并不可靠因为this可以是Person实例并且在不适用new的情况下，如下例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    if (this instanceof Person) &#123;</span><br><span class="line">        this.name &#x3D; name;   &#x2F;&#x2F; using new</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        throw new Error(&quot;You must use new with Person.&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person &#x3D; new Person(&quot;Nicholas&quot;);</span><br><span class="line">var notAPerson &#x3D; Person.call(person, &quot;Michael&quot;);    &#x2F;&#x2F; works!</span><br></pre></td></tr></table></figure>
+<p>当调用Person.call()时传入person作为第一个参数，这意味着在Person函数体内this被设置为person了，对于这个函数，这是没有办法去区分是否适用new调用的。</p>
+<h4 id="new-target-元属性"><a href="#new-target-元属性" class="headerlink" title="new.target 元属性"></a>new.target 元属性</h4><p>为了解决这个问题，ES6引进new.target这个元属性。原属性是关于目标（如new）的非对象信息。当函数的[[Constructor]]方法被调用时，new.target会被赋予new操作符目标值，这个target通常是创建新实例的构造器，如果[[call]]被执行时，new.target为undefined。  </p>
+<p>这个new的元属性让你可以安全的检查function是否是使用new调用的如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    if (typeof new.target !&#x3D;&#x3D; &quot;undefined&quot;) &#123;</span><br><span class="line">        this.name &#x3D; name;   &#x2F;&#x2F; using new</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        throw new Error(&quot;You must use new with Person.&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person &#x3D; new Person(&quot;Nicholas&quot;);</span><br><span class="line">var notAPerson &#x3D; Person.call(person, &quot;Michael&quot;);    &#x2F;&#x2F; error!</span><br></pre></td></tr></table></figure>
+<p>通过使用new.target代替instanceof,当没有使用new调用Person时构造器将抛出一个错误。  </p>
+<p>你也可以指定特殊的构造器和new.target进行比较，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    if (new.target &#x3D;&#x3D;&#x3D; Person) &#123;</span><br><span class="line">        this.name &#x3D; name;   &#x2F;&#x2F; using new</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        throw new Error(&quot;You must use new with Person.&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function AnotherPerson(name) &#123;</span><br><span class="line">    Person.call(this, name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person &#x3D; new Person(&quot;Nicholas&quot;);</span><br><span class="line">var anotherPerson &#x3D; new AnotherPerson(&quot;Nicholas&quot;);  &#x2F;&#x2F; error!</span><br></pre></td></tr></table></figure>
+<ul>
+<li>警告：new.target不能再函数外使用（语法错误）</li>
+</ul>
+<h3 id="块级函数"><a href="#块级函数" class="headerlink" title="块级函数"></a>块级函数</h3><p>在早先的ES3中函数声明在一个块级里（块级函数）技术上回引起一个语法错误，但是不是所有的浏览器都支持这样的行为，不幸的是这种语法在每个浏览里表现得有点不同，所以在实践中最好是避免在块级中声明函数(最好的替代方法是使用函数表达式)。  </p>
+<p>为了同一个这个行为的不一致，在ES5严格模式下函数声明发生在块都会入下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;;</span><br><span class="line"></span><br><span class="line">if (true) &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Throws a syntax error in ES5, not so in ES6</span><br><span class="line">    function doSomething() &#123;</span><br><span class="line">        &#x2F;&#x2F; ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在ES5中这个代码将抛出一个语法错误，但在ES6中函数doSomething()被认为一个块级声明，并且能在相同的块中获取到并调用。如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;;</span><br><span class="line"></span><br><span class="line">if (true) &#123;</span><br><span class="line"></span><br><span class="line">    console.log(typeof doSomething);        &#x2F;&#x2F; &quot;function&quot;</span><br><span class="line"></span><br><span class="line">    function doSomething() &#123;</span><br><span class="line">        &#x2F;&#x2F; ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    doSomething();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(typeof doSomething);            &#x2F;&#x2F; &quot;undefined&quot;</span><br></pre></td></tr></table></figure>
+<p>块级函数在定义块中被提升到块顶部，所以typeof doSomething 返回”function”尽管这是在声明函数前的代码，一旦if块执行完成，doSomething()将不再存在。  </p>
+<h4 id="何时使用块级函数"><a href="#何时使用块级函数" class="headerlink" title="何时使用块级函数"></a>何时使用块级函数</h4><p>块级函数和let函数表达式很像一旦执行流离开了定义块存储的内容就将移除，一个关键不同的地方是块级函数会有函数提升，但是使用let的函数表达式不会提升，如例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;;</span><br><span class="line"></span><br><span class="line">if (true) &#123;</span><br><span class="line"></span><br><span class="line">    console.log(typeof doSomething);        &#x2F;&#x2F; throws error</span><br><span class="line"></span><br><span class="line">    let doSomething &#x3D; function () &#123;</span><br><span class="line">        &#x2F;&#x2F; ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    doSomething();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(typeof doSomething);</span><br></pre></td></tr></table></figure>
+<p>这段代码中，代码停在了typeof doSomething执行时，这是因为let声明还没执行让doSomething停留在TDZ，知道这点不同后，你就可以根据是否需要函数提升是使用块级函数声明还是使用let声明块级表达式。</p>
+<h4 id="非严格模式下的块级函数"><a href="#非严格模式下的块级函数" class="headerlink" title="非严格模式下的块级函数"></a>非严格模式下的块级函数</h4><p>ES6同样允许块级函数在非严格模式下使用，经管表现行为会稍有不一致，函数提升不再是在块的顶部，而是提升到包含函数或全局作用域中，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; ECMAScript 6 behavior</span><br><span class="line">if (true) &#123;</span><br><span class="line"></span><br><span class="line">    console.log(typeof doSomething);        &#x2F;&#x2F; &quot;function&quot;</span><br><span class="line"></span><br><span class="line">    function doSomething() &#123;</span><br><span class="line">        &#x2F;&#x2F; ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    doSomething();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(typeof doSomething);            &#x2F;&#x2F; &quot;function&quot;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，doSomething()被提升全局作用域中了所以在执行完if块后任然存在，ES6标准化了这种原来在众多浏览器中不兼容的行为，所以在所有的ES6运行时钟都将表现一致。  </p>
+<p>尽管块级函数提升了你在js声明函数的能力，但是ES6也引进了一种全新的函数声明方式。  </p>
+<h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><p>在崭新的ES6中箭头函数是最有趣的部分之一，箭头函数如其名字一样通过新语法箭头”=&gt;”定义函数，但是箭头函数和原来传统函数有很多重要的不同地方:  </p>
+<ul>
+<li><p><strong>没有 this, super, arguments,和 new.target 绑定</strong>，箭头函数这些值是由包含最近的容器提供。</p>
+</li>
+<li><p><strong>不能使用new调用</strong> 箭头函数没有[[Constuct]]方法所以不能被当做构造器，如果使用new调用箭头函数将抛出一个错误。</p>
+</li>
+<li><p><strong>没有prototype</strong>  既然你不在调用箭头函数时使用new，这里就没要对prototype的需要了，使用箭头函数的prototype属性并不存在。</p>
+</li>
+<li><p><strong>不改变this值</strong> 函数内部的this值在整个函数生命周期都将不会改变。</p>
+</li>
+<li><p><strong>没有argument对象</strong>  既然箭头函数没有arguments绑定，你必须依赖命名和不定参数来获取函数的函数。</p>
+</li>
+<li><p><strong>不支持重复命名参数</strong> 箭头函数不管是在严格或者非严格模式都不支持重复命名参数，与之相对的是非箭头函数只有在严格模式才不支持重复命名参数。  </p>
+<p>产生这些差异有以下原因。首先this绑定是js错误常见来源，this在函数体内很难跟踪，因此会导致一些意想不到的行为，但是箭头函数消除了这个疑惑，其次通过限制箭头函数在执行的时候就一个this值，js引擎可以更容易优化这些操作，不像普通的函数可以作为构造器或者其他修改。   </p>
+<p>其余的不同同样可以集中在减少函数内错误和歧义，通过这样做js引擎可以更好的优化箭头函数。 </p>
+</li>
+<li><p>note: 箭头函数同样拥有name属性并且遵循其他函数遵循的规则.</p>
+<h4 id="箭头函数语法"><a href="#箭头函数语法" class="headerlink" title="箭头函数语法"></a>箭头函数语法</h4><p>箭头函数的使用语法有很多种这些都取决于你想完成什么，所有的语法都以函数参数开始，紧接着箭头，最后是函数体。函数参数和函数的使用方式取决于你使用的目的，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> var reflect &#x3D; value &#x3D;&gt; value;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; effectively equivalent to:</span><br><span class="line"></span><br><span class="line">var reflect &#x3D; function(value) &#123;</span><br><span class="line">    return value;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>当箭头函数只有一个参数时，就一个参数没有更多的语法了，在箭头的后面也是右边表达式求值并立即返回，尽管没有明确的return语句，这个箭头函数将返回以第一个传入的参数值。  </p>
+<p>如果你传入超过一个参数的参数，你必须在参数的两边加圆括号包住它们。  </p>
+<p>如果这个箭头函数没有参数，你必须用一对圆括号包住一个空的声明，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> var getName &#x3D; () &#x3D;&gt; &quot;Nicholas&quot;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; effectively equivalent to:</span><br><span class="line"></span><br><span class="line">var getName &#x3D; function() &#123;</span><br><span class="line">    return &quot;Nicholas&quot;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>当你的箭头函数函数体包含超过一个表达式的时候，你就需要用一对括弧包住。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> var sum &#x3D; (num1, num2) &#x3D;&gt; &#123;</span><br><span class="line">    return num1 + num2;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; effectively equivalent to:</span><br><span class="line"></span><br><span class="line">var sum &#x3D; function(num1, num2) &#123;</span><br><span class="line">    return num1 + num2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>如果你想创建一个什么都不做的箭头函数，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> var doNothing &#x3D; () &#x3D;&gt; &#123;&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; effectively equivalent to:</span><br><span class="line"></span><br><span class="line">var doNothing &#x3D; function() &#123;&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>括弧通常是用来表示函数体的，但是在箭头函数的函数体只想返回一个对象字面量时必须被包一对圆括号里。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var getTempItem &#x3D; id &#x3D;&gt; (&#123; id: id, name: &quot;Temp&quot; &#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; effectively equivalent to:</span><br><span class="line"></span><br><span class="line">var getTempItem &#x3D; function(id) &#123;</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">        id: id,</span><br><span class="line">        name: &quot;Temp&quot;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>将对象字面量用圆括号包裹起来是表示这是一个对象直面量而不是函数体。</p>
+<h4 id="创建立即执行函数表达式"><a href="#创建立即执行函数表达式" class="headerlink" title="创建立即执行函数表达式"></a>创建立即执行函数表达式</h4><p>js中一个很使用函数流行的方式是立即执行函数(IIFE)，IIFE让你定义一个匿名函数后并立即执行没有任何引用保存，当你想创建一个作用域和程序中的其他作用域相隔离时就可以使用这种方式。如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let person &#x3D; function(name) &#123;</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">        getName: function() &#123;</span><br><span class="line">            return name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">&#125;(&quot;Nicholas&quot;);</span><br><span class="line"></span><br><span class="line">console.log(person.getName());      &#x2F;&#x2F; &quot;Nicholas&quot;</span><br></pre></td></tr></table></figure>
+<p>在这段代码中，IIFE被用作创建一个拥有getName()方法的对象，这个方法将name参数作为返回值。它有效的将nem设置为返回对象的私有属性。  </p>
+<p>你也可以用箭头函数完成同样的事，只要你将箭头函数用圆括号包裹起来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let person &#x3D; ((name) &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">        getName: function() &#123;</span><br><span class="line">            return name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">&#125;)(&quot;Nicholas&quot;);</span><br><span class="line"></span><br><span class="line">console.log(person.getName());      &#x2F;&#x2F; &quot;Nicholas&quot;</span><br></pre></td></tr></table></figure>
+<p>注意圆括号只将箭头函数的定义包裹起来，并没有包裹(“Nicholas”)，这就和普通函数有一些不一样，在普通函数里这里的圆括号既可以在函数体外，也可以将传参包住。  </p>
+<h4 id="没有this绑定"><a href="#没有this绑定" class="headerlink" title="没有this绑定"></a>没有this绑定</h4><p>js中最容易出错的地方之一就函数内部this的绑定，因为单个函数this的值依赖于执行时的上下午环境（对象），它很有可能的使用一个对象，如下例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var PageHandler &#x3D; &#123;</span><br><span class="line"></span><br><span class="line">    id: &quot;123456&quot;,</span><br><span class="line"></span><br><span class="line">    init: function() &#123;</span><br><span class="line">        document.addEventListener(&quot;click&quot;, function(event) &#123;</span><br><span class="line">            this.doSomething(event.type);     &#x2F;&#x2F; error</span><br><span class="line">        &#125;, false);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    doSomething: function(type) &#123;</span><br><span class="line">        console.log(&quot;Handling &quot; + type  + &quot; for &quot; + this.id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这段代码中，对象PageHandler用来处理页面上的交互效果，init()方法是来初始化交互当调用this.dosomething(),然而这段代码不会起效。   </p>
+<p>调用this.doSomething()报错，是因为this指向事件目标对象(这段代码指向document)，而不是PageHandler,如果你尝试在document上调用一个不存在的方法就将报错。  </p>
+<p>你可以通过调用bind()方法将函数上this的值绑定到PageHandler：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var PageHandler &#x3D; &#123;</span><br><span class="line"></span><br><span class="line">    id: &quot;123456&quot;,</span><br><span class="line"></span><br><span class="line">    init: function() &#123;</span><br><span class="line">        document.addEventListener(&quot;click&quot;, (function(event) &#123;</span><br><span class="line">            this.doSomething(event.type);     &#x2F;&#x2F; no error</span><br><span class="line">        &#125;).bind(this), false);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    doSomething: function(type) &#123;</span><br><span class="line">        console.log(&quot;Handling &quot; + type  + &quot; for &quot; + this.id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>现在这段代码可以如期待一样执行，但是它看起来有点奇怪，通过调用bind(this)你实际上创建了一个新的函数，这个函数this值绑定到目前的this值上也就是PageHandler。为了避免产生这段多余的代码，箭头函数是不错的选择。  </p>
+<p>箭头函数没有this绑定，这意味着箭头函数this的值只由作用域链上上段作用域觉定，如果箭头函数被一个非箭头函数包含，this就将和包含函数的this一样，否则this的值就等于全局作用上this的值，这里有一个用箭头函数写的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var PageHandler &#x3D; &#123;</span><br><span class="line"></span><br><span class="line">    id: &quot;123456&quot;,</span><br><span class="line"></span><br><span class="line">    init: function() &#123;</span><br><span class="line">        document.addEventListener(&quot;click&quot;,</span><br><span class="line">                event &#x3D;&gt; this.doSomething(event.type), false);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    doSomething: function(type) &#123;</span><br><span class="line">        console.log(&quot;Handling &quot; + type  + &quot; for &quot; + this.id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个例子中的事件处理是一个箭头函数调用this.doSomething()，this的值和调用init()方法的this值一样，所以这版代码和使用bind(this)的一样，尽管doSomething()方法没有返回值，但是整个函数体只有一个语句，使用这里就没必要用括弧。   </p>
+<p>箭头函数被设计成一次性函数，所以不能被new调用，这就为什么缺少prototype属性原因了，如果你尝试new操作符和箭头函数一起使用，你将得到一个错误，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var MyType &#x3D; () &#x3D;&gt; &#123;&#125;,</span><br><span class="line">    object &#x3D; new MyType();  &#x2F;&#x2F; error - you can&#39;t use arrow functions with &#39;new&#39;</span><br></pre></td></tr></table></figure>
+<p>这段代码盗用 newMype()将会失败，这是因为MyType是一个箭头函数因此没有[[Constrcut]]行为，这样的话js引擎知道不能使用new调用箭头函数就能更好的优化。</p>
+<h4 id="箭头函数和数组"><a href="#箭头函数和数组" class="headerlink" title="箭头函数和数组"></a>箭头函数和数组</h4><p>箭头函数简洁的语法使它在处理数组时更加理想，如果你想用普通函数为一个数组排序，你可以如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var result &#x3D; values.sort(function(a, b) &#123;</span><br><span class="line">    return a - b;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>使用箭头函数将会更加简洁：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var result &#x3D; values.sort((a, b) &#x3D;&gt; a - b);</span><br></pre></td></tr></table></figure>
+
+<h4 id="没有arguments绑定"><a href="#没有arguments绑定" class="headerlink" title="没有arguments绑定"></a>没有arguments绑定</h4><p>经管箭头函数没有它自己的arguments对象，但是它可以从包换它的函数里获取到一个arguments对象，这个arguments对象会一直存在不管箭头函数是不是后执行。如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function createArrowFunctionReturningFirstArg() &#123;</span><br><span class="line">    return () &#x3D;&gt; arguments[0];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var arrowFunction &#x3D; createArrowFunctionReturningFirstArg(5);</span><br><span class="line"></span><br><span class="line">console.log(arrowFunction());       &#x2F;&#x2F; 5</span><br></pre></td></tr></table></figure>
+<p>在createArrowFunctionReturnFirstArg()里arguments[0]倍创建的箭头函数引用，这个引用包含了传入createArrowFunctionReturnFirstArg()的第一个参数，当箭头函数后执行返回5,尽管箭头函数已经不在创建的上下文中了，但是根据作用域链的关系任然可以访问到argments。  </p>
+<h4 id="识别箭头函数"><a href="#识别箭头函数" class="headerlink" title="识别箭头函数"></a>识别箭头函数</h4><p>尽管箭头函数使用和普通函数不同的语法，但是仍旧是函数，并且也可以项普通函数一样识别，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var comparator &#x3D; (a, b) &#x3D;&gt; a - b;</span><br><span class="line"></span><br><span class="line">console.log(typeof comparator);                 &#x2F;&#x2F; &quot;function&quot;</span><br><span class="line">console.log(comparator instanceof Function);    &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+
+<p>箭头函数typeof和instanceof的console.log()结果和普通函数的一样。</p>
+<p>像其他函数一样，你也可以对箭头函数使用call(),apply(),和bind()，尽管this-binding将不会影响，这里有些例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var sum &#x3D; (num1, num2) &#x3D;&gt; num1 + num2;</span><br><span class="line"></span><br><span class="line">console.log(sum.call(null, 1, 2));      &#x2F;&#x2F; 3</span><br><span class="line">console.log(sum.apply(null, [1, 2]));   &#x2F;&#x2F; 3</span><br><span class="line"></span><br><span class="line">var boundSum &#x3D; sum.bind(null, 1, 2);</span><br><span class="line"></span><br><span class="line">console.log(boundSum());                &#x2F;&#x2F; 3</span><br></pre></td></tr></table></figure>
+<p>sum()函数调用时使用call()和apply()来传入参数，这和其他函数一样，bind()方法的使用方法也和其他函数调用一样。  </p>
+<p>箭头函数适用于在任何可以使用匿名函数表达式的地方，下一部分将覆盖ES6另一个重要的改变，但是这个是内部的，并没有新语法。  </p>
+<h4 id="尾调函数优化"><a href="#尾调函数优化" class="headerlink" title="尾调函数优化"></a>尾调函数优化</h4><p>也许在ES6的函数变化中最有趣的地方是引擎优化，所谓的引擎优化就尾调函数的优化，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function doSomething() &#123;</span><br><span class="line">    return doSomethingElse();   &#x2F;&#x2F; tail call</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>尾调函数在ES5处理方式和其他函数调用处理方式一样：一个新的栈帧创建并别压入函数调用的调用栈里，这意味先前所有的栈帧都保存在内存中，但是这意味着当容易造成调用栈过大的问题。  </p>
+<h3 id="尾调函数区别"><a href="#尾调函数区别" class="headerlink" title="尾调函数区别"></a>尾调函数区别</h3><p>ES6为了某些尾递归在严格模式(非严格模式下的尾调用不变)下减少调用栈的体积采取了一定优化措施，具体而言不再为尾调用创建新的栈帧，将当前栈帧清除，并重复使用（前体满足如下条件）:  </p>
+<ul>
+<li><ol>
+<li>尾调用不需要访问当前栈帧变量(意味着函数不是闭包)</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>当前函数在尾调用时没有除了return以外的操作。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>当前函数调用的结果为尾调用返回的值。</li>
+</ol>
+</li>
+</ul>
+<p>如下代码很容易满足这所有3条规则</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;;</span><br><span class="line"></span><br><span class="line">function doSomething() &#123;</span><br><span class="line">    &#x2F;&#x2F; optimized</span><br><span class="line">    return doSomethingElse();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数中使用了尾调用doSinethingElse(),并且立即返回结果，没有对本地作用域任何变量的访问，一个小小的变化，将不做优化:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;;</span><br><span class="line"></span><br><span class="line">function doSomething() &#123;</span><br><span class="line">    &#x2F;&#x2F; not optimized - no return</span><br><span class="line">    doSomethingElse();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&quot;use strict&quot;;</span><br><span class="line"></span><br><span class="line">function doSomething() &#123;</span><br><span class="line">    &#x2F;&#x2F; not optimized - must add after returning</span><br><span class="line">    return 1 + doSomethingElse();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&quot;use strict&quot;;</span><br><span class="line"></span><br><span class="line">function doSomething() &#123;</span><br><span class="line">    &#x2F;&#x2F; not optimized - call isn&#39;t in tail position</span><br><span class="line">    var result &#x3D; doSomethingElse();</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&quot;use strict&quot;;</span><br><span class="line"></span><br><span class="line">function doSomething() &#123;</span><br><span class="line">    var num &#x3D; 1,</span><br><span class="line">        func &#x3D; () &#x3D;&gt; num;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; not optimized - function is a closure</span><br><span class="line">    return func();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="如何利用尾调用优化"><a href="#如何利用尾调用优化" class="headerlink" title="如何利用尾调用优化"></a>如何利用尾调用优化</h4><p>在实际工作中，尾调用优化都是幕后发生的所以你不需要想太多除非你试图优化一个函数，一个最基础的使用尾调用优化的地方就递归函数，这里优化需要极大的努力，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function factorial(n) &#123;</span><br><span class="line"></span><br><span class="line">    if (n &lt;&#x3D; 1) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; not optimized - must multiply after returning</span><br><span class="line">        return n * factorial(n - 1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function factorial(n, p &#x3D; 1) &#123;</span><br><span class="line"></span><br><span class="line">    if (n &lt;&#x3D; 1) &#123;</span><br><span class="line">        return 1 * p;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        let result &#x3D; n * p;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; optimized</span><br><span class="line">        return factorial(n - 1, result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>函数在ES6中并没有经历太多变化，但是一些列增加的变化让函数更容易使用。  </p>
+<p>函数默认参数让你在某些参数没有传入时更容易指定默认值，在ES6之前指定默认参数值将需要更多代码检查参数是否传入并指定默认值。  </p>
+<p>不定参数让你指定一个数组包含所有剩余参数。用一个真正的数组将比使用arguments对象将更加灵活。  </p>
+<p>扩展操作符和不定参数是一对小伙伴，扩展操作符让你将一个数组转换为一系列调用函数时的参数，在ES6之前要达到相应的效果，要么手工指定每个参数或使用apply(),但是有了扩展操作符后你可以轻松的将数组传入函数调用并不用担心this的指向(apply()会改变this指向)。   </p>
+<p>为函数新增的name属性将帮助你bebugging和求值时更容易识别函数，另外ES6中正式定义了块级函数的行为。</p>
+<p>在ES6中普通函数的执行被[[Call]]定义，当函数用new执行的行为被[[Construct]]定义。元属性new.target也允许你知道函数到底是普通调用还是new调用。  </p>
+<p>在ES6的函数中最大的改变就是箭头函数了，它被设计成代替匿名函数表达式。箭头函数拥有更加简洁的语法和词法上this的绑定，并且没有arguments对象。另外箭头函数不能改变this的绑定，所以不能被当做函数构造器&gt;</p>
+<p>尾调用优化让你在某些情况下保持更小体积的调用栈，这种优化是由js引擎自动执行的，但是你得重写你的递归函数才能享受到这种优化。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/06/24/%E7%AC%AC2%E7%AB%A0%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8E%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="prev" title="第二章 字符串与正则表达式">
+      <i class="fa fa-chevron-left"></i> 第二章 字符串与正则表达式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/07/10/%E7%AC%AC4%E7%AB%A0%20%E5%AF%B9%E8%B1%A1/" rel="next" title="第四章 对象">
+      第四章 对象 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数中的默认参数值"><span class="nav-number">1.1.</span> <span class="nav-text">函数中的默认参数值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在ES5中模仿默认参数值"><span class="nav-number">1.1.1.</span> <span class="nav-text">在ES5中模仿默认参数值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在ES6中的默认参数值"><span class="nav-number">1.1.2.</span> <span class="nav-text">在ES6中的默认参数值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#默认参数值是如何影响arguments对象"><span class="nav-number">1.1.3.</span> <span class="nav-text">默认参数值是如何影响arguments对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#默认参数表达式"><span class="nav-number">1.1.4.</span> <span class="nav-text">默认参数表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#默认参数值中的TDZ"><span class="nav-number">1.1.5.</span> <span class="nav-text">默认参数值中的TDZ</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名参数"><span class="nav-number">1.2.</span> <span class="nav-text">匿名参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在ES5中的匿名参数"><span class="nav-number">1.2.1.</span> <span class="nav-text">在ES5中的匿名参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不定参数-rest-parameters"><span class="nav-number">1.2.2.</span> <span class="nav-text">不定参数(rest parameters)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不定参数的限制"><span class="nav-number">1.2.3.</span> <span class="nav-text">不定参数的限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不定参数对arguments对象的影响"><span class="nav-number">1.2.4.</span> <span class="nav-text">不定参数对arguments对象的影响</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Function构造器新增特性"><span class="nav-number">1.2.5.</span> <span class="nav-text">Function构造器新增特性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#展开运算符"><span class="nav-number">1.3.</span> <span class="nav-text">展开运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6中name属性"><span class="nav-number">1.4.</span> <span class="nav-text">ES6中name属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#选择一个合适的名字"><span class="nav-number">1.4.1.</span> <span class="nav-text">选择一个合适的名字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊情况下的name属性"><span class="nav-number">1.4.2.</span> <span class="nav-text">特殊情况下的name属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#澄清函数的多重性"><span class="nav-number">1.4.3.</span> <span class="nav-text">澄清函数的多重性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在ES5中一个函数是如何调用"><span class="nav-number">1.5.</span> <span class="nav-text">在ES5中一个函数是如何调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#new-target-元属性"><span class="nav-number">1.5.1.</span> <span class="nav-text">new.target 元属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块级函数"><span class="nav-number">1.6.</span> <span class="nav-text">块级函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#何时使用块级函数"><span class="nav-number">1.6.1.</span> <span class="nav-text">何时使用块级函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非严格模式下的块级函数"><span class="nav-number">1.6.2.</span> <span class="nav-text">非严格模式下的块级函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#箭头函数"><span class="nav-number">1.7.</span> <span class="nav-text">箭头函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#箭头函数语法"><span class="nav-number">1.7.1.</span> <span class="nav-text">箭头函数语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建立即执行函数表达式"><span class="nav-number">1.7.2.</span> <span class="nav-text">创建立即执行函数表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#没有this绑定"><span class="nav-number">1.7.3.</span> <span class="nav-text">没有this绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#箭头函数和数组"><span class="nav-number">1.7.4.</span> <span class="nav-text">箭头函数和数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#没有arguments绑定"><span class="nav-number">1.7.5.</span> <span class="nav-text">没有arguments绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#识别箭头函数"><span class="nav-number">1.7.6.</span> <span class="nav-text">识别箭头函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尾调函数优化"><span class="nav-number">1.7.7.</span> <span class="nav-text">尾调函数优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尾调函数区别"><span class="nav-number">1.8.</span> <span class="nav-text">尾调函数区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何利用尾调用优化"><span class="nav-number">1.8.1.</span> <span class="nav-text">如何利用尾调用优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.9.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe - zh-tw - en</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe - zh-tw - en</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

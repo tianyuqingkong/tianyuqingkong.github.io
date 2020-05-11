@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="因为要给服务器的一些域名添加https借此机会了解下SSL&#x2F;TLS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSL&#x2F;TLS">
+<meta property="og:url" content="http://yoursite.com/2020/03/06/SSL_TLS/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="因为要给服务器的一些域名添加https借此机会了解下SSL&#x2F;TLS">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-11T02:47:04.925Z">
+<meta property="article:author" content="John Doe - zh-tw - en">
+<meta property="article:tag" content="https SSL&#x2F;TLS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/06/SSL_TLS/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>SSL/TLS | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/06/SSL_TLS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe - zh-tw - en">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SSL/TLS
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-06 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-06T00:00:00+08:00">2020-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-11 10:47:04" itemprop="dateModified" datetime="2020-05-11T10:47:04+08:00">2020-05-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>因为要给服务器的一些域名添加https借此机会了解下SSL/TLS</p>
+<a id="more"></a>
+<h2 id="原始加密"><a href="#原始加密" class="headerlink" title="原始加密"></a>原始加密</h2><p>假设A向B通信没有任何的加密，中间一个C拦截掉A的消息后，那么A与B之间的通信毫无隐私可言。那么就出现了第一种加密方式。  </p>
+<p><code>对称加密</code>：加密和解密使用同一个密钥。<br>接下来的A向B通信方式是：</p>
+<ul>
+<li>1 协商一个两者都有的密钥  </li>
+<li>2 A用密钥将消息加密后传输  </li>
+<li>3 B得到加密后的消息，用同一个密钥解密得到原始消息  </li>
+</ul>
+<p>优点：<br>就算C拦截掉了A发给B加密的信息，没有密钥那么C也没办法获取到原始信息</p>
+<p>缺点:  </p>
+<ul>
+<li>1 协商密钥只能线下获取，否则密钥被C拿到到了一样C就可以得到A和B之间通信的消息</li>
+<li>2 通过暴力破解的方式可以破解56bit的DES加密信息，为了应对这样的情况只好提出新的协议如 triple-DES(最长168bit)、AES(最长256bit)，在目前的计算机计算来看无法短期内被暴力破解</li>
+</ul>
+<h2 id="升级加密"><a href="#升级加密" class="headerlink" title="升级加密"></a>升级加密</h2><p>由于A可能和很多人通信，不可能每次通信前必须线下交换密钥。接下来出现了可以将自己的 pulic key（公钥）在网上传播的加密方式。 </p>
+<p><code>非对称加密</code>： 每个用户有两个密钥一个public key(公钥)另一个private key（私钥），加密用其中的一个key解密必须用另一个key。（比如使用pulick key加密的信息就只能用private key来解密，抑或加密用private key解密就只能用public key）双方各执持有对方的public key，各执保留自己的private key。  </p>
+<p>这样C拿到一方的public key没有private key也是没办法破解消息。</p>
+<p>接下来的A向B通信方式是：</p>
+<ul>
+<li>1 A和B在网上交换各自的public key，各自保留自己的private key</li>
+<li>2 A将要发送的数据进行hash计算出一段hash值，用自己private key对这段hash值进行加密。A将要发送的数据使用B的public key进行加密。最后将加密后的hash以及加密后的数据加上一些其他东西发送给B</li>
+<li>3 B收到加密后的hash以及加密的数据。B用A的public key将加密后hash解密得到原始hash。B用自己的private key解密加密后的数据得到原始数据，在将原始数据进行hash计算得到hash值，与前面解密得到的hash对比。如果一致那么数据可以使用。</li>
+</ul>
+<p>优点：  </p>
+<ul>
+<li>1 就算知道public key也没办法解密消息</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>1 非对称加密由于数学原因相对于对称加密要消耗更多（指数级别）的CPU资源</li>
+<li>2 非对称加密情况下，如果C分别获取了A和B的public key并且用自己的public key分别发给A和B,就可能出现以下情况。 <ul>
+<li>2.1 A将用自己的private key加密数据的hash值，用C的public key加密数据</li>
+<li>2.2 C拦截到加密后的hash值，以及加密后的数据。C用自己的private key解密加密后的数据（这样就得到原始数据），并且C将篡改后的原始数据计算hash值，并且用C自己的private key计算出加密后hash值，再用先前拦截到B的public key加密篡改后的数得到加密后的数据。将篡改后的加密hash值、加密数据发送给B</li>
+<li>2.3 B收到以后两个数据后，先用自己的private key解密数据之后计算hash值，再用C传来的假public key解密hash值，发现匹配。</li>
+</ul>
+</li>
+</ul>
+<h2 id="现代加密"><a href="#现代加密" class="headerlink" title="现代加密"></a>现代加密</h2><p>  上面非对称加密的第二个缺陷的关键问题：public key无法保证是对方的。  </p>
+<p>  CA（Certificate Authority）证书认证就是解决这个问题的，CA的工作方式如下<br>  1： B先将自己的public key和其他一些信息交给CA<br>  2： CA用自己的private key加密这些信息生产B的数字证书，返回给B<br>  3： 当B向A传递自己的pulic key时，B传递数字证书给A<br>  4： A拿到数字证书通过CA证书（包含CA的public key）解密B的数字证书获取到B的public key  </p>
+<p>  这里有一个关键的地方怎么保证CA不被劫持，原因是CA将自己的证书集成到浏览器和操作系统中，只有在浏览器或者操作系统被劫持的情况CA才有可能被劫持。这样只要操作系统和浏览器不被劫持就能保证交换public key</p>
+<p>非对称加密处理缓慢的问题在实际SSL/TLS使用场景中是大体上是如下解决的（细节有差别）：</p>
+<ul>
+<li>1 先通过CA保证交换public key</li>
+<li>2 再通过非对称算法交换对称加密密钥（一部分）</li>
+<li>3 最后通过对称加密，加密通信</li>
+</ul>
+<h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><p> 最常见的SSL/TLS使用场景为HTTPS（HTTP over SSL）, CA作为公证机构一般是要收费的，用户（普通人）是不会去申请的，而服务端一般会去申请，所有实际的HTTPS如下：</p>
+<ul>
+<li>1 用户向服务端发起一个安全连接请求  </li>
+<li>2 服务端返回一个经过CA认证的数字证书，客户通过浏览器内置的CA解密证书得到服务端public key  </li>
+<li>3 用户使用public key加密一个对称加密算法的密钥，并且发送给服务端</li>
+<li>4 服务端使用自己的private key解密得到原始的对称算法密钥</li>
+<li>5 双方通信使用对称算法密钥加密和解密</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/https-SSL-TLS/" rel="tag"># https SSL/TLS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/08/13/%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83ES/" rel="prev" title="词法环境：ES">
+      <i class="fa fa-chevron-left"></i> 词法环境：ES
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/13/docker%E7%BD%91%E7%BB%9C/" rel="next" title="docker网络">
+      docker网络 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原始加密"><span class="nav-number">1.</span> <span class="nav-text">原始加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级加密"><span class="nav-number">2.</span> <span class="nav-text">升级加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现代加密"><span class="nav-number">3.</span> <span class="nav-text">现代加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS"><span class="nav-number">4.</span> <span class="nav-text">HTTPS</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe - zh-tw - en</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe - zh-tw - en</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

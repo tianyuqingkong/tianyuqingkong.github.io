@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="详解ECMA-262-5 3.2章  词法环境：ECMAScript的实现导言(Intruduction)在这一章中我们将继续词法环境的考察.在先前的3.1章我们澄清了关于这一话题的通用理论.特别是我们已经学习了环境与静态作用域以及闭包间的紧密关系.   我们已经知道ECMAScript使用了环境帧链的模型,在这个章节中我们将着手于词法环境在ECMAScript中的具体实现.特别是我们将讨论ES中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="词法环境：ES">
+<meta property="og:url" content="http://yoursite.com/2018/08/13/%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83ES/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="详解ECMA-262-5 3.2章  词法环境：ECMAScript的实现导言(Intruduction)在这一章中我们将继续词法环境的考察.在先前的3.1章我们澄清了关于这一话题的通用理论.特别是我们已经学习了环境与静态作用域以及闭包间的紧密关系.   我们已经知道ECMAScript使用了环境帧链的模型,在这个章节中我们将着手于词法环境在ECMAScript中的具体实现.特别是我们将讨论ES中">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2018/08/13/%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83ES/%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83ES/withoutEval.png">
+<meta property="og:image" content="http://yoursite.com/2018/08/13/%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83ES/%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83ES/withEval.png">
+<meta property="article:published_time" content="2018-08-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-08T07:59:26.847Z">
+<meta property="article:author" content="John Doe - zh-tw - en">
+<meta property="article:tag" content="ES">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2018/08/13/%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83ES/%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83ES/withoutEval.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/08/13/%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83ES/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>词法环境：ES | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83ES/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe - zh-tw - en">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          词法环境：ES
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-08-13 00:00:00" itemprop="dateCreated datePublished" datetime="2018-08-13T00:00:00+08:00">2018-08-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-08 15:59:26" itemprop="dateModified" datetime="2020-05-08T15:59:26+08:00">2020-05-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="详解ECMA-262-5-3-2章-词法环境：ECMAScript的实现"><a href="#详解ECMA-262-5-3-2章-词法环境：ECMAScript的实现" class="headerlink" title="详解ECMA-262-5 3.2章  词法环境：ECMAScript的实现"></a>详解ECMA-262-5 3.2章  词法环境：ECMAScript的实现</h1><h2 id="导言-Intruduction"><a href="#导言-Intruduction" class="headerlink" title="导言(Intruduction)"></a>导言(Intruduction)</h2><p>在这一章中我们将继续词法环境的考察.在先前的<a href="http://dmitrysoshnikov.com/ecmascript/es5-chapter-3-1-lexical-environments-common-theory/#environment-frames-model" target="_blank" rel="noopener">3.1章</a>我们澄清了关于这一话题的通用理论.特别是我们已经学习了环境与静态作用域以及闭包间的紧密关系.  </p>
+<p>我们已经知道ECMAScript使用了环境帧链的模型,在这个章节中我们将着手于词法环境在ECMAScript中的具体实现.特别是我们将讨论ES中使用的和通用理论中相对应结构和术语.  </p>
+<p>我们将从定义开始，尽管我们已经在通用理论中给出了词法环境的定义，但是这里我们将给出和ECMA262-5相关的定义.  </p>
+<a id="more"></a>
+<h2 id="定义-Definitions"><a href="#定义-Definitions" class="headerlink" title="定义(Definitions)"></a>定义(Definitions)</h2><p>正如我们在通用理论中说的，环境是用于管理在逻辑上代码嵌套的数据(变量，函数，等).同样的ECMAScript也是相同的作用.  </p>
+<ul>
+<li>一个词法环境定义了在词法嵌套结构的代码情况中，标识符与变量值以及函数的关联.  </li>
+</ul>
+<p>在ES中的词法环境包含两部分：一是环境记录以及一个对外部环境的引用.I.e.定义中环境和先前模型中讨论的单帧相对应.因此:  </p>
+<ul>
+<li>一个环境记录表示标识符与创建时词法作用域相的绑定</li>
+</ul>
+<p>这就是一个环境记录，它保存着当前上下文显示的变量.  </p>
+<p>看下面例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var x &#x3D; 10;</span><br><span class="line"> </span><br><span class="line">function foo() &#123;</span><br><span class="line">  var y &#x3D; 20;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们知道这里有连个抽象的环境，它们分别对应着全局上下文和foo函数上下文:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; environment of the global context</span><br><span class="line"> </span><br><span class="line">globalEnvironment &#x3D; &#123;</span><br><span class="line"> </span><br><span class="line">  environmentRecord: &#123;</span><br><span class="line"> </span><br><span class="line">    &#x2F;&#x2F; built-ins:</span><br><span class="line">    Object: function,</span><br><span class="line">    Array: function,</span><br><span class="line">    &#x2F;&#x2F; etc ...</span><br><span class="line"> </span><br><span class="line">    &#x2F;&#x2F; our bindings:</span><br><span class="line">    x: 10</span><br><span class="line"> </span><br><span class="line">  &#125;,</span><br><span class="line"> </span><br><span class="line">  outer: null &#x2F;&#x2F; no parent environment</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; environment of the &quot;foo&quot; function</span><br><span class="line"> </span><br><span class="line">fooEnvironment &#x3D; &#123;</span><br><span class="line">  environmentRecord: &#123;</span><br><span class="line">    y: 20</span><br><span class="line">  &#125;,</span><br><span class="line">  outer: globalEnvironment</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这个outer引用通常用于连接当前环境的父级环境,当然父级函数也有自己的oute连接.并且全局环境的outer指向null.  </p>
+<p>全局环境是这个作用域链的顶端.这与ES原型继承很像:如果一个属性没在当前对象找到,那么它就搜寻其原型,接着原型的原型以此类推.直到找到为止,或者找到原型的顶部.环境和它一样：上下文中出现的变量(或标识符)像属性一样,outer连接代表着原型.  </p>
+<p>如先前所说的一个词法环境可能包含多个内部词法环境.e.g,如果一个函数包含两个嵌套函数那么每个嵌套函数的outer引用指向相同的外部环境.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line"> </span><br><span class="line">  var x &#x3D; 10;</span><br><span class="line"> </span><br><span class="line">  function bar() &#123;</span><br><span class="line">    var y &#x3D; 20;</span><br><span class="line">    console.log(x + y); &#x2F;&#x2F; 30</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  function baz() &#123;</span><br><span class="line">    var z &#x3D; 30;</span><br><span class="line">    console.log(x + y); &#x2F;&#x2F; 40</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F;Environments</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; &quot;foo&quot; environmnet</span><br><span class="line"> </span><br><span class="line">fooEnvironment &#x3D; &#123;</span><br><span class="line">  environmentRecord: &#123;x: 10&#125;,</span><br><span class="line">  outer: globalEnvironment</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; both &quot;bar&quot; and &quot;baz&quot; have the same outer</span><br><span class="line">&#x2F;&#x2F; environment -- the environment of &quot;foo&quot;</span><br><span class="line"> </span><br><span class="line">barEnvironment &#x3D; &#123;</span><br><span class="line">  environmentRecord: &#123;y: 20&#125;,</span><br><span class="line">  outer: fooEnvironment</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">bazEnvironment &#x3D; &#123;</span><br><span class="line">  environmentRecord: &#123;z: 30&#125;,</span><br><span class="line">  outer: fooEnvironment</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>ECMAScript 定义了两种类型的环境记,它们主要是为是其实现目的.但是在某些细节上我们认为它们完全相同. </p>
+<h2 id="环境记录类型-Environment-record-types"><a href="#环境记录类型-Environment-record-types" class="headerlink" title="环境记录类型(Environment record types)"></a>环境记录类型(Environment record types)</h2><p>在ES5文档中指明了两种类型的环境记录：声明环境记录和对象环境记录  </p>
+<h3 id="声明环境记录-Declarative-environment-record"><a href="#声明环境记录-Declarative-environment-record" class="headerlink" title="声明环境记录(Declarative environment record)"></a>声明环境记录(Declarative environment record)</h3><p>声明环境记录通常用于出现在函数作用域的变量,函数,形参等等.(这种情况下和es3中活动变量很像)和catch语句.  </p>
+<p>如下例：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; all: &quot;a&quot;, &quot;b&quot; and &quot;c&quot;</span><br><span class="line">&#x2F;&#x2F; bindings are bindings of</span><br><span class="line">&#x2F;&#x2F; a declarative record</span><br><span class="line"> </span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  var b &#x3D; 10;</span><br><span class="line">  function c() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在catch从句中绑定是是期待参数:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125; catch (e) &#123; &#x2F;&#x2F; &quot;e&quot; is a binding of a declarative record</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通常情况下声明记录默认存储在低阶工具中(如虚拟机的寄存器,因此能提供快速访问),这是和原来ES3中的活动对象(activeaction object)主要的不同.  </p>
+<p>规范没有要求(甚至间接不建议)声明记录的实现以一种低效率的简单对象.这样的结果导致声明环境不会直接默认暴露给用户级别,这也意味着我们不能像记录的属性一样直接访问这些绑定，同样的甚至在ES3中也不能访问(除非在Rhino实现的利用__parent__访问).  </p>
+<p>隐形的,声明记录允许其使用<a href="http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-35.html#%_sec_5.5.6" target="_blank" rel="noopener">词法处理</a>技术,这就意味着可以不通过任何作用域链直接获取需要的变量–不管作用域嵌套多深(如果存储是固定的或者不变的,所有的变量处理都可以在编译之前就可知道).但是ES5规范并没直接提到这个事实.  </p>
+<p>再说一次,关于使用声明环境记录替代老的活动对象概念一切都是为了实现上的高效.  </p>
+<p>因此,如Brendan Eich<a href="https://mail.mozilla.org/pipermail/es-discuss/2010-April/010915.html" target="_blank" rel="noopener">提到的</a>(最后一段)–在ES3中活动对象的实现简直就是一个’a bug’  </p>
+<p>理论上,环境的声明记录可以通过这种方式实现(原型的type不是规范里的,这里只是我用作说明)   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">environment &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F; storage</span><br><span class="line">  environmentRecord: &#123;</span><br><span class="line">    type: &quot;declarative&quot;,</span><br><span class="line">    &#x2F;&#x2F; storage</span><br><span class="line">  &#125;,</span><br><span class="line">  &#x2F;&#x2F; reference to the parent environment</span><br><span class="line">  outer: &lt;...&gt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Eval和内部函数也许会破坏优化-Eval-and-inner-functions-may-break-optimizations"><a href="#Eval和内部函数也许会破坏优化-Eval-and-inner-functions-may-break-optimizations" class="headerlink" title="Eval和内部函数也许会破坏优化(Eval and inner functions may break optimizations)"></a>Eval和内部函数也许会破坏优化(Eval and inner functions may break optimizations)</h4><p>注意,eval函数可以破坏环境记录的高效，这是因为使用eval的话根本不知道哪些应该绑定.  </p>
+<p>比如说V8实现的引擎(我猜其他的也一样)会优化函数如不会创建arguments对象(如果它没在函数体内出现),也不会保存没用的父级变量.这样的函数会更加轻量,它自会保存使用词法变量.I.e如果父级变量没有使用–函数甚至不会有闭包.(截屏自chrome dev-tools)：<br><img src="%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83ES/withoutEval.png" alt="withoutEval"> </p>
+<p>然后相同的函数,但是有一个空的eval调用:</p>
+<p><img src="%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83ES/withEval.png" alt="withEval">  </p>
+<p>因为使用了eval就不能提前知道哪些数据将会被使用,我们将看到所有的”重量东西”, argumnets对象,和闭包属性，ie父级环境.  </p>
+<p>进一步，看一看后一种情况的outerFn,它同样创建了arguments对象因为拥有内部函数因此很难分析出内部函数是否使用argumnets.  </p>
+<p>然而,这只是一种实现，它让我们看到了有哪些优化可以提供，也可以怎么取消这些优化.<br>让我们看看第二种环境记录类型–对象环境记录.  </p>
+<h3 id="对象环境记录-Object-environment-record"><a href="#对象环境记录-Object-environment-record" class="headerlink" title="对象环境记录(Object environment record)"></a>对象环境记录(Object environment record)</h3><p>相反的,对象环境记录被用来定义在全局上下文下的变量，函数以及内部使用with语句.这些东西都以低效的方式存储在一个简单对象来实现.如上面提到的,这种情况的绑定都是以对象属性的形式.  </p>
+<ul>
+<li>这种存储着绑定的上下文被称作绑定对象  </li>
+</ul>
+<p>在全局上下文的情况下,变量和全局对象相关联,正因如此我们才可以像全局对象属性一样引用它们:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 10;</span><br><span class="line">console.log(a); &#x2F;&#x2F; 10</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; &quot;this&quot; in the global context</span><br><span class="line">&#x2F;&#x2F; is the global object itself</span><br><span class="line">console.log(this.a); &#x2F;&#x2F; 10</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; &quot;window&quot; is the reference to the</span><br><span class="line">&#x2F;&#x2F; global object in the browser environment</span><br><span class="line">console.log(window.a); &#x2F;&#x2F; 10</span><br></pre></td></tr></table></figure>
+
+<p>在使用with语句的情况下,变量和with–对象属性相关联:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">with (&#123;a: 10&#125;) &#123;</span><br><span class="line">  console.log(a); &#x2F;&#x2F; 10</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每次执行with语句时一个新的词法环境就被创建，这词法环境的环境记录是对象环境记录,而outer环境指向当前运行的环境.然后将当前运行环境替换为with创建的新环境.当with执行完毕当前运行环境又恢复为原来状态.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 10;</span><br><span class="line">var b &#x3D; 20;</span><br><span class="line"> </span><br><span class="line">with (&#123;a: 30&#125;) &#123;</span><br><span class="line">  console.log(a + b); &#x2F;&#x2F; 50</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">console.log(a + b); &#x2F;&#x2F; 30, restored</span><br></pre></td></tr></table></figure>
+
+<p>伪代码如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; initial state</span><br><span class="line">context.lexicalEnvironment &#x3D; &#123;</span><br><span class="line">  environmentRecord: &#123;a: 10, b: 20&#125;,</span><br><span class="line">  outer: null</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; &quot;with&quot; executed</span><br><span class="line">previousEnvironment &#x3D; context.lexicalEnvironment;</span><br><span class="line"> </span><br><span class="line">withEnvironment &#x3D; &#123;</span><br><span class="line">  environmentRecord: &#123;a: 30&#125;,</span><br><span class="line">  outer: context.lexicalEnvironment</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; replace current environment</span><br><span class="line">context.lexicalEnvironment &#x3D; withEnvironment;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; &quot;with&quot; completed, restore the environment back</span><br><span class="line">context.lexicalEnvironment &#x3D; previousEnvironment;</span><br></pre></td></tr></table></figure>
+
+<p>效果上来看和catch从句一样,同样的将当前运行环境替换为新创建的那个环境，这不过这个环境的环境记录为声明环境记录.  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var e &#x3D; 10;</span><br><span class="line"> </span><br><span class="line">try &#123;</span><br><span class="line">  throw 20;</span><br><span class="line">&#125; catch (e) &#123; &#x2F;&#x2F; replace the environment</span><br><span class="line">  console.log(e); &#x2F;&#x2F; 20</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; and now it&#39;s restored back</span><br><span class="line">console.log(e); &#x2F;&#x2F; 10</span><br></pre></td></tr></table></figure>
+
+<p>下面我将看看这些由with语句和catch从句创建的暂时环境使用函数表达式时的效果.   </p>
+<p>因为对象环境记录的低效，在ES5严格模式下with语句被移除掉了.  </p>
+<p>更多原因是，with语句在许多场合造成混淆(因为变量和函数声明的提升)并且其中一些真很让人困惑,这也是为什么with在ES5严格模式下去除.  </p>
+<p>将全局对象从作用域链的底部移除是下一代ES的计划,全局环境记录也将从对象转为声明,使用modules这样的体系,全局绑定如parseInt,Math等等都将只是引入到全局上下文中,但是技术上来说它们将不再是全局对象的属性了,因为已经没有全局对象了.   </p>
+<p>理论上来说,一个拥有对象环境记录的环境,可以以这种方式呈现:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">environment &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F; storage</span><br><span class="line">  environmentRecord: &#123;</span><br><span class="line">    type: &quot;object&quot;,</span><br><span class="line">    bindingObject: &#123;</span><br><span class="line">      &#x2F;&#x2F; storage</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#x2F;&#x2F; reference to the parent environment</span><br><span class="line">  outer: &lt;...&gt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>规范有说明到,bingdingObject是真正对象(e.g. 全局对象)的某种映射,但不是所有在原始对象的属性都被当做绑定对象的属性,比如说,属性名不能为标识符的变量就没有包含在绑定对象上，这是相当符合逻辑的这是因为它们不能被当做变量引用:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; global properties</span><br><span class="line">this[&#39;a&#39;] &#x3D; 10; &#x2F;&#x2F; included in the binding object</span><br><span class="line">this[&#39;hello world&#39;] &#x3D; 20; &#x2F;&#x2F; isn&#39;t included</span><br><span class="line"> </span><br><span class="line">console.log(a); &#x2F;&#x2F; 10, can refer</span><br><span class="line">console.log(hello world); &#x2F;&#x2F; cannot, syntax error</span><br></pre></td></tr></table></figure>
+
+<p>然而,如何将原始对象同步的绑定规范并没有具体指出.  </p>
+<h2 id="执行上下文结构-Structure-of-execution-context"><a href="#执行上下文结构-Structure-of-execution-context" class="headerlink" title="执行上下文结构(Structure of execution context)"></a>执行上下文结构(Structure of execution context)</h2><p>这里我们将简单提及ES5中执行上下文的结构.它和ES3中的有一点不同,并且有如下属性:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ExecutionContextES5 &#x3D; &#123;</span><br><span class="line">  ThisBinding: &lt;this value&gt;,</span><br><span class="line">  VariableEnvironment: &#123; ... &#125;,</span><br><span class="line">  LexicalEnvironment: &#123; ... &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到上下文中有变量环境和词法环境,这对阅读规范的读者常常造成疑惑，我们将简单的澄清它们，但是这里只是简单注意这是主要是来区分<a href="http://dmitrysoshnikov.com/ecmascript/chapter-5-functions/#function-declaration" target="_blank" rel="noopener">函数声明</a>和<a href="http://dmitrysoshnikov.com/ecmascript/chapter-5-functions/#function-expression" target="_blank" rel="noopener">函数表达式</a>的[[Scope]]值.  </p>
+<p>让我们来看一看执行环境的属性.  </p>
+<h3 id="this绑定-This-binding"><a href="#this绑定-This-binding" class="headerlink" title="this绑定(This binding)"></a>this绑定(This binding)</h3><p>This的值现在称为this绑定,然而除了术语改变了其他的从语义上(除了在严格模式上，this可能为undefined)没有什么改变,在全局模式下, this任然绑定的是全局对象本身：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(function (global) &#123;</span><br><span class="line">  global.a &#x3D; 10;</span><br><span class="line">&#125;)(this);</span><br><span class="line"> </span><br><span class="line">console.log(a); &#x2F;&#x2F; 10</span><br></pre></td></tr></table></figure>
+
+<p>并且在函数上下文中this的值仍由函数如何调用所决定.如果他是通过一个<a href="http://dmitrysoshnikov.com/ecmascript/chapter-3-this/#-reference-type" target="_blank" rel="noopener">引用</a>调用,那么this的基本值由引用决定,其他情况–要么全局对象或者在严格模式下的undefined.  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">var foo &#x3D; &#123;</span><br><span class="line">  bar: function () &#123;</span><br><span class="line">    console.log(this);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; --- Reference cases ---</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; with a reference</span><br><span class="line">foo.bar(); &#x2F;&#x2F; &quot;this&quot; is &quot;foo&quot; - the base</span><br><span class="line"> </span><br><span class="line">var bar &#x3D; foo.bar;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; with the reference</span><br><span class="line">bar(); &#x2F;&#x2F; &quot;this&quot; is the global, implicit base</span><br><span class="line">this.bar(); &#x2F;&#x2F; the same, explicit base, the global</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; with also but another reference</span><br><span class="line">bar.prototype.constructor(); &#x2F;&#x2F; &quot;this&quot; is &quot;bar.prototype&quot;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; --- non-Reference cases ---</span><br><span class="line"> </span><br><span class="line">(foo.bar &#x3D; foo.bar)(); &#x2F;&#x2F; &quot;this&quot; is &quot;global&quot; or &quot;undefined&quot;</span><br><span class="line">(foo.bar || foo.bar)(); &#x2F;&#x2F; &quot;this&quot; is &quot;global&quot; or &quot;undefined&quot;</span><br><span class="line">(function () &#123; this; &#125;)(); &#x2F;&#x2F; &quot;this&quot; is &quot;global&quot; or &quot;undefined&quot;</span><br></pre></td></tr></table></figure>
+
+<p>再次注意,在严格模式,不能通过如下模式获得全局对象:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;</span><br><span class="line">  &quot;use strict&quot;;</span><br><span class="line">  var global &#x3D; (function () &#123; return this; &#125;)();</span><br><span class="line">  console.log(global); &#x2F;&#x2F; undefined!</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>如和在这种情况下(包括间接调用和eval)处理这种技术将在<a href="http://dmitrysoshnikov.com/ecmascript/es5-chapter-2-strict-mode/#codethiscode-value-restrictions" target="_blank" rel="noopener">严格模式</a>章节介绍.  </p>
+<p>让我们回到环境来看规范中上下文中的变量环境和词法环境,这两部分常常造成误解并且在一些解释中描述常常不正确.  </p>
+<h3 id="变量环境-Variable-environment"><a href="#变量环境-Variable-environment" class="headerlink" title="变量环境(Variable environment)"></a>变量环境(Variable environment)</h3><p>变量环境部分存储着初始化变量和函数的上下文.准确的说它的环境存储包含着进入上下文是填充的数据.这和ES3中的<a href="http://dmitrysoshnikov.com/ecmascript/javascript-the-core/#variable-object" target="_blank" rel="noopener">变量对象</a>很像.  </p>
+<p>当进入一个函数的上下文时,回想一下这时一个特别的argumnets对象用于表示传入的形参值被创建.在严格模式下arguments对象经历了<a href="http://dmitrysoshnikov.com/ecmascript/es5-chapter-2-strict-mode/#codeevalcode-and-codeargumentscode-restrictions" target="_blank" rel="noopener">很多改变</a>,其中arguments将不能通过其属性改变其真正的参数值.还有callee(调用函数本身的引用)将在严格模式下废除.  </p>
+<p>在这个代码里:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line">  var b &#x3D; 20;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">foo(10);</span><br></pre></td></tr></table></figure>
+
+<p>理论上我们有如下VariableEnvironment构成foo函数的上下文:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fooContext.VariableEnvironment &#x3D; &#123;</span><br><span class="line">  environmentRecord: &#123;</span><br><span class="line">    arguments: &#123;0: 10, length: 1, callee: foo&#125;,</span><br><span class="line">    a: 10,</span><br><span class="line">    b: 20</span><br><span class="line">  &#125;,</span><br><span class="line">  outer: globalEnvironment</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>那LexicalEnvironment是如何组成的?好笑的是词法环境初始化只是VariableEnvironment的复制.  </p>
+<h3 id="词法环境-lexical-environment"><a href="#词法环境-lexical-environment" class="headerlink" title="词法环境(lexical environment)"></a>词法环境(lexical environment)</h3><p>词法环境和变量环境本质上都是的词法环境(不管它们怎么命名)i.e.都是在内部函数创建时静态(词法)捕获外部绑定.  </p>
+<p>正如我们先前提到的初始化LexicalEnvironment只是对VariableEnvironment的蓝本复制,看看下面例子:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fooContext.LexicalEnvironment &#x3D; copy(fooContext.VariableEnvironment);</span><br></pre></td></tr></table></figure>
+
+<p>然而接下来会发生什么,在<a href="http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/#code-execution" target="_blank" rel="noopener">代码执行阶段</a>,提前在原有的词法环境通过with语句和catch从句来扩展(尽管如我们所说,在ES5中提前替换上下文环境，但是在ES3中没有扩展).    </p>
+<p>with语句和catch从句如上面所示的在执行时替换上下文环境,并且这种情况和函数表达式有关.  </p>
+<p>从<a href="http://dmitrysoshnikov.com/ecmascript/es5-chapter-3-1-lexical-environments-common-theory/#rules-of-function-creation-and-application" target="_blank" rel="noopener">函数创建的规则</a>的讨论中,我们知道闭包将在函数创建时将词法环境保存.  </p>
+<p>如果一个函数表达式在一个with语句(或者cacth从句)创建,那么它应该保存(替换)当前词法环境.  </p>
+<p>我们是直接将VariableEnvironment替换(而不是它的副本LexicalEnvironment),然后再其with语句执行结束后恢复过来,然而这就意味着FE将不能引用创建时的绑定,但是FE需要with-绑定.  </p>
+<p>其实我们不会替换VariableEnvironment本身,因为FD也可以在with语句内调用,FD与FE相反的是可以使用初始化的状态,而不是从with-对象(我们将看下面的例子)</p>
+<ul>
+<li>这就是为什么,当函数声明(FD)时保存VariableEnvironment部分作为其[[Scope]]属性,而函数表达式(ES)保存其LexicalEnvironment部分.这是唯一可以区分它们两的地方.  </li>
+</ul>
+<p>这个事实好笑的是在下一代ES或者ES5严格模式with语句将彻底消失，这样ES规范将在这个方面少了很多误解.  </p>
+<p>让我们在看一下我们的分析：FE保存LexicalEnvironment,因为它需要在with执行时动态绑定,但是FD将保存VariableEnvironment,因为根据规范FD不能在一个块级内创建，并且它会<a href="http://dmitrysoshnikov.com/notes/note-4-two-words-about-hoisting/" target="_blank" rel="noopener">提升</a>到顶部.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 10;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; FD</span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">with (&#123;a: 20&#125;) &#123;</span><br><span class="line"> </span><br><span class="line">  &#x2F;&#x2F; FE</span><br><span class="line">  var bar &#x3D; function () &#123;</span><br><span class="line">    console.log(a);</span><br><span class="line">  &#125;;</span><br><span class="line"> </span><br><span class="line">  foo(); &#x2F;&#x2F; 10!, from VariableEnvrionment</span><br><span class="line">  bar(); &#x2F;&#x2F; 20,  from LexicalEnvrionment</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">foo(); &#x2F;&#x2F; 10</span><br><span class="line">bar(); &#x2F;&#x2F; still 20</span><br></pre></td></tr></table></figure>
+
+<p>理论上可以如下面: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; &quot;foo&quot; is created</span><br><span class="line">foo.[[Scope]] &#x3D; globalContext.[[VariableEnvironment]];</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; &quot;with&quot; is executed</span><br><span class="line">previousEnvironment &#x3D; globalContext.[[LexicalEnvironment]];</span><br><span class="line"> </span><br><span class="line">globalContext.[[LexicalEnvironment]] &#x3D; &#123;</span><br><span class="line">  environmentRecord: &#123;a: 20&#125;,</span><br><span class="line">  outer: previousEnvironment</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; &quot;bar&quot; is created</span><br><span class="line">bar.[[Scope]] &#x3D; globalContext.[[LexicalEnvironment]];</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; &quot;with&quot; is completed, restore the environment</span><br><span class="line">globalContext.[[LexicalEnvironment]] &#x3D; previousEnvironment;</span><br></pre></td></tr></table></figure>
+
+<p>为了从实例中更明显的看清区别,我们可以采用非标准模式在块级内创建FD,根据我们<a href="http://dmitrysoshnikov.com/ecmascript/chapter-5-functions/#implementations-extension-function-statement" target="_blank" rel="noopener">所记得</a>规范将会报异常,但是如今的实现环境没有一个会报错.Firefox的函数语句有自己的非标准方式执行很多年,并且在其他实现环境如v8引擎也遵循下面行为:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 10;</span><br><span class="line"> </span><br><span class="line">with (&#123;a: 20&#125;) &#123;</span><br><span class="line"> </span><br><span class="line">  &#x2F;&#x2F; FD</span><br><span class="line">  function foo() &#123; &#x2F;&#x2F; do not test in Firefox!</span><br><span class="line">    console.log(a);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  &#x2F;&#x2F; FE</span><br><span class="line">  var bar &#x3D; function () &#123;</span><br><span class="line">    console.log(a);</span><br><span class="line">  &#125;;</span><br><span class="line"> </span><br><span class="line">  foo(); &#x2F;&#x2F; 10!, from VariableEnvrionment</span><br><span class="line">  bar(); &#x2F;&#x2F; 20,  from LexicalEnvrionment</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">foo(); &#x2F;&#x2F; 10</span><br><span class="line">bar(); &#x2F;&#x2F; still 20</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码这样运行的原因是因为FD(被提升到顶部)保存VariableEnvironment当做其[[Scope]],而FE保存其LexicalEnvironment(当with或catch执行时将被替换).  </p>
+<p>注意：因为ES6标准的块级函数声明，这个例子洪foo函数就保存词法环境</p>
+<h2 id="标识符求值-Identifier-resolution"><a href="#标识符求值-Identifier-resolution" class="headerlink" title="标识符求值(Identifier resolution)"></a>标识符求值(Identifier resolution)</h2><ul>
+<li>标识符的求值是判断哪个标识符出现在那个词法环境绑定上  </li>
+</ul>
+<p>换句话说,它和变量的<a href="http://dmitrysoshnikov.com/ecmascript/javascript-the-core/#scope-chain" target="_blank" rel="noopener">作用域链查询</a>很像.如上说的也和原型链查询很像,只是将prototype的连接换成了连接着环境的outer连接.  </p>
+<p>看如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 10;</span><br><span class="line"> </span><br><span class="line">(function foo() &#123;</span><br><span class="line"> </span><br><span class="line">  var b &#x3D; 20;</span><br><span class="line"> </span><br><span class="line">  (function bar() &#123;</span><br><span class="line"> </span><br><span class="line">    var c &#x3D; 30;</span><br><span class="line">    console.log(a + b + c); &#x2F;&#x2F; 60</span><br><span class="line">     </span><br><span class="line">  &#125;)();</span><br><span class="line"> </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>标识符求值过程如a绑定一样的迭代求值. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function resolveIdentifier(lexicalEnvironment, identifier) &#123;</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F; if it&#39;s the final link, and we didn&#39;t find</span><br><span class="line">  &#x2F;&#x2F; anything, we have a case of a reference error</span><br><span class="line">  if (lexicalEnvironment &#x3D;&#x3D; null) &#123;</span><br><span class="line">    throw ReferenceError(identifier + &quot; is not defined&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F; return the binding (reference) if it exists;</span><br><span class="line">  &#x2F;&#x2F; later we&#39;ll be able to get the value from the reference</span><br><span class="line">  if (lexicalEnvironment.hasBinding(identifier)) &#123;</span><br><span class="line">    return new Reference(lexicalEnvironment, identifier);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F; else try to find in the parent scope,</span><br><span class="line">  &#x2F;&#x2F; recursively analyzing the outer environment</span><br><span class="line">  return resolveIdentifier(lexicalEnvironment.outer, identifier);</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">resolveIdentifier(bar.[[LexicalEnvironment]], &quot;a&quot;) -&gt;</span><br><span class="line"> </span><br><span class="line">-- bar.[[LexicalEnvironment]] - not found,</span><br><span class="line">-- bar.[[LexicalEnvironment]].outer (i.e. foo.[[LexicalEnvironment]]) -&gt; not found</span><br><span class="line">-- bar.[[LexicalEnvironment]].outer.outer -&gt; found reference, value 10</span><br></pre></td></tr></table></figure>
+
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>这一章中我们澄清了ECMAScript中词法环境的概念.我们也讲述了为什么要将原来的 变量/激活 对象以及作用域链换成词法环境链–它们大多数的改变是为相关的高效实现.  </p>
+<p>我们也看到了词法环境与闭包的相关性(再次注意,ED合FE在ECMScript都会参数闭包),我们再次回忆了this绑定是如何在不同的执行上下文取值.  </p>
+<p>此外我们在提到了下一代ES关于环境的计划,如去除全局对象.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ES/" rel="tag"># ES</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/12/05/%E7%AC%AC%E4%B8%89%E7%AB%A0this/" rel="prev" title="this">
+      <i class="fa fa-chevron-left"></i> this
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/06/SSL_TLS/" rel="next" title="SSL/TLS">
+      SSL/TLS <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#详解ECMA-262-5-3-2章-词法环境：ECMAScript的实现"><span class="nav-number">1.</span> <span class="nav-text">详解ECMA-262-5 3.2章  词法环境：ECMAScript的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导言-Intruduction"><span class="nav-number">1.1.</span> <span class="nav-text">导言(Intruduction)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-Definitions"><span class="nav-number">1.2.</span> <span class="nav-text">定义(Definitions)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境记录类型-Environment-record-types"><span class="nav-number">1.3.</span> <span class="nav-text">环境记录类型(Environment record types)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#声明环境记录-Declarative-environment-record"><span class="nav-number">1.3.1.</span> <span class="nav-text">声明环境记录(Declarative environment record)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Eval和内部函数也许会破坏优化-Eval-and-inner-functions-may-break-optimizations"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">Eval和内部函数也许会破坏优化(Eval and inner functions may break optimizations)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象环境记录-Object-environment-record"><span class="nav-number">1.3.2.</span> <span class="nav-text">对象环境记录(Object environment record)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行上下文结构-Structure-of-execution-context"><span class="nav-number">1.4.</span> <span class="nav-text">执行上下文结构(Structure of execution context)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#this绑定-This-binding"><span class="nav-number">1.4.1.</span> <span class="nav-text">this绑定(This binding)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量环境-Variable-environment"><span class="nav-number">1.4.2.</span> <span class="nav-text">变量环境(Variable environment)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词法环境-lexical-environment"><span class="nav-number">1.4.3.</span> <span class="nav-text">词法环境(lexical environment)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标识符求值-Identifier-resolution"><span class="nav-number">1.5.</span> <span class="nav-text">标识符求值(Identifier resolution)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">1.6.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe - zh-tw - en</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe - zh-tw - en</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
