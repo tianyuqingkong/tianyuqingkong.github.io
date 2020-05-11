@@ -2,9 +2,10 @@
 title: SSL/TLS
 date: 2020/3/6
 tags:
-- nodejs docker tcpdump
+- https SSL/TLS
 ---
-
+因为要给服务器的一些域名添加https借此机会了解下SSL/TLS
+<!--more-->
 ## 原始加密
 假设A向B通信没有任何的加密，中间一个C拦截掉A的消息后，那么A与B之间的通信毫无隐私可言。那么就出现了第一种加密方式。  
 
@@ -43,10 +44,34 @@ tags:
   * 2.2 C拦截到加密后的hash值，以及加密后的数据。C用自己的private key解密加密后的数据（这样就得到原始数据），并且C将篡改后的原始数据计算hash值，并且用C自己的private key计算出加密后hash值，再用先前拦截到B的public key加密篡改后的数得到加密后的数据。将篡改后的加密hash值、加密数据发送给B
   * 2.3 B收到以后两个数据后，先用自己的private key解密数据之后计算hash值，再用C传来的假public key解密hash值，发现匹配。
 
-  ## 现代加密
+## 现代加密
   上面非对称加密的第二个缺陷的关键问题：public key无法保证是对方的。  
 
-  CA（Certificate Authority）证书认证就算解决这个问题的，CA的工作方式如下  
-  1： B先将自己的public key交给
+  CA（Certificate Authority）证书认证就是解决这个问题的，CA的工作方式如下  
+  1： B先将自己的public key和其他一些信息交给CA  
+  2： CA用自己的private key加密这些信息生产B的数字证书，返回给B  
+  3： 当B向A传递自己的pulic key时，B传递数字证书给A
+  4： A拿到数字证书通过CA证书（包含CA的public key）解密B的数字证书获取到B的public key  
+
+  这里有一个关键的地方怎么保证CA不被劫持，原因是CA将自己的证书集成到浏览器和操作系统中，只有在浏览器或者操作系统被劫持的情况CA才有可能被劫持。这样只要操作系统和浏览器不被劫持就能保证交换public key
+
+
+非对称加密处理缓慢的问题在实际SSL/TLS使用场景中是大体上是如下解决的（细节有差别）：
+ * 1 先通过CA保证交换public key
+ * 2 再通过非对称算法交换对称加密密钥（一部分）
+ * 3 最后通过对称加密，加密通信
+
+## HTTPS
+ 最常见的SSL/TLS使用场景为HTTPS（HTTP over SSL）, CA作为公证机构一般是要收费的，用户（普通人）是不会去申请的，而服务端一般会去申请，所有实际的HTTPS如下：
+ * 1 用户向服务端发起一个安全连接请求  
+ * 2 服务端返回一个经过CA认证的数字证书，客户通过浏览器内置的CA解密证书得到服务端public key  
+ * 3 用户使用public key加密一个对称加密算法的密钥，并且发送给服务端
+ * 4 服务端使用自己的private key解密得到原始的对称算法密钥
+ * 5 双方通信使用对称算法密钥加密和解密
+
+
+
+
+
 
 
