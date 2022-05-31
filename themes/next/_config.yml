@@ -69,7 +69,7 @@ footer:
   # Powered by Hexo & NexT
   powered: true
 
-  # Beian ICP and gongan information for Chinese users. See: http://www.beian.miit.gov.cn, http://www.beian.gov.cn
+  # Beian ICP and gongan information for Chinese users. See: https://beian.miit.gov.cn, http://www.beian.gov.cn
   beian:
     enable: false
     icp:
@@ -118,8 +118,8 @@ darkmode: false
 menu:
   home: / || fa fa-home
   #about: /about/ || fa fa-user
-  #tags: /tags/ || fa fa-tags
-  #categories: /categories/ || fa fa-th
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
   #schedule: /schedule/ || fa fa-calendar
   #sitemap: /sitemap.xml || fa fa-sitemap
@@ -247,12 +247,14 @@ post_meta:
     another_day: true
   categories: true
 
+
 # Post wordcount display settings
 # Dependencies: https://github.com/theme-next/hexo-symbols-count-time
 symbols_count_time:
   separated_meta: true
   item_text_post: true
   item_text_total: false
+
 
 # Use icon instead of the symbol # to indicate the tag at the bottom of the post
 tag_icon: false
@@ -368,7 +370,7 @@ back2top:
   # Back to top in sidebar.
   sidebar: false
   # Scroll percent label in b2t button.
-  scrollpercent: false
+  scrollpercent: true
 
 # Reading progress bar
 reading_progress:
@@ -610,9 +612,9 @@ changyan:
 # Valine
 # For more information: https://valine.js.org, https://github.com/xCss/Valine
 valine:
-  enable: false
-  appid: # Your leancloud application appid
-  appkey: # Your leancloud application appkey
+  enable: true
+  appid: UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz
+  appkey: AgFnrn2FODUJulhW3pUkvB8o
   notify: false # Mail notifier
   verify: false # Verification code
   placeholder: Just go go # Comment box placeholder
@@ -689,9 +691,9 @@ cnzz_siteid:
 # AppID and AppKey are recommended to be the same as valine's for counter compatibility.
 # Do not enable both `valine.visitor` and `leancloud_visitors`.
 leancloud_visitors:
-  enable: false
-  app_id: # <your app id>
-  app_key: # <your app key>
+  enable: true
+  app_id: UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz
+  app_key: AgFnrn2FODUJulhW3pUkvB8o
   # Required for apps from CN region
   server_url: # <your server url>
   # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
@@ -739,7 +741,7 @@ algolia_search:
 # Local Search
 # Dependencies: https://github.com/theme-next/hexo-generator-searchdb
 local_search:
-  enable: false
+  enable: true
   # If auto, trigger search by changing input.
   # If manual, trigger search by pressing enter key or search button.
   trigger: auto

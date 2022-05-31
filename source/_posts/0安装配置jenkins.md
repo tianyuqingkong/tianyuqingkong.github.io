@@ -31,32 +31,32 @@ categories:
 * 6 jenkins与git的ssh免密配置：一般jenkins需要从git自动拉取代码需要提前加上免密机制，下面的流程需要这个配置（有兴趣的可以googel下ssh）
   * 一般linux中有git(如果没有自行安装),找到git安装的路径并且配置在jenkins中这样jenkins就可以使用git命令，默认git安装路径为/usr/libexec/git-core/git
   * jenkins-> 系统管理 -> 全局工具配置 -> 下图 -> 保存
-  ![gitInJenkinsConfig](0安装配置jenkins/gitInJenkinsConfig.png)
+  ![gitInJenkinsConfig](./0安装配置jenkins/gitInJenkinsConfig.png 'rrr')
 
   * sudo su :进入服务器切换为root用户 (上面第步4中jenkins角色配置为root，这里免密就是使用root用户)
 
   * cd ~/.ssh : 进入根目录的.ssh文件夹(如果不存在这个文件夹或者文件夹里面没有东西证明root用户没有加ssh，可以使用ssh-keygen -t rsa 生成)
 
   * cat id_rsa.pub ： 将输出的公钥复制（下图）
-  ![pubKey](0安装配置jenkins/pubKey.png)
+  ![pubKey](./0安装配置jenkins/pubKey.png)
   
   * 将复制公钥添加到git用户的ssh中：userLogo -> Settings -> SSH Keys -> Key -> add Keysc(这样配置后jenkins中git的权限就是当前你配置gitlab用户所拥有的权限，如拉取某个项目的权限)
-   ![gitKeys](0安装配置jenkins/gitKeys.png)
+   ![gitKeys](./0安装配置jenkins/gitKeys.png)
 
   
   * 以管理员身份进入jinkins网站(http://10.201.81.83:8098/):这里必须为管理员不然无法添加凭证
 
   * 凭证 -> 系统 -> 添加域 —> 填写域名（这里随便填写）
-  ![credentials](0安装配置jenkins/credentials.png)
+  ![credentials](./0安装配置jenkins/credentials.png)
 
   * 添加凭证
-    ![addCredential](0安装配置jenkins/addCredential.png)
+    ![addCredential](./0安装配置jenkins/addCredential.png)
 
   * 复制linux中root用户的私钥 (和前面一样 sudo cd ~/.ssh  cat id_rsa)
-   ![priKey](0安装配置jenkins/priKey.png)
+   ![priKey](./0安装配置jenkins/priKey.png)
   
   * 将刚刚复制的私钥填写到图中对应位置：注意选择类型的时候选择ssh
-    ![addPrikey](0安装配置jenkins/addPrikey.png)
+    ![addPrikey](./0安装配置jenkins/addPrikey.png)
 
 
 * 7 jenkin 流程构建：这个步骤是大部分人jenkins用户都要关注的部分，其他上面6个步骤只要jenkin管理员关注，或者想自己搭建一个自己jenkin的同学可以了解

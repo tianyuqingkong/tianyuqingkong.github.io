@@ -5,6 +5,7 @@ categories:
 - javascript
 ---
 
+
 *  1 [导言](#1)
 *  2 [定义](#2)
 *  3 [全局环境下的this值](#3)

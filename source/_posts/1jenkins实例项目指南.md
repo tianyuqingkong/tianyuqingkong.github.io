@@ -1,5 +1,5 @@
 title: 1 jenkins在GVP_doc项目中的实际使用
-date: 2020/5/18
+date: 2020/5/16
 categories:
 - jenkins
 ---
@@ -17,7 +17,8 @@ categories:
 
       * 代码推送特定分支发生自动部署， 这个特定分支是可以配置的目前是配置的master，如果想改变有下面步骤：  
       登录到jenkins网站 -> auto_online_deploy ->auto_online_GVPdocs -> Configure -> Buid Triggers -> Advanced -> Allowed branches -> Filter branches by name -> Include
-      ![config](1jenkins实例项目指南/config.png)  
+      ![config](./1jenkins实例项目指南/config.png)  
+
 
   * 手动一键式部署线上环境，这个是一键点击完成将特定分支的代码（目前设置是master）部署到线上环境，点击完毕后看下面的job跑完就是发布成功。部署成功具体表现是线上环境的网站内容发生了变化。这里需要注意的是要有两个步骤一个是确认发布的分支是否是你想要发布的分支，另一个就是点击按钮。  
     * 确认分支  

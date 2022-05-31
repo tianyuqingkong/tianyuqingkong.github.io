@@ -6,6 +6,7 @@ categories:
 
 ## 第1章 Node简介
   node的主要构架如下图所示：  
+  
 
   ![nodeStrcture](深入浅出Node.js--读书笔记/node1.png) 
   <!--more-->

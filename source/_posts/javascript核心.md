@@ -3,6 +3,7 @@ date: 2017/12/4
 categories:
 - javscript
 ---
+
 这是'javascript核心'概览第二版，文章内容主要是ECMAScript程序语言以及运行时系统核心部分.
 
 面向阅读对象：专业开发者

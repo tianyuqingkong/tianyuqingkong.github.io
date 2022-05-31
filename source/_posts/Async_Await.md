@@ -3,6 +3,8 @@ date: 2017/10/17
 categories:
 - javscript
 ---
+
+
 （本来想吐槽下去年才熟练使用Promise但是又要用async-await，但是async-await炒鸡好用，默默流泪）
 ### Async/Await与Promise的关系
   async-await是promise和generator的语法糖，意在优化promise的写法，简单的说async-await是用来简化pormise写法的，并不是取代关系。

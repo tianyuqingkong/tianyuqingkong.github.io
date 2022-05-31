@@ -5,6 +5,8 @@ categories:
 ---
 ## 类型(Types)
 
+
+
 * 1.1 原始类型：当你获取一个原始类型你应该直接在其值上操作
    * string
    * number

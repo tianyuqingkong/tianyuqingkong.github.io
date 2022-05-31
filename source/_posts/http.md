@@ -5,9 +5,10 @@ date: 2017-10-19
 ## 第3章 HTTP报文内的HTTP信息
 一般报文和响应报文的解构如下图所示：  
 
-![message](test/message.png)
+![message](http/message.png)
 
 <!--more-->
+
 
 #### 报文和实体的差异
 * 报文(message): HTTP通信的基本单位，由8位组字节流组成，通过HTTP通信传输  
@@ -45,7 +46,7 @@ date: 2017-10-19
 代理：接受客户端发送的请求并转发给服务器，同时也接收服务器返回的响应并转发给客户端。
 一般具体过程如下：  
 
-![proxy](test/proxy.png)
+![proxy](http/proxy.png)
 
 按照使用分类。一种是否使用缓存，另一种是否修改报文。
 * 缓存代理： 代理转发响应时，缓存代理(Caching Proxy)会预先将资源副本保存在代理服务器上，当代理再次接收到相同资源请求时，就不可以从源服务器获取资源，而是将之前缓存作为响应返回。
@@ -54,7 +55,7 @@ date: 2017-10-19
 #### 5.2.2 网关
 网关：利用网关可以由HTTP请求转化为其他协议通信。  
 
-![gateway](test/gateway.png)
+![gateway](http/gateway.png)
 
 #### 5.2.3 隧道
 隧道： 按照要求建立器与其他服务器通信的路线，如利用SSL等加密手段。隧道的目的在保障客户端与服务器进行安全通信。
@@ -62,7 +63,7 @@ date: 2017-10-19
 ### 5.3 缓存
 缓存分为客户端缓存和代理缓存。
 
-![tunnel](test/tunnel.png)
+![tunnel](http/tunnel.png)
 
 ## 第6章 HTTP首部
 根据首部字段实际用途被分为以下4中类型
@@ -73,16 +74,16 @@ date: 2017-10-19
 
 HTTP/1.1 规范定义如下47中首部字段
 通用首部子段：  
-![子段1](test/GeneralHeader.png)  
+![子段1](http/GeneralHeader.png)  
 
 请求首部子段：    
-![子段2](test/RequestHeader.png)  
+![子段2](http/RequestHeader.png)  
 
 响应首部子段：  
-![子段3](test/ResponseHeader.png)  
+![子段3](http/ResponseHeader.png)  
 
 实体首部子段：  
-![子段4](test/EntityHeader.png)  
+![子段4](http/EntityHeader.png)  
 
 除了RFC2616中定义的47种首部子段。还有Cookie, Set-Cookie和Content-Disposition等。
 
@@ -131,29 +132,29 @@ Accept-Language:zh-CN,zh;q=0.8
 ```
 
 #### Authorization
-![Authorization](test/Authorization.png);
+![Authorization](http/Authorization.png);
 
 #### Host
 * 首部字段 Host 会告知服务器，请求的资源所处的互联网主机名和端口号Host 首部字段在 HTTP/1.1 规范内是唯一一个必须被包含在请求内的首部字段  
-![Host](test/Host.png)
+![Host](http/Host.png)
 
 #### If-Match
 * 如If-xxx这种首部字段称为条件请求，只有服务器接受附加条件后判定为真才会执行请求。 需要注意的是所有的条件都同时满足时才会处理请求。If-Match字段必须和ETag匹配时，服务器才会接受请求。
-![If-Match](test/If-Match.png)
+![If-Match](http/If-Match.png)
 
 #### If-Modified-Since
-![If-Modified-Since](test/If-Modified-Since.png)
+![If-Modified-Since](http/If-Modified-Since.png)
 
 #### If-None-Match
 * 在 GET 或 HEAD 方法中使用首部字段 If-None-Match 可获取最新的资源。因此，这与使用首部字段 If-Modified-Since 时有些类似。  
-![If-None-Match](test/If-None-Match.png)
+![If-None-Match](http/If-None-Match.png)
 
 #### If-Range
 * 它告知服务器若指定的 If-Range 字段值（ETag 值或者时间但是二者不能同时使用）和请求资源的 ETag 值或时间相一致时，则作为范围请求处理。反之，则返回全体资源。
-![If-Range](test/If-Range.png)
+![If-Range](http/If-Range.png)
 
 * 若不使用If-Range请求失败则需要两次请求
-![If-Range-without](test/If-Range-without.png)
+![If-Range-without](http/If-Range-without.png)
 
 #### If-Unmodified-Since
 * 的作用的是告知服务器，指定的请求资源只有在字段值内指定的日期时间之后，未发生更新的情况下，才能处理请求。  
@@ -191,7 +192,7 @@ URI。
 
 #### Vary
 * 从代理服务器接收到源服务器返回包含 Vary 指定项的响应之后，若再要进行缓存，仅对请求中含有相同 Vary 指定首部字段的请求返回缓存。即使对相同资源发起请求，但由于 Vary 指定的首部字段不相同，因此必须要从源服务器重新获取资源。
-![Vary](test/Vary.png)
+![Vary](http/Vary.png)
 
 ## 6.6 实体首部字段
 
