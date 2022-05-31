@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,22 +17,22 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="第2章  有意义的名称2.2 名副其实 变量 函数或类的名称都应该已经回复了所有的大问题。它应该告诉你，它为什么会存在，它做什么事，应该怎么用。如果名称需要注释来补充，那就不算是名副其实。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="代码整洁之道">
-<meta property="og:url" content="http://yoursite.com/2017/10/10/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93--%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:url" content="http://example.com/2017/10/10/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93--%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="第2章  有意义的名称2.2 名副其实 变量 函数或类的名称都应该已经回复了所有的大问题。它应该告诉你，它为什么会存在，它做什么事，应该怎么用。如果名称需要注释来补充，那就不算是名副其实。">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-10-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-05-06T06:06:49.971Z">
-<meta property="article:author" content="John Doe - zh-tw - en">
+<meta property="article:modified_time" content="2022-05-31T06:41:49.100Z">
+<meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2017/10/10/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93--%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+<link rel="canonical" href="http://example.com/2017/10/10/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93--%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
 
 <script id="page-configurations">
@@ -41,7 +41,7 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'en'
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -85,7 +85,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -103,6 +103,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -114,19 +115,56 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -149,12 +187,12 @@
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/10/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93--%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/10/10/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93--%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe - zh-tw - en">
+      <meta itemprop="name" content="John Doe">
       <meta itemprop="description" content="">
     </span>
 
@@ -171,28 +209,49 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="Created: 2017-10-10 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-10T00:00:00+08:00">2017-10-10</time>
+              <time title="创建时间：2017-10-10 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-10T00:00:00+08:00">2017-10-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-06 14:06:49" itemprop="dateModified" datetime="2020-05-06T14:06:49+08:00">2020-05-06</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-31 14:41:49" itemprop="dateModified" datetime="2022-05-31T14:41:49+08:00">2022-05-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/%E5%A6%82%E4%BD%95%E5%86%99%E4%BB%A3%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">如何写代码</span></a>
                 </span>
             </span>
 
           
+            <span id="/2017/10/10/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93--%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-meta-item leancloud_visitors" data-flag-title="代码整洁之道" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2017/10/10/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93--%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/10/10/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93--%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -204,14 +263,12 @@
 
       
         <h2 id="第2章-有意义的名称"><a href="#第2章-有意义的名称" class="headerlink" title="第2章  有意义的名称"></a>第2章  有意义的名称</h2><h3 id="2-2-名副其实"><a href="#2-2-名副其实" class="headerlink" title="2.2 名副其实"></a>2.2 名副其实</h3><ul>
-<li>变量 函数或类的名称都应该已经回复了所有的大问题。它应该告诉你，它为什么会存在，它做什么事，应该怎么用。如果名称需要注释来补充，那就不算是名副其实。<a id="more"></a>
-
-</li>
+<li>变量 函数或类的名称都应该已经回复了所有的大问题。它应该告诉你，它为什么会存在，它做什么事，应该怎么用。如果名称需要注释来补充，那就不算是名副其实。<span id="more"></span></li>
 </ul>
 <h3 id="2-3-避免误导"><a href="#2-3-避免误导" class="headerlink" title="2.3 避免误导"></a>2.3 避免误导</h3><h4 id="程序员必须避免留下掩藏代码本意的错误线索。"><a href="#程序员必须避免留下掩藏代码本意的错误线索。" class="headerlink" title="程序员必须避免留下掩藏代码本意的错误线索。"></a>程序员必须避免留下掩藏代码本意的错误线索。</h4><ul>
 <li>1.避免使用与本意相悖的的词： 别用accountArray来指称一组账号，除非它真的是Array类型。</li>
 <li>2.提防使用差别较小的名称。</li>
-<li>3.别用人眼误导性名称：小写i和大写O和常量“1”与“0”很相似。  </li>
+<li>3.别用人眼误导性名称：小写i和大写O和常量“1”与“0”很相似。</li>
 </ul>
 <h3 id="2-4-做有意义的区分"><a href="#2-4-做有意义的区分" class="headerlink" title="2.4 做有意义的区分"></a>2.4 做有意义的区分</h3><ul>
 <li>废话是另一种没意义的区分。如果有一个Product类。如果还有一个ProductInfo或ProductDate类，那它们的名称虽然不同，意思却无区别</li>
@@ -262,20 +319,18 @@
 <li>函数要么做什么事，要么回答什么事，但二者不可兼得。函数应该修改某个对象的状态，或者返回该对象的有关信息。</li>
 </ul>
 <h3 id="3-9-使用异常代替返回错误码"><a href="#3-9-使用异常代替返回错误码" class="headerlink" title="3.9 使用异常代替返回错误码"></a>3.9 使用异常代替返回错误码</h3><ul>
-<li>将指令式函数错误代码返回一反面违反了分割指令与询问，另一方面有可能导致更深层的嵌套解构。使用try/catch将错误处理代码从主路径中分离出。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">if(delatePage(page)  &#x3D;&#x3D; E_OK) &#123;</span><br><span class="line">    if(registry.deleteReference(page.name) &#x3D;&#x3D; E_OK) &#123;</span><br><span class="line">        if(configKeys.deleteKey(page.name.makeKey()) &#x3D;&#x3D; E_OK )&#123;</span><br><span class="line">            console.log(&quot;page deleted&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            console.log(&quot;configKey not deleted&quot;);</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        console.log(&quot;deletReference from regitry failed&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    console.log(&quot;delete failed&quot;);</span><br><span class="line">    return E_ERROR;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>将指令式函数错误代码返回一反面违反了分割指令与询问，另一方面有可能导致更深层的嵌套解构。使用try&#x2F;catch将错误处理代码从主路径中分离出。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">if(delatePage(page)  == E_OK) &#123;</span><br><span class="line">    if(registry.deleteReference(page.name) == E_OK) &#123;</span><br><span class="line">        if(configKeys.deleteKey(page.name.makeKey()) == E_OK )&#123;</span><br><span class="line">            console.log(&quot;page deleted&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            console.log(&quot;configKey not deleted&quot;);</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        console.log(&quot;deletReference from regitry failed&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    console.log(&quot;delete failed&quot;);</span><br><span class="line">    return E_ERROR;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">    deletePage(page);</span><br><span class="line">    registry.deleteReerence(page.name);</span><br><span class="line">    configKegs.deleteKey(page.name.makeKey());</span><br><span class="line">&#125; catch(e)&#123;</span><br><span class="line">    console.log(e.message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">    deletePage(page);</span><br><span class="line">    registry.deleteReerence(page.name);</span><br><span class="line">    configKegs.deleteKey(page.name.makeKey());</span><br><span class="line">&#125; catch(e)&#123;</span><br><span class="line">    console.log(e.message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="3-9-1-抽离try-catch代码块"><a href="#3-9-1-抽离try-catch代码块" class="headerlink" title="3.9.1 抽离try/catch代码块"></a>3.9.1 抽离try/catch代码块</h4><ul>
-<li>将try/catch代码块从主体中抽离出来，形成单独的函数。代码更整洁</li>
+<h4 id="3-9-1-抽离try-x2F-catch代码块"><a href="#3-9-1-抽离try-x2F-catch代码块" class="headerlink" title="3.9.1 抽离try&#x2F;catch代码块"></a>3.9.1 抽离try&#x2F;catch代码块</h4><ul>
+<li>将try&#x2F;catch代码块从主体中抽离出来，形成单独的函数。代码更整洁</li>
 </ul>
 <h3 id="3-10-别重复自己"><a href="#3-10-别重复自己" class="headerlink" title="3.10 别重复自己"></a>3.10 别重复自己</h3><ul>
 <li>重复可能是软件中一切的邪恶根源</li>
 </ul>
 <h3 id="3-12-如何写出这样的函数"><a href="#3-12-如何写出这样的函数" class="headerlink" title="3.12 如何写出这样的函数"></a>3.12 如何写出这样的函数</h3><ul>
-<li>写代码和写文章一样都是需要打磨的，一开始的混乱需要一点点的改变 </li>
+<li>写代码和写文章一样都是需要打磨的，一开始的混乱需要一点点的改变</li>
 </ul>
 <h2 id="第五章-格式"><a href="#第五章-格式" class="headerlink" title="第五章 格式"></a>第五章 格式</h2><h3 id="5-2-垂直格式"><a href="#5-2-垂直格式" class="headerlink" title="5.2 垂直格式"></a>5.2 垂直格式</h3><ul>
 <li>单个文件代码行数在500行以下平均在100左右是一个很好的建议。</li>
@@ -289,7 +344,7 @@
 <h4 id="5-2-4-垂直距离"><a href="#5-2-4-垂直距离" class="headerlink" title="5.2.4 垂直距离"></a>5.2.4 垂直距离</h4><p>关系密切的概念应该相互靠近。  </p>
 <ul>
 <li>如变量声明应尽可能靠近其使用位置</li>
-<li>相关函数：若某个函数调用了另一个，就应该把它们放在一起，而且调用者应该尽可能放在被调用者上面.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">let request &#x3D; null;</span><br><span class="line">let crawler &#x3D; null;</span><br><span class="line"></span><br><span class="line">function makeResponse(context, request)&#123;</span><br><span class="line">    let pageName &#x3D; getPageName(request, &quot;FrontPage&quot;);</span><br><span class="line">    loadPage(pageName, context);</span><br><span class="line">    if(page &#x3D;&#x3D; null)&#123;</span><br><span class="line">        return notFoundResponse(context, request);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return makePageResponse(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function getPageName()&#123;&#125;</span><br><span class="line">    function loadPage()&#123;&#125;</span><br><span class="line">    function notFoundResponse()&#123;&#125;</span><br><span class="line">    function makePageResponse()&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>相关函数：若某个函数调用了另一个，就应该把它们放在一起，而且调用者应该尽可能放在被调用者上面.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">let request = null;</span><br><span class="line">let crawler = null;</span><br><span class="line"></span><br><span class="line">function makeResponse(context, request)&#123;</span><br><span class="line">    let pageName = getPageName(request, &quot;FrontPage&quot;);</span><br><span class="line">    loadPage(pageName, context);</span><br><span class="line">    if(page == null)&#123;</span><br><span class="line">        return notFoundResponse(context, request);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return makePageResponse(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function getPageName()&#123;&#125;</span><br><span class="line">    function loadPage()&#123;&#125;</span><br><span class="line">    function notFoundResponse()&#123;&#125;</span><br><span class="line">    function makePageResponse()&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>概念相关：概念相关的代码应该放在一起。相关性越强，彼此之间的距离就该越短，相关性赖在如函数间调用，或者使用某个变量，也可能来自执行相似操作的一组函数。</li>
 </ul>
 <h4 id="5-2-5垂直顺序"><a href="#5-2-5垂直顺序" class="headerlink" title="5.2.5垂直顺序"></a>5.2.5垂直顺序</h4><ul>
@@ -299,19 +354,7 @@
 <li>我们使用空格字符将彼此紧密的连接到一起，也用空格字符将相关性较弱的事物隔开。</li>
 </ul>
 <h2 id="第6章-对象和数据结构"><a href="#第6章-对象和数据结构" class="headerlink" title="第6章 对象和数据结构"></a>第6章 对象和数据结构</h2><ul>
-<li>类并不是间断的取赋值，更多是抽象接口，以便用户无需了解数据的实际就能操作数据本体<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function Point()&#123;</span><br><span class="line">    let x;</span><br><span class="line">    let y;</span><br><span class="line"></span><br><span class="line">    function getX()&#123;</span><br><span class="line">        return x;</span><br><span class="line">    &#125;</span><br><span class="line">    function getY()&#123;</span><br><span class="line">        return Y;</span><br><span class="line">    &#125;</span><br><span class="line">    function getArea()&#123;</span><br><span class="line">        return x*y*2;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return &#123;</span><br><span class="line">        x:getX，</span><br><span class="line">        y:getY,</span><br><span class="line">        area:getArea</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-</li>
+<li>类并不是间断的取赋值，更多是抽象接口，以便用户无需了解数据的实际就能操作数据本体<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function Point()&#123;</span><br><span class="line">    let x;</span><br><span class="line">    let y;</span><br><span class="line"></span><br><span class="line">    function getX()&#123;</span><br><span class="line">        return x;</span><br><span class="line">    &#125;</span><br><span class="line">    function getY()&#123;</span><br><span class="line">        return Y;</span><br><span class="line">    &#125;</span><br><span class="line">    function getArea()&#123;</span><br><span class="line">        return x*y*2;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return &#123;</span><br><span class="line">        x:getX，</span><br><span class="line">        y:getY,</span><br><span class="line">        area:getArea</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 
     </div>
@@ -347,6 +390,7 @@
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -384,22 +428,22 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第2章-有意义的名称"><span class="nav-number">1.</span> <span class="nav-text">第2章  有意义的名称</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-名副其实"><span class="nav-number">1.1.</span> <span class="nav-text">2.2 名副其实</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-避免误导"><span class="nav-number">1.2.</span> <span class="nav-text">2.3 避免误导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#程序员必须避免留下掩藏代码本意的错误线索。"><span class="nav-number">1.2.1.</span> <span class="nav-text">程序员必须避免留下掩藏代码本意的错误线索。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-做有意义的区分"><span class="nav-number">1.3.</span> <span class="nav-text">2.4 做有意义的区分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-使用读得出来的名称"><span class="nav-number">1.4.</span> <span class="nav-text">2.5 使用读得出来的名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-使用可搜索的名称"><span class="nav-number">1.5.</span> <span class="nav-text">2.6 使用可搜索的名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-类名"><span class="nav-number">1.6.</span> <span class="nav-text">2.9 类名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-方法名"><span class="nav-number">1.7.</span> <span class="nav-text">2.10 方法名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-12-保持命名风格统一"><span class="nav-number">1.8.</span> <span class="nav-text">2.12 保持命名风格统一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-16-添加有意义的语境"><span class="nav-number">1.9.</span> <span class="nav-text">2.16 添加有意义的语境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-17-不要添加没用的语境"><span class="nav-number">1.10.</span> <span class="nav-text">2.17 不要添加没用的语境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3章-函数"><span class="nav-number">2.</span> <span class="nav-text">第3章 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-短小"><span class="nav-number">2.1.</span> <span class="nav-text">3.1 短小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-只做一件事"><span class="nav-number">2.2.</span> <span class="nav-text">3.2 只做一件事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-每个函数一个抽象层级"><span class="nav-number">2.3.</span> <span class="nav-text">3.3 每个函数一个抽象层级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-switch语句"><span class="nav-number">2.4.</span> <span class="nav-text">3.4 switch语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-使用描述性的名称"><span class="nav-number">2.5.</span> <span class="nav-text">3.5 使用描述性的名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-函数参数"><span class="nav-number">2.6.</span> <span class="nav-text">3.6 函数参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-无副作用"><span class="nav-number">2.7.</span> <span class="nav-text">3.7 无副作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-分割指令与询问"><span class="nav-number">2.8.</span> <span class="nav-text">3.8 分割指令与询问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9-使用异常代替返回错误码"><span class="nav-number">2.9.</span> <span class="nav-text">3.9 使用异常代替返回错误码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-9-1-抽离try-catch代码块"><span class="nav-number">2.9.1.</span> <span class="nav-text">3.9.1 抽离try&#x2F;catch代码块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-别重复自己"><span class="nav-number">2.10.</span> <span class="nav-text">3.10 别重复自己</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-12-如何写出这样的函数"><span class="nav-number">2.11.</span> <span class="nav-text">3.12 如何写出这样的函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-格式"><span class="nav-number">3.</span> <span class="nav-text">第五章 格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-垂直格式"><span class="nav-number">3.1.</span> <span class="nav-text">5.2 垂直格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-2-概念间垂直方向上的区隔"><span class="nav-number">3.1.1.</span> <span class="nav-text">5.2.2 概念间垂直方向上的区隔</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-3-垂直方向上的靠近"><span class="nav-number">3.1.2.</span> <span class="nav-text">5.2.3 垂直方向上的靠近</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-4-垂直距离"><span class="nav-number">3.1.3.</span> <span class="nav-text">5.2.4 垂直距离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-5垂直顺序"><span class="nav-number">3.1.4.</span> <span class="nav-text">5.2.5垂直顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-1-水平方向上的间隔与靠近"><span class="nav-number">3.1.5.</span> <span class="nav-text">5.3.1 水平方向上的间隔与靠近</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第6章-对象和数据结构"><span class="nav-number">4.</span> <span class="nav-text">第6章 对象和数据结构</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC2%E7%AB%A0-%E6%9C%89%E6%84%8F%E4%B9%89%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="nav-number">1.</span> <span class="nav-text">第2章  有意义的名称</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%90%8D%E5%89%AF%E5%85%B6%E5%AE%9E"><span class="nav-number">1.1.</span> <span class="nav-text">2.2 名副其实</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E9%81%BF%E5%85%8D%E8%AF%AF%E5%AF%BC"><span class="nav-number">1.2.</span> <span class="nav-text">2.3 避免误导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E9%81%BF%E5%85%8D%E7%95%99%E4%B8%8B%E6%8E%A9%E8%97%8F%E4%BB%A3%E7%A0%81%E6%9C%AC%E6%84%8F%E7%9A%84%E9%94%99%E8%AF%AF%E7%BA%BF%E7%B4%A2%E3%80%82"><span class="nav-number">1.2.1.</span> <span class="nav-text">程序员必须避免留下掩藏代码本意的错误线索。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E5%81%9A%E6%9C%89%E6%84%8F%E4%B9%89%E7%9A%84%E5%8C%BA%E5%88%86"><span class="nav-number">1.3.</span> <span class="nav-text">2.4 做有意义的区分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-%E4%BD%BF%E7%94%A8%E8%AF%BB%E5%BE%97%E5%87%BA%E6%9D%A5%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="nav-number">1.4.</span> <span class="nav-text">2.5 使用读得出来的名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-%E4%BD%BF%E7%94%A8%E5%8F%AF%E6%90%9C%E7%B4%A2%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="nav-number">1.5.</span> <span class="nav-text">2.6 使用可搜索的名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-%E7%B1%BB%E5%90%8D"><span class="nav-number">1.6.</span> <span class="nav-text">2.9 类名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-%E6%96%B9%E6%B3%95%E5%90%8D"><span class="nav-number">1.7.</span> <span class="nav-text">2.10 方法名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-12-%E4%BF%9D%E6%8C%81%E5%91%BD%E5%90%8D%E9%A3%8E%E6%A0%BC%E7%BB%9F%E4%B8%80"><span class="nav-number">1.8.</span> <span class="nav-text">2.12 保持命名风格统一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-16-%E6%B7%BB%E5%8A%A0%E6%9C%89%E6%84%8F%E4%B9%89%E7%9A%84%E8%AF%AD%E5%A2%83"><span class="nav-number">1.9.</span> <span class="nav-text">2.16 添加有意义的语境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-17-%E4%B8%8D%E8%A6%81%E6%B7%BB%E5%8A%A0%E6%B2%A1%E7%94%A8%E7%9A%84%E8%AF%AD%E5%A2%83"><span class="nav-number">1.10.</span> <span class="nav-text">2.17 不要添加没用的语境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC3%E7%AB%A0-%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">第3章 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E7%9F%AD%E5%B0%8F"><span class="nav-number">2.1.</span> <span class="nav-text">3.1 短小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%8F%AA%E5%81%9A%E4%B8%80%E4%BB%B6%E4%BA%8B"><span class="nav-number">2.2.</span> <span class="nav-text">3.2 只做一件事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E6%AF%8F%E4%B8%AA%E5%87%BD%E6%95%B0%E4%B8%80%E4%B8%AA%E6%8A%BD%E8%B1%A1%E5%B1%82%E7%BA%A7"><span class="nav-number">2.3.</span> <span class="nav-text">3.3 每个函数一个抽象层级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-switch%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.4.</span> <span class="nav-text">3.4 switch语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E4%BD%BF%E7%94%A8%E6%8F%8F%E8%BF%B0%E6%80%A7%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="nav-number">2.5.</span> <span class="nav-text">3.5 使用描述性的名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="nav-number">2.6.</span> <span class="nav-text">3.6 函数参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-%E6%97%A0%E5%89%AF%E4%BD%9C%E7%94%A8"><span class="nav-number">2.7.</span> <span class="nav-text">3.7 无副作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-%E5%88%86%E5%89%B2%E6%8C%87%E4%BB%A4%E4%B8%8E%E8%AF%A2%E9%97%AE"><span class="nav-number">2.8.</span> <span class="nav-text">3.8 分割指令与询问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9-%E4%BD%BF%E7%94%A8%E5%BC%82%E5%B8%B8%E4%BB%A3%E6%9B%BF%E8%BF%94%E5%9B%9E%E9%94%99%E8%AF%AF%E7%A0%81"><span class="nav-number">2.9.</span> <span class="nav-text">3.9 使用异常代替返回错误码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-9-1-%E6%8A%BD%E7%A6%BBtry-x2F-catch%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">2.9.1.</span> <span class="nav-text">3.9.1 抽离try&#x2F;catch代码块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-%E5%88%AB%E9%87%8D%E5%A4%8D%E8%87%AA%E5%B7%B1"><span class="nav-number">2.10.</span> <span class="nav-text">3.10 别重复自己</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-12-%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E8%BF%99%E6%A0%B7%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">2.11.</span> <span class="nav-text">3.12 如何写出这样的函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">第五章 格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E5%9E%82%E7%9B%B4%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">5.2 垂直格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-2-%E6%A6%82%E5%BF%B5%E9%97%B4%E5%9E%82%E7%9B%B4%E6%96%B9%E5%90%91%E4%B8%8A%E7%9A%84%E5%8C%BA%E9%9A%94"><span class="nav-number">3.1.1.</span> <span class="nav-text">5.2.2 概念间垂直方向上的区隔</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-3-%E5%9E%82%E7%9B%B4%E6%96%B9%E5%90%91%E4%B8%8A%E7%9A%84%E9%9D%A0%E8%BF%91"><span class="nav-number">3.1.2.</span> <span class="nav-text">5.2.3 垂直方向上的靠近</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-4-%E5%9E%82%E7%9B%B4%E8%B7%9D%E7%A6%BB"><span class="nav-number">3.1.3.</span> <span class="nav-text">5.2.4 垂直距离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-5%E5%9E%82%E7%9B%B4%E9%A1%BA%E5%BA%8F"><span class="nav-number">3.1.4.</span> <span class="nav-text">5.2.5垂直顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-1-%E6%B0%B4%E5%B9%B3%E6%96%B9%E5%90%91%E4%B8%8A%E7%9A%84%E9%97%B4%E9%9A%94%E4%B8%8E%E9%9D%A0%E8%BF%91"><span class="nav-number">3.1.5.</span> <span class="nav-text">5.3.1 水平方向上的间隔与靠近</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC6%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">第6章 对象和数据结构</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe - zh-tw - en</p>
+  <p class="site-author-name" itemprop="name">John Doe</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -408,16 +452,16 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">30</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
         <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">categories</span>
+        <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
         <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
@@ -440,18 +484,6 @@
 
         
 
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">John Doe - zh-tw - en</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
-
         
 
 
@@ -459,6 +491,92 @@
 
 
 
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz","app_key":"AgFnrn2FODUJulhW3pUkvB8o","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
 
 
       </div>
@@ -488,6 +606,10 @@
 
 
 
+  
+<script src="/js/local-search.js"></script>
+
+
 
 
 
@@ -502,6 +624,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz',
+      appKey     : 'AgFnrn2FODUJulhW3pUkvB8o',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>

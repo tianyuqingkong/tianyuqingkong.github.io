@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,26 +17,26 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="1 HTTP缓存概述http缓存是一种利用第一次请求后保存副本其后的请求可以利用缓存响应的技术，它的主要目的为节省流量以及增加资源响应速度。   1.1 HTTP缓存的基本机制每次如果要获取缓存就得走过一套缓存机制，具体如下图：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="http缓存详解">
-<meta property="og:url" content="http://yoursite.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:url" content="http://example.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1 HTTP缓存概述http缓存是一种利用第一次请求后保存副本其后的请求可以利用缓存响应的技术，它的主要目的为节省流量以及增加资源响应速度。   1.1 HTTP缓存的基本机制每次如果要获取缓存就得走过一套缓存机制，具体如下图：">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/cacheMechanism.png">
-<meta property="og:image" content="http://yoursite.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/cacheType.png">
-<meta property="og:image" content="http://yoursite.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/employCache.png">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/cacheMechanism.png">
+<meta property="og:image" content="http://example.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/cacheType.png">
+<meta property="og:image" content="http://example.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/employCache.png">
 <meta property="article:published_time" content="2017-10-24T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-05-06T06:06:49.985Z">
-<meta property="article:author" content="John Doe - zh-tw - en">
+<meta property="article:modified_time" content="2022-05-31T06:42:34.999Z">
+<meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/cacheMechanism.png">
+<meta name="twitter:image" content="http://example.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/cacheMechanism.png">
 
-<link rel="canonical" href="http://yoursite.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/">
+<link rel="canonical" href="http://example.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'en'
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -89,7 +89,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -107,6 +107,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -118,19 +119,56 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -153,12 +191,12 @@
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe - zh-tw - en">
+      <meta itemprop="name" content="John Doe">
       <meta itemprop="description" content="">
     </span>
 
@@ -175,28 +213,49 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="Created: 2017-10-25 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-25T00:00:00+08:00">2017-10-25</time>
+              <time title="创建时间：2017-10-25 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-25T00:00:00+08:00">2017-10-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-06 14:06:49" itemprop="dateModified" datetime="2020-05-06T14:06:49+08:00">2020-05-06</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-31 14:42:34" itemprop="dateModified" datetime="2022-05-31T14:42:34+08:00">2022-05-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/http/" itemprop="url" rel="index"><span itemprop="name">http</span></a>
                 </span>
             </span>
 
           
+            <span id="/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/" class="post-meta-item leancloud_visitors" data-flag-title="http缓存详解" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -208,8 +267,8 @@
 
       
         <h2 id="1-HTTP缓存概述"><a href="#1-HTTP缓存概述" class="headerlink" title="1 HTTP缓存概述"></a>1 HTTP缓存概述</h2><p>http缓存是一种利用第一次请求后保存副本其后的请求可以利用缓存响应的技术，它的主要目的为节省流量以及增加资源响应速度。  </p>
-<h3 id="1-1-HTTP缓存的基本机制"><a href="#1-1-HTTP缓存的基本机制" class="headerlink" title="1.1 HTTP缓存的基本机制"></a>1.1 HTTP缓存的基本机制</h3><p>每次如果要获取缓存就得走过一套缓存机制，具体如下图：<br><img src="%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/cacheMechanism.png" alt="cacheMechanism">  </p>
-<a id="more"></a>
+<h3 id="1-1-HTTP缓存的基本机制"><a href="#1-1-HTTP缓存的基本机制" class="headerlink" title="1.1 HTTP缓存的基本机制"></a>1.1 HTTP缓存的基本机制</h3><p>每次如果要获取缓存就得走过一套缓存机制，具体如下图：<br><img src="/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/cacheMechanism.png" alt="cacheMechanism">  </p>
+<span id="more"></span>
 <p>用户发起请求后，会现在缓存中查找是否存在相匹配的缓存，如果没有就向源服务器发起一个请求，如果有的话就会检测这个缓存是否”新鲜”，如果新鲜的话就直接将缓存返回用户，若不新鲜就会向源服务器发送带有验证标识的请求来验证是否可以使用这个已经过期的缓存，若这个验证标识都通过了验证那么就会向发送一个304(not modified)响应，这个响应没有对应的响应体它只会更新缓存的新鲜度，若未通过则重新返回一个带有响应体的响应。<br>概况起来可以如下：</p>
 <ul>
 <li><p>(1) 接收——缓存从网络中读取抵达的请求报文。</p>
@@ -226,24 +285,24 @@
 </li>
 <li><p>(7) 日志——缓存可选地创建一个日志文件条目来描述这个事务</p>
 </li>
-<li><p>note： 上面都是理想情况下比如说没有cache-control的控制，都是可缓存的响应，响应都成功之类。  </p>
+<li><p>note： 上面都是理想情况下比如说没有cache-control的控制，都是可缓存的响应，响应都成功之类。</p>
 </li>
 </ul>
 <h3 id="1-2-缓存基本种类"><a href="#1-2-缓存基本种类" class="headerlink" title="1.2 缓存基本种类"></a>1.2 缓存基本种类</h3><p>缓存可以被单个用户使用，也可以被成千上万人使用。单用户缓存被称为”私用缓存(private cache)”,一般的浏览器都具有内置的私有缓存，多用户缓存被称为”共享缓存(shared cache)”一般由共享代理服务器来实现或者叫代理缓存(proxy cache)。</p>
 <ul>
-<li>note： 缓存一般情况下都是多级缓存<br><img src="%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/cacheType.png" alt="cacheMechanism"></li>
+<li>note： 缓存一般情况下都是多级缓存<br><img src="/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/cacheType.png" alt="cacheMechanism"></li>
 </ul>
 <h3 id="1-3-控制缓存cache-control"><a href="#1-3-控制缓存cache-control" class="headerlink" title="1.3 控制缓存cache-control"></a>1.3 控制缓存cache-control</h3><p>缓存机制由服务端和客服务共同实现默认缓存机制，但是可以通过cache-control与其他的头信息配合修改默认缓存的行为，比如说一般默认缓存GET请求，但是可以通过cache-control：public指令来让POST也可以缓存。具体的指令如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;这份图表来自 RFC2616</span><br><span class="line"> Cache-Control   &#x3D; &quot;Cache-Control&quot; &quot;:&quot; 1#cache-directive</span><br><span class="line">  cache-directive &#x3D; cache-request-directive</span><br><span class="line">       | cache-response-directive</span><br><span class="line">  cache-request-directive &#x3D;</span><br><span class="line">         &quot;no-cache&quot;                          ; Section 14.9.1</span><br><span class="line">       | &quot;no-store&quot;                          ; Section 14.9.2</span><br><span class="line">       | &quot;max-age&quot; &quot;&#x3D;&quot; delta-seconds         ; Section 14.9.3, 14.9.4</span><br><span class="line">       | &quot;max-stale&quot; [ &quot;&#x3D;&quot; delta-seconds ]   ; Section 14.9.3</span><br><span class="line">       | &quot;min-fresh&quot; &quot;&#x3D;&quot; delta-seconds       ; Section 14.9.3</span><br><span class="line">       | &quot;no-transform&quot;                      ; Section 14.9.5</span><br><span class="line">       | &quot;only-if-cached&quot;                    ; Section 14.9.4</span><br><span class="line">       | cache-extension                     ; Section 14.9.6</span><br><span class="line">   cache-response-directive &#x3D;</span><br><span class="line">         &quot;public&quot;                               ; Section 14.9.1</span><br><span class="line">       | &quot;private&quot; [ &quot;&#x3D;&quot; &lt;&quot;&gt; 1#field-name &lt;&quot;&gt; ] ; Section 14.9.1</span><br><span class="line">       | &quot;no-cache&quot; [ &quot;&#x3D;&quot; &lt;&quot;&gt; 1#field-name &lt;&quot;&gt; ]; Section 14.9.1</span><br><span class="line">       | &quot;no-store&quot;                             ; Section 14.9.2</span><br><span class="line">       | &quot;no-transform&quot;                         ; Section 14.9.5</span><br><span class="line">       | &quot;must-revalidate&quot;                      ; Section 14.9.4</span><br><span class="line">       | &quot;proxy-revalidate&quot;                     ; Section 14.9.4</span><br><span class="line">       | &quot;max-age&quot; &quot;&#x3D;&quot; delta-seconds            ; Section 14.9.3</span><br><span class="line">       | &quot;s-maxage&quot; &quot;&#x3D;&quot; delta-seconds           ; Section 14.9.3</span><br><span class="line">       | cache-extension                        ; Section 14.9.6</span><br><span class="line">  cache-extension &#x3D; token [ &quot;&#x3D;&quot; ( token | quoted-string ) ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//这份图表来自 RFC2616</span><br><span class="line"> Cache-Control   = &quot;Cache-Control&quot; &quot;:&quot; 1#cache-directive</span><br><span class="line">  cache-directive = cache-request-directive</span><br><span class="line">       | cache-response-directive</span><br><span class="line">  cache-request-directive =</span><br><span class="line">         &quot;no-cache&quot;                          ; Section 14.9.1</span><br><span class="line">       | &quot;no-store&quot;                          ; Section 14.9.2</span><br><span class="line">       | &quot;max-age&quot; &quot;=&quot; delta-seconds         ; Section 14.9.3, 14.9.4</span><br><span class="line">       | &quot;max-stale&quot; [ &quot;=&quot; delta-seconds ]   ; Section 14.9.3</span><br><span class="line">       | &quot;min-fresh&quot; &quot;=&quot; delta-seconds       ; Section 14.9.3</span><br><span class="line">       | &quot;no-transform&quot;                      ; Section 14.9.5</span><br><span class="line">       | &quot;only-if-cached&quot;                    ; Section 14.9.4</span><br><span class="line">       | cache-extension                     ; Section 14.9.6</span><br><span class="line">   cache-response-directive =</span><br><span class="line">         &quot;public&quot;                               ; Section 14.9.1</span><br><span class="line">       | &quot;private&quot; [ &quot;=&quot; &lt;&quot;&gt; 1#field-name &lt;&quot;&gt; ] ; Section 14.9.1</span><br><span class="line">       | &quot;no-cache&quot; [ &quot;=&quot; &lt;&quot;&gt; 1#field-name &lt;&quot;&gt; ]; Section 14.9.1</span><br><span class="line">       | &quot;no-store&quot;                             ; Section 14.9.2</span><br><span class="line">       | &quot;no-transform&quot;                         ; Section 14.9.5</span><br><span class="line">       | &quot;must-revalidate&quot;                      ; Section 14.9.4</span><br><span class="line">       | &quot;proxy-revalidate&quot;                     ; Section 14.9.4</span><br><span class="line">       | &quot;max-age&quot; &quot;=&quot; delta-seconds            ; Section 14.9.3</span><br><span class="line">       | &quot;s-maxage&quot; &quot;=&quot; delta-seconds           ; Section 14.9.3</span><br><span class="line">       | cache-extension                        ; Section 14.9.6</span><br><span class="line">  cache-extension = token [ &quot;=&quot; ( token | quoted-string ) ]</span><br></pre></td></tr></table></figure>
 <ul>
 <li>note:cache-control指令是单向的，请求有响应不一定有，并且在计算如新鲜度的时候优先级不一样。</li>
 </ul>
 <h4 id="1-3-1-缓存方式控制"><a href="#1-3-1-缓存方式控制" class="headerlink" title="1.3.1 缓存方式控制"></a>1.3.1 缓存方式控制</h4><p>控制缓存方式的有这几种no-cache,no-store,public,priviate</p>
 <ul>
-<li>no-cache：<br>在请求”no-cache”指令暗示着缓存必须在成功的从源服务器上验证后才能使用，在响应中也一样。</li>
-</ul>
-<ul>
-<li>no-store:<br>包含这个存储指令暗示缓存一定不能存储请求或响应的任何部分，”一定不能存储”在这个语境中意味着缓存一定不能有意的将信息储存在固态存储器上，同时在信息转发后尽快尽力将其内存中移除。  </li>
+<li><p>no-cache：<br>在请求”no-cache”指令暗示着缓存必须在成功的从源服务器上验证后才能使用，在响应中也一样。</p>
+</li>
+<li><p>no-store:<br>包含这个存储指令暗示缓存一定不能存储请求或响应的任何部分，”一定不能存储”在这个语境中意味着缓存一定不能有意的将信息储存在固态存储器上，同时在信息转发后尽快尽力将其内存中移除。</p>
+</li>
 </ul>
 <p>这个指令并不可靠且没有充分的机制来保障其隐私。特别是在恶意或协商缓存中也许不会识别，并且在和网络通信过程中可能被黑掉。  </p>
 <p>注意：如果一个请求中包含这个指令并且在缓存中找到匹配响应，那么这个no-store请求指令并不能适用于这个已经存储好的响应。</p>
@@ -254,28 +313,28 @@
 </li>
 </ul>
 <h3 id="1-4-新鲜度检测"><a href="#1-4-新鲜度检测" class="headerlink" title="1.4 新鲜度检测"></a>1.4 新鲜度检测</h3><p>新鲜度检测与使用时期(age)和新鲜生存期(freshness_lifttime)相关，具体如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$is_fresh_enough &#x3D; ($age &lt; $freshness_lifetime);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$is_fresh_enough = ($age &lt; $freshness_lifetime);</span><br></pre></td></tr></table></figure>
 <p>age表示的是响应从源服务器响应(或在验证后)之后经历的总时间，这其中包括在因特网和网关中游荡的时间，中间节点缓存存储时间，以及响应在你的缓存停留的时间。具体计算如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$apparent_age &#x3D; max(0, $time_got_response - $Date_header_value);</span><br><span class="line">$corrected_apparent_age &#x3D; max($apparent_age, $Age_header_value);</span><br><span class="line">$response_delay_estimate &#x3D; ($time_got_response - $time_issued_request);</span><br><span class="line">$age_when_document_arrived_at_our_cache &#x3D;</span><br><span class="line">$corrected_apparent_age + $response_delay_estimate;</span><br><span class="line"></span><br><span class="line">$how_long_copy_has_been_in_our_cache &#x3D; $current_time - $time_got_response;</span><br><span class="line"></span><br><span class="line">$age &#x3D; $age_when_document_arrived_at_our_cache +</span><br><span class="line">$how_long_copy_has_been_in_our_cache;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$apparent_age = max(0, $time_got_response - $Date_header_value);</span><br><span class="line">$corrected_apparent_age = max($apparent_age, $Age_header_value);</span><br><span class="line">$response_delay_estimate = ($time_got_response - $time_issued_request);</span><br><span class="line">$age_when_document_arrived_at_our_cache =</span><br><span class="line">$corrected_apparent_age + $response_delay_estimate;</span><br><span class="line"></span><br><span class="line">$how_long_copy_has_been_in_our_cache = $current_time - $time_got_response;</span><br><span class="line"></span><br><span class="line">$age = $age_when_document_arrived_at_our_cache +</span><br><span class="line">$how_long_copy_has_been_in_our_cache;</span><br></pre></td></tr></table></figure>
 <p>freshness_lifttime表示缓存生存的时间长度，有服务器响应和客户端请求共同决定，服务器端响应如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">sub server_freshness_limit</span><br><span class="line">&#123;</span><br><span class="line">  local($heuristic,$server_freshness_limit,$time_since_last_modify);</span><br><span class="line">  $heuristic &#x3D; 0;</span><br><span class="line">  if ($Max_Age_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $server_freshness_limit &#x3D; $Max_Age_value;</span><br><span class="line">  &#125;</span><br><span class="line">  elseif ($Expires_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $server_freshness_limit &#x3D; $Expires_value - $Date_value;</span><br><span class="line">  &#125;</span><br><span class="line">  elseif ($Last_Modified_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $time_since_last_modify &#x3D; max(0, $Date_value -</span><br><span class="line">  　　　　　　　　 $Last_Modified_value);</span><br><span class="line">    $server_freshness_limit &#x3D; int($time_since_last_modify *</span><br><span class="line">  　　　　　　　　 $lm_factor);</span><br><span class="line">    $heuristic &#x3D; 1;</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    $server_freshness_limit &#x3D; $default_cache_min_lifetime;</span><br><span class="line">    $heuristic &#x3D; 1;</span><br><span class="line">  &#125;</span><br><span class="line">  if ($heuristic)</span><br><span class="line">  &#123;</span><br><span class="line">    if ($server_freshness_limit &gt; $default_cache_max_lifetime)</span><br><span class="line">    &#123; $server_freshness_limit &#x3D; $default_cache_max_lifetime; &#125;</span><br><span class="line">    if ($server_freshness_limit &lt; $default_cache_min_lifetime)</span><br><span class="line">    &#123; $server_freshness_limit &#x3D; $default_cache_min_lifetime; &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return($server_freshness_limit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">sub server_freshness_limit</span><br><span class="line">&#123;</span><br><span class="line">  local($heuristic,$server_freshness_limit,$time_since_last_modify);</span><br><span class="line">  $heuristic = 0;</span><br><span class="line">  if ($Max_Age_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $server_freshness_limit = $Max_Age_value;</span><br><span class="line">  &#125;</span><br><span class="line">  elseif ($Expires_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $server_freshness_limit = $Expires_value - $Date_value;</span><br><span class="line">  &#125;</span><br><span class="line">  elseif ($Last_Modified_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $time_since_last_modify = max(0, $Date_value -</span><br><span class="line">  　　　　　　　　 $Last_Modified_value);</span><br><span class="line">    $server_freshness_limit = int($time_since_last_modify *</span><br><span class="line">  　　　　　　　　 $lm_factor);</span><br><span class="line">    $heuristic = 1;</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    $server_freshness_limit = $default_cache_min_lifetime;</span><br><span class="line">    $heuristic = 1;</span><br><span class="line">  &#125;</span><br><span class="line">  if ($heuristic)</span><br><span class="line">  &#123;</span><br><span class="line">    if ($server_freshness_limit &gt; $default_cache_max_lifetime)</span><br><span class="line">    &#123; $server_freshness_limit = $default_cache_max_lifetime; &#125;</span><br><span class="line">    if ($server_freshness_limit &lt; $default_cache_min_lifetime)</span><br><span class="line">    &#123; $server_freshness_limit = $default_cache_min_lifetime; &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return($server_freshness_limit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>客户端的请求如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">sub client_modified_freshness_limit</span><br><span class="line">&#123;</span><br><span class="line">  $age_limit &#x3D; server_freshness_limit( ); ## From Example 7-2</span><br><span class="line">  if ($Max_Stale_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    if ($Max_Stale_value &#x3D;&#x3D; $INT_MAX)</span><br><span class="line">    &#123; $age_limit &#x3D; $INT_MAX; &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123; $age_limit &#x3D; server_freshness_limit( ) + $Max_Stale_value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  if ($Min_Fresh_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $age_limit &#x3D; min($age_limit, server_freshness_limit( ) -</span><br><span class="line">  　　　　　　　$Min_Fresh_value_set);</span><br><span class="line">  &#125;</span><br><span class="line">  if ($Max_Age_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $age_limit &#x3D; min($age_limit, $Max_Age_value);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">sub client_modified_freshness_limit</span><br><span class="line">&#123;</span><br><span class="line">  $age_limit = server_freshness_limit( ); ## From Example 7-2</span><br><span class="line">  if ($Max_Stale_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    if ($Max_Stale_value == $INT_MAX)</span><br><span class="line">    &#123; $age_limit = $INT_MAX; &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123; $age_limit = server_freshness_limit( ) + $Max_Stale_value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  if ($Min_Fresh_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $age_limit = min($age_limit, server_freshness_limit( ) -</span><br><span class="line">  　　　　　　　$Min_Fresh_value_set);</span><br><span class="line">  &#125;</span><br><span class="line">  if ($Max_Age_value_set)</span><br><span class="line">  &#123;</span><br><span class="line">    $age_limit = min($age_limit, $Max_Age_value);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>明显最终客户端cache-control的优先级要大一些</p>
 <h3 id="1-5-响应过期验证"><a href="#1-5-响应过期验证" class="headerlink" title="1.5 响应过期验证"></a>1.5 响应过期验证</h3><p>在缓存文档过期前，缓存任意使用这些响应，而不需和源服务器相关联，但是一旦响应过期缓存的响应就必须与源服务器进行一次验证，验证这些响应是否在之后被修改过。如果修改过就必须返回一份新的响应。  </p>
 <p>在验证中可以提供以下请求头进行验证：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">If-Modified-Since: &#39;Last-Modified 的值&#39;</span><br><span class="line">If-None-Match: &#39;ETag&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">If-Modified-Since: &#x27;Last-Modified 的值&#x27;</span><br><span class="line">If-None-Match: &#x27;ETag&#x27;</span><br></pre></td></tr></table></figure>
 <p>If-Modified-Since包含的是文件上次修改的时间，如果源服务器上次修改的实际小于或者等于这个值时，就返回304并更新缓存新鲜度.<br>If-Node-Match包含的是响应中的Etag值，这个值是通过哈希计算信息产生的独一无二标记值，如果源服务器的Etag和这个值相同则返回304并更新缓存新鲜度.<br>如果验证没通过则返回一个全新的响应。</p>
-<h2 id="2-如何利用缓存"><a href="#2-如何利用缓存" class="headerlink" title="2 如何利用缓存"></a>2 如何利用缓存</h2><p>更多地利用缓存资源，可以提高网站的性能和相应速度。为了优化缓存，过期时间设置得尽量长是一种很好的策略。对于定期或者频繁更新的资源，这么做是比较稳妥的，但是对于那些长期不更新的资源会有点问题。这些固定的资源在一定时间内受益于这种长期保持的缓存策略，但一旦要更新就会很困难。特指网页上引入的一些js/css文件，当它们变动时需要尽快更新线上资源。  </p>
-<p>web开发者发明了一种 Steve Sounders 称作加速（译者注：revving）的技术[1] 。不频繁更新的文件会使用特定的命名方式：在URL后面（通常是文件名后面）会加上版本号。加上版本号后的资源就被视作一个完全新的独立的资源，同时拥有一年甚至更长的缓存过期时长。但是这么做也存在一个弊端，所有引用这个资源的地方都需要更新链接。web开发者们通常会采用自动化构建工具在实际工作中完成这些琐碎的工作。当低频更新的资源（js/css）变动了，只用在高频变动的资源文件（html）里做入口的改动。  </p>
-<p>这种方法还有一个好处：同时更新两个缓存资源不会造成部分缓存先更新而引起新旧文件内容不一致。对于互相有依赖关系的css和js文件，避免这种不一致性是非常重要的。<br><img src="%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/employCache.png" alt="employCache"></p>
+<h2 id="2-如何利用缓存"><a href="#2-如何利用缓存" class="headerlink" title="2 如何利用缓存"></a>2 如何利用缓存</h2><p>更多地利用缓存资源，可以提高网站的性能和相应速度。为了优化缓存，过期时间设置得尽量长是一种很好的策略。对于定期或者频繁更新的资源，这么做是比较稳妥的，但是对于那些长期不更新的资源会有点问题。这些固定的资源在一定时间内受益于这种长期保持的缓存策略，但一旦要更新就会很困难。特指网页上引入的一些js&#x2F;css文件，当它们变动时需要尽快更新线上资源。  </p>
+<p>web开发者发明了一种 Steve Sounders 称作加速（译者注：revving）的技术[1] 。不频繁更新的文件会使用特定的命名方式：在URL后面（通常是文件名后面）会加上版本号。加上版本号后的资源就被视作一个完全新的独立的资源，同时拥有一年甚至更长的缓存过期时长。但是这么做也存在一个弊端，所有引用这个资源的地方都需要更新链接。web开发者们通常会采用自动化构建工具在实际工作中完成这些琐碎的工作。当低频更新的资源（js&#x2F;css）变动了，只用在高频变动的资源文件（html）里做入口的改动。  </p>
+<p>这种方法还有一个好处：同时更新两个缓存资源不会造成部分缓存先更新而引起新旧文件内容不一致。对于互相有依赖关系的css和js文件，避免这种不一致性是非常重要的。<br><img src="/2017/10/25/%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/employCache.png" alt="employCache"></p>
 <p>  参考：</p>
 <ul>
-<li><a href="https://tools.ietf.org/html/rfc7234#section-5.2" target="_blank" rel="noopener">RFC7234</a></li>
-<li><a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8" target="_blank" rel="noopener">RFC2616</a></li>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ" target="_blank" rel="noopener">HTTP 缓存 |MDN</a></li>
-<li><a href="https://developers.google.cn/web/fundamentals/performance/optimizing-content-efficiency/http-caching" target="_blank" rel="noopener">HTTP 缓存 | google</a></li>
-<li><a href="https://book.douban.com/subject/10746113/" target="_blank" rel="noopener">HTTP权威指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7234#section-5.2">RFC7234</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8">RFC2616</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ">HTTP 缓存 |MDN</a></li>
+<li><a target="_blank" rel="noopener" href="https://developers.google.cn/web/fundamentals/performance/optimizing-content-efficiency/http-caching">HTTP 缓存 | google</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/10746113/">HTTP权威指南</a></li>
 </ul>
 
     </div>
@@ -292,7 +351,7 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2017/10/23/test1/" rel="prev" title="RFC 7234">
+    <a href="/2017/10/23/RFC/" rel="prev" title="RFC 7234">
       <i class="fa fa-chevron-left"></i> RFC 7234
     </a></div>
       <div class="post-nav-item">
@@ -311,6 +370,7 @@
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -348,22 +408,22 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-HTTP缓存概述"><span class="nav-number">1.</span> <span class="nav-text">1 HTTP缓存概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-HTTP缓存的基本机制"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 HTTP缓存的基本机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-缓存基本种类"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 缓存基本种类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-控制缓存cache-control"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 控制缓存cache-control</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-缓存方式控制"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1 缓存方式控制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-新鲜度检测"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 新鲜度检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-响应过期验证"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 响应过期验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-如何利用缓存"><span class="nav-number">2.</span> <span class="nav-text">2 如何利用缓存</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-HTTP%E7%BC%93%E5%AD%98%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">1 HTTP缓存概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-HTTP%E7%BC%93%E5%AD%98%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%9C%BA%E5%88%B6"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 HTTP缓存的基本机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E7%BC%93%E5%AD%98%E5%9F%BA%E6%9C%AC%E7%A7%8D%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 缓存基本种类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E6%8E%A7%E5%88%B6%E7%BC%93%E5%AD%98cache-control"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 控制缓存cache-control</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-%E7%BC%93%E5%AD%98%E6%96%B9%E5%BC%8F%E6%8E%A7%E5%88%B6"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1 缓存方式控制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E6%96%B0%E9%B2%9C%E5%BA%A6%E6%A3%80%E6%B5%8B"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 新鲜度检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-%E5%93%8D%E5%BA%94%E8%BF%87%E6%9C%9F%E9%AA%8C%E8%AF%81"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 响应过期验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%E7%BC%93%E5%AD%98"><span class="nav-number">2.</span> <span class="nav-text">2 如何利用缓存</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe - zh-tw - en</p>
+  <p class="site-author-name" itemprop="name">John Doe</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -372,16 +432,16 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">30</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
         <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">categories</span>
+        <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
         <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
@@ -404,18 +464,6 @@
 
         
 
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">John Doe - zh-tw - en</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
-
         
 
 
@@ -423,6 +471,92 @@
 
 
 
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz","app_key":"AgFnrn2FODUJulhW3pUkvB8o","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
 
 
       </div>
@@ -452,6 +586,10 @@
 
 
 
+  
+<script src="/js/local-search.js"></script>
+
+
 
 
 
@@ -466,6 +604,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz',
+      appKey     : 'AgFnrn2FODUJulhW3pUkvB8o',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>

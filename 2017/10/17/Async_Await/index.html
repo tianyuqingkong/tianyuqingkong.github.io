@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,22 +17,22 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="（本来想吐槽下去年才熟练使用Promise但是又要用async-await，但是async-await炒鸡好用，默默流泪） Async&#x2F;Await与Promise的关系  async-await是promise和generator的语法糖，意在优化promise的写法，简单的说async-await是用来简化pormise写法的，并不是取代关系。 Async&#x2F;Await基本语法  Async放在f">
+  <meta name="description" content="（本来想吐槽下去年才熟练使用Promise但是又要用async-await，但是async-await炒鸡好用，默默流泪） Async&#x2F;Await与Promise的关系  async-await是promise和generator的语法糖，意在优化promise的写法，简单的说async-await是用来简化pormise写法的，并不是取代关系。 Async&#x2F;Await基本语法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Async&#x2F;Await优化Promise">
-<meta property="og:url" content="http://yoursite.com/2017/10/17/Async_Await/index.html">
+<meta property="og:url" content="http://example.com/2017/10/17/Async_Await/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="（本来想吐槽下去年才熟练使用Promise但是又要用async-await，但是async-await炒鸡好用，默默流泪） Async&#x2F;Await与Promise的关系  async-await是promise和generator的语法糖，意在优化promise的写法，简单的说async-await是用来简化pormise写法的，并不是取代关系。 Async&#x2F;Await基本语法  Async放在f">
-<meta property="og:locale" content="en_US">
+<meta property="og:description" content="（本来想吐槽下去年才熟练使用Promise但是又要用async-await，但是async-await炒鸡好用，默默流泪） Async&#x2F;Await与Promise的关系  async-await是promise和generator的语法糖，意在优化promise的写法，简单的说async-await是用来简化pormise写法的，并不是取代关系。 Async&#x2F;Await基本语法">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-10-16T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-05-06T06:06:49.873Z">
-<meta property="article:author" content="John Doe - zh-tw - en">
+<meta property="article:modified_time" content="2022-05-31T06:42:57.433Z">
+<meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2017/10/17/Async_Await/">
+<link rel="canonical" href="http://example.com/2017/10/17/Async_Await/">
 
 
 <script id="page-configurations">
@@ -41,7 +41,7 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'en'
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -85,7 +85,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -103,6 +103,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -114,19 +115,56 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -149,12 +187,12 @@
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/17/Async_Await/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/10/17/Async_Await/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe - zh-tw - en">
+      <meta itemprop="name" content="John Doe">
       <meta itemprop="description" content="">
     </span>
 
@@ -171,28 +209,49 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="Created: 2017-10-17 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-17T00:00:00+08:00">2017-10-17</time>
+              <time title="创建时间：2017-10-17 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-17T00:00:00+08:00">2017-10-17</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-06 14:06:49" itemprop="dateModified" datetime="2020-05-06T14:06:49+08:00">2020-05-06</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-31 14:42:57" itemprop="dateModified" datetime="2022-05-31T14:42:57+08:00">2022-05-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javscript/" itemprop="url" rel="index"><span itemprop="name">javscript</span></a>
                 </span>
             </span>
 
           
+            <span id="/2017/10/17/Async_Await/" class="post-meta-item leancloud_visitors" data-flag-title="使用Async/Await优化Promise" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2017/10/17/Async_Await/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/10/17/Async_Await/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -204,21 +263,21 @@
 
       
         <p>（本来想吐槽下去年才熟练使用Promise但是又要用async-await，但是async-await炒鸡好用，默默流泪）</p>
-<h3 id="Async-Await与Promise的关系"><a href="#Async-Await与Promise的关系" class="headerlink" title="Async/Await与Promise的关系"></a>Async/Await与Promise的关系</h3><p>  async-await是promise和generator的语法糖，意在优化promise的写法，简单的说async-await是用来简化pormise写法的，并不是取代关系。</p>
-<h3 id="Async-Await基本语法"><a href="#Async-Await基本语法" class="headerlink" title="Async/Await基本语法"></a>Async/Await基本语法</h3><p>  Async放在function关键字前面，await放在Async关键字的函数里，并且最终返回一个promise对象。如下代码所示：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">async function asyncAwaitDemo()&#123;</span><br><span class="line">    const result &#x3D; await new Promise((resolve, reject)&#x3D;&gt;&#123;</span><br><span class="line">        setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">            resolve(&#39;test&#39;)</span><br><span class="line">        &#125;,200)</span><br><span class="line">    &#125;)</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line">asyncAwaitDemo().then((r)&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&#39;result:&#39;,r);</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; result: test</span><br></pre></td></tr></table></figure></p>
-<a id="more"></a>
+<h3 id="Async-x2F-Await与Promise的关系"><a href="#Async-x2F-Await与Promise的关系" class="headerlink" title="Async&#x2F;Await与Promise的关系"></a>Async&#x2F;Await与Promise的关系</h3><p>  async-await是promise和generator的语法糖，意在优化promise的写法，简单的说async-await是用来简化pormise写法的，并不是取代关系。</p>
+<h3 id="Async-x2F-Await基本语法"><a href="#Async-x2F-Await基本语法" class="headerlink" title="Async&#x2F;Await基本语法"></a>Async&#x2F;Await基本语法</h3><p>  Async放在function关键字前面，await放在Async关键字的函数里，并且最终返回一个promise对象。如下代码所示：<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">async function asyncAwaitDemo()&#123;</span><br><span class="line">    const result = await new Promise((resolve, reject)=&gt;&#123;</span><br><span class="line">        setTimeout(()=&gt;&#123;</span><br><span class="line">            resolve(&#x27;test&#x27;)</span><br><span class="line">        &#125;,200)</span><br><span class="line">    &#125;)</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line">asyncAwaitDemo().then((r)=&gt;&#123;</span><br><span class="line">    console.log(&#x27;result:&#x27;,r);</span><br><span class="line">&#125;)</span><br><span class="line">// result: test</span><br></pre></td></tr></table></figure></p>
+<span id="more"></span>
 
 
-<p>  需要注意的是await只能放在async关键声明的函数里（这点和yield与*的关系一致）<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 正常 for 循环</span><br><span class="line">async function demo() &#123;</span><br><span class="line">    let arr &#x3D; [1, 2, 3, 4, 5];</span><br><span class="line">    for (let i &#x3D; 0, len &#x3D; arr.length; i &lt; len; i ++) &#123;</span><br><span class="line">        await arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">demo();&#x2F;&#x2F;正常输出</span><br><span class="line">&#x2F;&#x2F;如果for循环写成下面这样</span><br><span class="line">async function bugDemo() &#123;</span><br><span class="line">    let arr &#x3D; [1, 2, 3, 4, 5];</span><br><span class="line">    arr.forEach(item &#x3D;&gt; &#123;</span><br><span class="line">        await item;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">bugDemo();&#x2F;&#x2F; Uncaught SyntaxError: Unexpected identifier</span><br></pre></td></tr></table></figure></p>
-<h3 id="场景示例"><a href="#场景示例" class="headerlink" title="场景示例"></a>场景示例</h3><p>  这里写一个简单模拟异步api<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">  class Api &#123;</span><br><span class="line">  constructor () &#123;</span><br><span class="line">    this.user &#x3D; &#123; id: 1, name: &#39;test&#39; &#125;</span><br><span class="line">    this.friends &#x3D; [ this.user, this.user, this.user ]</span><br><span class="line">    this.photo &#x3D; &#39;not a real photo&#39;</span><br><span class="line">  &#125;</span><br><span class="line">  getUser () &#123;</span><br><span class="line">    return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">      setTimeout(() &#x3D;&gt; resolve(this.user), 200)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  getFriends (userId) &#123;</span><br><span class="line">    return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">      setTimeout(() &#x3D;&gt; resolve(this.friends.slice()), 200)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  getPhoto (userId) &#123;</span><br><span class="line">    return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">      setTimeout(() &#x3D;&gt; resolve(this.photo), 200)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  throwError () &#123;</span><br><span class="line">    return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">      setTimeout(() &#x3D;&gt; reject(new Error(&#39;Intentional Error&#39;)), 200)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="需求1：获得用户信息"><a href="#需求1：获得用户信息" class="headerlink" title="需求1：获得用户信息"></a>需求1：获得用户信息</h4><p>  promise链写法<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">  function promiseChain () &#123;</span><br><span class="line">  const api &#x3D; new Api()</span><br><span class="line">  let user, friends</span><br><span class="line">  api.getUser()</span><br><span class="line">    .then((returnedUser) &#x3D;&gt; &#123;</span><br><span class="line">      user &#x3D; returnedUser</span><br><span class="line">      return api.getFriends(user.id)</span><br><span class="line">    &#125;)</span><br><span class="line">    .then((returnedFriends) &#x3D;&gt; &#123;</span><br><span class="line">      friends &#x3D; returnedFriends</span><br><span class="line">      return api.getPhoto(user.id)</span><br><span class="line">    &#125;)</span><br><span class="line">    .then((photo) &#x3D;&gt; &#123;</span><br><span class="line">      console.log(&#39;promiseChain&#39;, &#123; user, friends, photo &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Async/Await写法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">async function asyncAwaitIsYourNewBestFriend () &#123;</span><br><span class="line">  const api &#x3D; new Api()</span><br><span class="line">  const user &#x3D; await api.getUser()</span><br><span class="line">  const friends &#x3D; await api.getFriends(user.id)</span><br><span class="line">  const photo &#x3D; await api.getPhoto(user.id)</span><br><span class="line">  console.log(&#39;asyncAwaitIsYourNewBestFriend&#39;, &#123; user, friends, photo &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  需要注意的是await只能放在async关键声明的函数里（这点和yield与*的关系一致）<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 正常 for 循环</span><br><span class="line">async function demo() &#123;</span><br><span class="line">    let arr = [1, 2, 3, 4, 5];</span><br><span class="line">    for (let i = 0, len = arr.length; i &lt; len; i ++) &#123;</span><br><span class="line">        await arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">demo();//正常输出</span><br><span class="line">//如果for循环写成下面这样</span><br><span class="line">async function bugDemo() &#123;</span><br><span class="line">    let arr = [1, 2, 3, 4, 5];</span><br><span class="line">    arr.forEach(item =&gt; &#123;</span><br><span class="line">        await item;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">bugDemo();// Uncaught SyntaxError: Unexpected identifier</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h3 id="场景示例"><a href="#场景示例" class="headerlink" title="场景示例"></a>场景示例</h3><p>  这里写一个简单模拟异步api<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">  class Api &#123;</span><br><span class="line">  constructor () &#123;</span><br><span class="line">    this.user = &#123; id: 1, name: &#x27;test&#x27; &#125;</span><br><span class="line">    this.friends = [ this.user, this.user, this.user ]</span><br><span class="line">    this.photo = &#x27;not a real photo&#x27;</span><br><span class="line">  &#125;</span><br><span class="line">  getUser () &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      setTimeout(() =&gt; resolve(this.user), 200)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  getFriends (userId) &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      setTimeout(() =&gt; resolve(this.friends.slice()), 200)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  getPhoto (userId) &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      setTimeout(() =&gt; resolve(this.photo), 200)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  throwError () &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      setTimeout(() =&gt; reject(new Error(&#x27;Intentional Error&#x27;)), 200)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="需求1：获得用户信息"><a href="#需求1：获得用户信息" class="headerlink" title="需求1：获得用户信息"></a>需求1：获得用户信息</h4><p>  promise链写法<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">  function promiseChain () &#123;</span><br><span class="line">  const api = new Api()</span><br><span class="line">  let user, friends</span><br><span class="line">  api.getUser()</span><br><span class="line">    .then((returnedUser) =&gt; &#123;</span><br><span class="line">      user = returnedUser</span><br><span class="line">      return api.getFriends(user.id)</span><br><span class="line">    &#125;)</span><br><span class="line">    .then((returnedFriends) =&gt; &#123;</span><br><span class="line">      friends = returnedFriends</span><br><span class="line">      return api.getPhoto(user.id)</span><br><span class="line">    &#125;)</span><br><span class="line">    .then((photo) =&gt; &#123;</span><br><span class="line">      console.log(&#x27;promiseChain&#x27;, &#123; user, friends, photo &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Async&#x2F;Await写法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">async function asyncAwaitIsYourNewBestFriend () &#123;</span><br><span class="line">  const api = new Api()</span><br><span class="line">  const user = await api.getUser()</span><br><span class="line">  const friends = await api.getFriends(user.id)</span><br><span class="line">  const photo = await api.getPhoto(user.id)</span><br><span class="line">  console.log(&#x27;asyncAwaitIsYourNewBestFriend&#x27;, &#123; user, friends, photo &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="需求2：获得朋友的朋友"><a href="#需求2：获得朋友的朋友" class="headerlink" title="需求2：获得朋友的朋友"></a>需求2：获得朋友的朋友</h4><p> promise链写法:这里使用的是迭代循环<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> function promiseLoops () &#123;  </span><br><span class="line">  const api &#x3D; new Api()</span><br><span class="line">  api.getUser()</span><br><span class="line">    .then((user) &#x3D;&gt; &#123;</span><br><span class="line">      return api.getFriends(user.id)</span><br><span class="line">    &#125;)</span><br><span class="line">    .then((returnedFriends) &#x3D;&gt; &#123;</span><br><span class="line">      const getFriendsOfFriends &#x3D; (friends) &#x3D;&gt; &#123;</span><br><span class="line">        if (friends.length &gt; 0) &#123;</span><br><span class="line">          let friend &#x3D; friends.pop()</span><br><span class="line">          return api.getFriends(friend.id)</span><br><span class="line">            .then((moreFriends) &#x3D;&gt; &#123;</span><br><span class="line">              console.log(&#39;promiseLoops&#39;, moreFriends)</span><br><span class="line">              return getFriendsOfFriends(friends)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return getFriendsOfFriends(returnedFriends)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br> Async/Await写法:<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> async function asyncAwaitLoops () &#123;</span><br><span class="line">  const api &#x3D; new Api()</span><br><span class="line">  const user &#x3D; await api.getUser()</span><br><span class="line">  const friends &#x3D; await api.getFriends(user.id)</span><br><span class="line">  for (let friend of friends) &#123;</span><br><span class="line">    let moreFriends &#x3D; await api.getFriends(friend.id)</span><br><span class="line">    console.log(&#39;asyncAwaitLoops&#39;, moreFriends)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>  Async/Await写法简化并发<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  async function asyncAwaitLoopsParallel () &#123;</span><br><span class="line">  const api &#x3D; new Api()</span><br><span class="line">  const user &#x3D; await api.getUser()</span><br><span class="line">  const friends &#x3D; await api.getFriends(user.id)</span><br><span class="line">  const friendPromises &#x3D; friends.map(friend &#x3D;&gt; api.getFriends(friend.id))</span><br><span class="line">  const moreFriends &#x3D; await Promise.all(friendPromises)</span><br><span class="line">  console.log(&#39;asyncAwaitLoopsParallel&#39;, moreFriends)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>  参考：</p>
+<h4 id="需求2：获得朋友的朋友"><a href="#需求2：获得朋友的朋友" class="headerlink" title="需求2：获得朋友的朋友"></a>需求2：获得朋友的朋友</h4><p> promise链写法:这里使用的是迭代循环<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> function promiseLoops () &#123;  </span><br><span class="line">  const api = new Api()</span><br><span class="line">  api.getUser()</span><br><span class="line">    .then((user) =&gt; &#123;</span><br><span class="line">      return api.getFriends(user.id)</span><br><span class="line">    &#125;)</span><br><span class="line">    .then((returnedFriends) =&gt; &#123;</span><br><span class="line">      const getFriendsOfFriends = (friends) =&gt; &#123;</span><br><span class="line">        if (friends.length &gt; 0) &#123;</span><br><span class="line">          let friend = friends.pop()</span><br><span class="line">          return api.getFriends(friend.id)</span><br><span class="line">            .then((moreFriends) =&gt; &#123;</span><br><span class="line">              console.log(&#x27;promiseLoops&#x27;, moreFriends)</span><br><span class="line">              return getFriendsOfFriends(friends)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return getFriendsOfFriends(returnedFriends)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br> Async&#x2F;Await写法:<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> async function asyncAwaitLoops () &#123;</span><br><span class="line">  const api = new Api()</span><br><span class="line">  const user = await api.getUser()</span><br><span class="line">  const friends = await api.getFriends(user.id)</span><br><span class="line">  for (let friend of friends) &#123;</span><br><span class="line">    let moreFriends = await api.getFriends(friend.id)</span><br><span class="line">    console.log(&#x27;asyncAwaitLoops&#x27;, moreFriends)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>  Async&#x2F;Await写法简化并发<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  async function asyncAwaitLoopsParallel () &#123;</span><br><span class="line">  const api = new Api()</span><br><span class="line">  const user = await api.getUser()</span><br><span class="line">  const friends = await api.getFriends(user.id)</span><br><span class="line">  const friendPromises = friends.map(friend =&gt; api.getFriends(friend.id))</span><br><span class="line">  const moreFriends = await Promise.all(friendPromises)</span><br><span class="line">  console.log(&#x27;asyncAwaitLoopsParallel&#x27;, moreFriends)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>  参考：</p>
 <ul>
-<li><a href="https://promisesaplus.com/" target="_blank" rel="noopener">Promises/A+</a></li>
-<li><a href="https://blog.patricktriest.com/what-is-async-await-why-should-you-care/" target="_blank" rel="noopener">ASYNC/AWAIT WILL MAKE YOUR CODE SIMPLER</a></li>
+<li><a target="_blank" rel="noopener" href="https://promisesaplus.com/">Promises&#x2F;A+</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.patricktriest.com/what-is-async-await-why-should-you-care/">ASYNC&#x2F;AWAIT WILL MAKE YOUR CODE SIMPLER</a></li>
 </ul>
 
     </div>
@@ -239,7 +298,7 @@
       <i class="fa fa-chevron-left"></i> 模块化
     </a></div>
       <div class="post-nav-item">
-    <a href="/2017/10/19/test/" rel="next" title="http">
+    <a href="/2017/10/19/http/" rel="next" title="http">
       http <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -254,6 +313,7 @@
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -291,22 +351,22 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Async-Await与Promise的关系"><span class="nav-number">1.</span> <span class="nav-text">Async&#x2F;Await与Promise的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Async-Await基本语法"><span class="nav-number">2.</span> <span class="nav-text">Async&#x2F;Await基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景示例"><span class="nav-number">3.</span> <span class="nav-text">场景示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#需求1：获得用户信息"><span class="nav-number">3.1.</span> <span class="nav-text">需求1：获得用户信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#需求2：获得朋友的朋友"><span class="nav-number">3.2.</span> <span class="nav-text">需求2：获得朋友的朋友</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Async-x2F-Await%E4%B8%8EPromise%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.</span> <span class="nav-text">Async&#x2F;Await与Promise的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Async-x2F-Await%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">Async&#x2F;Await基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">场景示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E6%B1%821%EF%BC%9A%E8%8E%B7%E5%BE%97%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="nav-number">3.1.</span> <span class="nav-text">需求1：获得用户信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E6%B1%822%EF%BC%9A%E8%8E%B7%E5%BE%97%E6%9C%8B%E5%8F%8B%E7%9A%84%E6%9C%8B%E5%8F%8B"><span class="nav-number">3.2.</span> <span class="nav-text">需求2：获得朋友的朋友</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe - zh-tw - en</p>
+  <p class="site-author-name" itemprop="name">John Doe</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -315,16 +375,16 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">30</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
         <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">categories</span>
+        <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
         <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
@@ -347,18 +407,6 @@
 
         
 
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">John Doe - zh-tw - en</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
-
         
 
 
@@ -366,6 +414,92 @@
 
 
 
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz","app_key":"AgFnrn2FODUJulhW3pUkvB8o","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
 
 
       </div>
@@ -395,6 +529,10 @@
 
 
 
+  
+<script src="/js/local-search.js"></script>
+
+
 
 
 
@@ -409,6 +547,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz',
+      appKey     : 'AgFnrn2FODUJulhW3pUkvB8o',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>

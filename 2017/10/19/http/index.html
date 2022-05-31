@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="第3章 HTTP报文内的HTTP信息一般报文和响应报文的解构如下图所示：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http">
+<meta property="og:url" content="http://example.com/2017/10/19/http/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第3章 HTTP报文内的HTTP信息一般报文和响应报文的解构如下图所示：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2017/10/19/http/message.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/proxy.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/gateway.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/tunnel.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/GeneralHeader.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/RequestHeader.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/ResponseHeader.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/EntityHeader.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/Authorization.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/Host.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/If-Match.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/If-Modified-Since.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/If-None-Match.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/If-Range.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/If-Range-without.png">
+<meta property="og:image" content="http://example.com/2017/10/19/http/Vary.png">
+<meta property="article:published_time" content="2017-10-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-31T07:05:51.586Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2017/10/19/http/message.png">
+
+<link rel="canonical" href="http://example.com/2017/10/19/http/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>http | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/10/19/http/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          http
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-10-19 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-19T00:00:00+08:00">2017-10-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-31 15:05:51" itemprop="dateModified" datetime="2022-05-31T15:05:51+08:00">2022-05-31</time>
+              </span>
+
+          
+            <span id="/2017/10/19/http/" class="post-meta-item leancloud_visitors" data-flag-title="http" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2017/10/19/http/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/10/19/http/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="第3章-HTTP报文内的HTTP信息"><a href="#第3章-HTTP报文内的HTTP信息" class="headerlink" title="第3章 HTTP报文内的HTTP信息"></a>第3章 HTTP报文内的HTTP信息</h2><p>一般报文和响应报文的解构如下图所示：  </p>
+<p><img src="/2017/10/19/http/message.png" alt="message"></p>
+<span id="more"></span>
+
+
+<h4 id="报文和实体的差异"><a href="#报文和实体的差异" class="headerlink" title="报文和实体的差异"></a>报文和实体的差异</h4><ul>
+<li>报文(message): HTTP通信的基本单位，由8位组字节流组成，通过HTTP通信传输  </li>
+<li>实体(entity):作为报文的一部分，被当做请求和响应的有效载荷数据被传输，其内容由实体首部和实体主体组成。</li>
+</ul>
+<h2 id="第4章-返回结构的HTTP状态码"><a href="#第4章-返回结构的HTTP状态码" class="headerlink" title="第4章 返回结构的HTTP状态码"></a>第4章 返回结构的HTTP状态码</h2><p>状态码类别：  </p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>类别</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1XX Informatinal</td>
+<td>信息性状态码</td>
+<td>接收的请求处理中</td>
+</tr>
+<tr>
+<td>2XX Success</td>
+<td>成功状态码</td>
+<td>请求正常处理完毕</td>
+</tr>
+<tr>
+<td>3XX Redirection</td>
+<td>重定向状态码</td>
+<td>需要进行附加操作以完成请求</td>
+</tr>
+<tr>
+<td>4XX Client Error</td>
+<td>客服端错误状态码</td>
+<td>服务器无法处理请求</td>
+</tr>
+<tr>
+<td>5XX Server Error</td>
+<td>服务器错误状态码</td>
+<td>服务器处理请求错误</td>
+</tr>
+</tbody></table>
+<p>常用状态码：</p>
+<ul>
+<li>200 OK    表示从客户端发来的请求在服务器端正常处理了</li>
+<li>204 No Content   表示服务器接受请求已成功处理，但是返回的响应保温中不含实体的主体部分。</li>
+<li>206 Partail Content 表示客户点进行范围请求，服务器成功执行这部分的GET请求。响应报文中的Content-Range 指定实体内容的范围。</li>
+<li>301 Moved Permanently   表示资源已经永久性重新分配URI，这是应该按照响应头的Location首部字段的URI重定向。</li>
+<li>302 Found 表示资源暂时重新分配URI</li>
+<li>303 See Other 表示资源存在另一个URI，应该使用GET方法定向获取请求的资源。</li>
+<li>304 Not Modified 表示客户端发送附带条件(If-Match,If-Modified-Since,If-None-Match,If-Range,If-Unmodified-Since)请求时，服务器端允许请求访问资源，但是为满足条件，返回不包含任何相应主体部分。</li>
+<li>400 Bad Request 表示报文中存在语法错误。</li>
+<li>401 Unauthorized 表示未授权，或授权验证失败</li>
+<li>403 Forbidden 拒绝访问</li>
+<li>404 Not Found 无法通过指定的URI找到对应的资源</li>
+<li>500 Internal Server Error 服务器执行时发生错误。</li>
+<li>503 Service Unavailable 服务器暂时超负荷或停机维护中，最好写入在响应头中写入RetryAfter首部字段给客户端</li>
+</ul>
+<h2 id="第5章-与HTTP协作的web服务器"><a href="#第5章-与HTTP协作的web服务器" class="headerlink" title="第5章 与HTTP协作的web服务器"></a>第5章 与HTTP协作的web服务器</h2><h4 id="5-2-1-代理"><a href="#5-2-1-代理" class="headerlink" title="5.2.1 代理"></a>5.2.1 代理</h4><p>代理：接受客户端发送的请求并转发给服务器，同时也接收服务器返回的响应并转发给客户端。<br>一般具体过程如下：  </p>
+<p><img src="/2017/10/19/http/proxy.png" alt="proxy"></p>
+<p>按照使用分类。一种是否使用缓存，另一种是否修改报文。</p>
+<ul>
+<li>缓存代理： 代理转发响应时，缓存代理(Caching Proxy)会预先将资源副本保存在代理服务器上，当代理再次接收到相同资源请求时，就不可以从源服务器获取资源，而是将之前缓存作为响应返回。</li>
+<li>透明代理： 转发请求或响应时，不对报文做任何加工称为透明代理。</li>
+</ul>
+<h4 id="5-2-2-网关"><a href="#5-2-2-网关" class="headerlink" title="5.2.2 网关"></a>5.2.2 网关</h4><p>网关：利用网关可以由HTTP请求转化为其他协议通信。  </p>
+<p><img src="/2017/10/19/http/gateway.png" alt="gateway"></p>
+<h4 id="5-2-3-隧道"><a href="#5-2-3-隧道" class="headerlink" title="5.2.3 隧道"></a>5.2.3 隧道</h4><p>隧道： 按照要求建立器与其他服务器通信的路线，如利用SSL等加密手段。隧道的目的在保障客户端与服务器进行安全通信。</p>
+<h3 id="5-3-缓存"><a href="#5-3-缓存" class="headerlink" title="5.3 缓存"></a>5.3 缓存</h3><p>缓存分为客户端缓存和代理缓存。</p>
+<p><img src="/2017/10/19/http/tunnel.png" alt="tunnel"></p>
+<h2 id="第6章-HTTP首部"><a href="#第6章-HTTP首部" class="headerlink" title="第6章 HTTP首部"></a>第6章 HTTP首部</h2><p>根据首部字段实际用途被分为以下4中类型</p>
+<ul>
+<li>通用首部字段(General Header Fileds): 请求报文和响应报文都会使用的首部。</li>
+<li>请求首部字段(Request Header Fileds): 客户端项服务器端请求使用的首部。 补充了请求附加内容，客户端信息，响应内容相关优先级等信息。</li>
+<li>响应首部字段(Response Header Fields): 服务器向客户福安响应时使用的首部。补充了响应附加内容，也会要求客户端附加额外内容信息。</li>
+<li>实体首部字段(Entity Header Fields): 请求报文和响应报文实体部分使用的首部。补充资源内容更新时间等与实体有关的信息。</li>
+</ul>
+<p>HTTP&#x2F;1.1 规范定义如下47中首部字段<br>通用首部子段：<br><img src="/2017/10/19/http/GeneralHeader.png" alt="子段1">  </p>
+<p>请求首部子段：<br><img src="/2017/10/19/http/RequestHeader.png" alt="子段2">  </p>
+<p>响应首部子段：<br><img src="/2017/10/19/http/ResponseHeader.png" alt="子段3">  </p>
+<p>实体首部子段：<br><img src="/2017/10/19/http/EntityHeader.png" alt="子段4">  </p>
+<p>除了RFC2616中定义的47种首部子段。还有Cookie, Set-Cookie和Content-Disposition等。</p>
+<h4 id="6-3-2-Connection"><a href="#6-3-2-Connection" class="headerlink" title="6.3.2 Connection"></a>6.3.2 Connection</h4><ul>
+<li>控制代理不再转发给源服务器的首部字段  Connection: 不再转发的首部字段名</li>
+</ul>
+<h4 id="6-3-3-Date"><a href="#6-3-3-Date" class="headerlink" title="6.3.3 Date"></a>6.3.3 Date</h4><ul>
+<li>创建HTTP报文的日期和时间 Date:Fri, 20 Oct 2017 06:33:42 GMT</li>
+</ul>
+<h4 id="6-3-4-Pragma"><a href="#6-3-4-Pragma" class="headerlink" title="6.3.4 Pragma"></a>6.3.4 Pragma</h4><ul>
+<li>HTTP&#x2F;1.1 遗留字段，虽然为通用首部字段，但是只在客户端发送请求时使用。 为了保证全部中间服务器行为保存一般都会含以下两个字段<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control: no-catch</span><br><span class="line">Paragma: no-cache</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Tralier"><a href="#Tralier" class="headerlink" title="Tralier"></a>Tralier</h4><ul>
+<li>允许发生方在分块发送消息后面添加额外的元信息 Trailer: header-names</li>
+</ul>
+<h4 id="Transfer-Encoding"><a href="#Transfer-Encoding" class="headerlink" title="Transfer-Encoding"></a>Transfer-Encoding</h4><ul>
+<li>Transfer-Encoding 是一个逐跳传输消息首部，即仅应用于两个节点之间的消息传递，而不是所请求的资源本身。</li>
+</ul>
+<h2 id="6-4-请求首部"><a href="#6-4-请求首部" class="headerlink" title="6.4 请求首部"></a>6.4 请求首部</h2><h4 id="Accept"><a href="#Accept" class="headerlink" title="Accept"></a>Accept</h4><ul>
+<li>Accept 首部字段可通知服务器，用户代理能够处理的媒体类型及媒体类型的相对优先级，使用q来表示权重(0-1)默认为1.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br></pre></td></tr></table></figure>
+<h4 id="Accept-Charset"><a href="#Accept-Charset" class="headerlink" title="Accept-Charset"></a>Accept-Charset</h4></li>
+<li>Accept-Charset 首部字段可用来通知服务器用户代理支持的字符集及字符集的相对优先顺序.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accept-Charset: iso-8859-5, unicode-1-1;q=0.8</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Accept-Encoding"><a href="#Accept-Encoding" class="headerlink" title="Accept-Encoding"></a>Accept-Encoding</h4><ul>
+<li>Accept-Encoding 首部字段用来告知服务器用户代理支持的内容编码及内容编码的优先级顺序<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accept-Encoding:gzip, deflate, br</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Accept-Languag"><a href="#Accept-Languag" class="headerlink" title="Accept-Languag"></a>Accept-Languag</h4><ul>
+<li>Accept-Language 用来告知服务器用户代理能够处理的自然语言集（指中文或英文等），以及自然语言集的相对优先级。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accept-Language:zh-CN,zh;q=0.8</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Authorization"><a href="#Authorization" class="headerlink" title="Authorization"></a>Authorization</h4><p><img src="/2017/10/19/http/Authorization.png" alt="Authorization">;</p>
+<h4 id="Host"><a href="#Host" class="headerlink" title="Host"></a>Host</h4><ul>
+<li>首部字段 Host 会告知服务器，请求的资源所处的互联网主机名和端口号Host 首部字段在 HTTP&#x2F;1.1 规范内是唯一一个必须被包含在请求内的首部字段<br><img src="/2017/10/19/http/Host.png" alt="Host"></li>
+</ul>
+<h4 id="If-Match"><a href="#If-Match" class="headerlink" title="If-Match"></a>If-Match</h4><ul>
+<li>如If-xxx这种首部字段称为条件请求，只有服务器接受附加条件后判定为真才会执行请求。 需要注意的是所有的条件都同时满足时才会处理请求。If-Match字段必须和ETag匹配时，服务器才会接受请求。<br><img src="/2017/10/19/http/If-Match.png" alt="If-Match"></li>
+</ul>
+<h4 id="If-Modified-Since"><a href="#If-Modified-Since" class="headerlink" title="If-Modified-Since"></a>If-Modified-Since</h4><p><img src="/2017/10/19/http/If-Modified-Since.png" alt="If-Modified-Since"></p>
+<h4 id="If-None-Match"><a href="#If-None-Match" class="headerlink" title="If-None-Match"></a>If-None-Match</h4><ul>
+<li>在 GET 或 HEAD 方法中使用首部字段 If-None-Match 可获取最新的资源。因此，这与使用首部字段 If-Modified-Since 时有些类似。<br><img src="/2017/10/19/http/If-None-Match.png" alt="If-None-Match"></li>
+</ul>
+<h4 id="If-Range"><a href="#If-Range" class="headerlink" title="If-Range"></a>If-Range</h4><ul>
+<li><p>它告知服务器若指定的 If-Range 字段值（ETag 值或者时间但是二者不能同时使用）和请求资源的 ETag 值或时间相一致时，则作为范围请求处理。反之，则返回全体资源。<br><img src="/2017/10/19/http/If-Range.png" alt="If-Range"></p>
+</li>
+<li><p>若不使用If-Range请求失败则需要两次请求<br><img src="/2017/10/19/http/If-Range-without.png" alt="If-Range-without"></p>
+</li>
+</ul>
+<h4 id="If-Unmodified-Since"><a href="#If-Unmodified-Since" class="headerlink" title="If-Unmodified-Since"></a>If-Unmodified-Since</h4><ul>
+<li>的作用的是告知服务器，指定的请求资源只有在字段值内指定的日期时间之后，未发生更新的情况下，才能处理请求。</li>
+</ul>
+<h4 id="Referer"><a href="#Referer" class="headerlink" title="Referer"></a>Referer</h4><ul>
+<li>首部字段 Referer 会告知服务器请求的原始资源的 URI。原始资源的 URI 中的查询字符串可能有 ID 和密码等保密信息，要是写进 Referer 转发给其他服务器，则有可能导致保密信息的泄露。</li>
+</ul>
+<h2 id="6-5-响应首部字段"><a href="#6-5-响应首部字段" class="headerlink" title="6.5 响应首部字段"></a>6.5 响应首部字段</h2><h4 id="Accept-Ranges"><a href="#Accept-Ranges" class="headerlink" title="Accept-Ranges"></a>Accept-Ranges</h4><ul>
+<li>Accept-Ranges 是用来告知客户端服务器是否能处理范围请求，以指定获取服务器端某个部分的资源。一种时bytes能处理一种为none不能处理</li>
+</ul>
+<h4 id="age"><a href="#age" class="headerlink" title="age"></a>age</h4><ul>
+<li>首部字段 Age 能告知客户端，源服务器在多久前创建了响应。字段值的单位为秒。</li>
+</ul>
+<h4 id="ETag"><a href="#ETag" class="headerlink" title="ETag"></a>ETag</h4><ul>
+<li>首部字段 ETag 能告知客户端实体标识。它是一种可将资源以字符串形式做唯一性标识的方式。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//强 ETag 值 不论实体发生多么细微的变化都会改变其值</span><br><span class="line">ETag: &quot;usagi-1234&quot;</span><br><span class="line"></span><br><span class="line">//弱 ETag 值 弱 ETag 值只用于提示资源是否相同会在字段值最开始处附加 W/。</span><br><span class="line">ETag: W/&quot;usagi-1234&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Location"><a href="#Location" class="headerlink" title="Location"></a>Location</h4><ul>
+<li>该字段会配合 3xx ：Redirection 的响应，提供重定向的<br>URI。</li>
+</ul>
+<h4 id="Proxy-Authenticate"><a href="#Proxy-Authenticate" class="headerlink" title="Proxy-Authenticate"></a>Proxy-Authenticate</h4><ul>
+<li>首部字段 Proxy-Authenticate 会把由代理服务器所要求的认证信息发送给客户端</li>
+</ul>
+<h4 id="Retry-After"><a href="#Retry-After" class="headerlink" title="Retry-After"></a>Retry-After</h4><ul>
+<li>首部字段 Retry-After 告知客户端应该在多久之后再次发送请求。主要配合状态码 503 Service Unavailable 响应，或 3xx Redirect 响应一起使用。</li>
+</ul>
+<h4 id="Vary"><a href="#Vary" class="headerlink" title="Vary"></a>Vary</h4><ul>
+<li>从代理服务器接收到源服务器返回包含 Vary 指定项的响应之后，若再要进行缓存，仅对请求中含有相同 Vary 指定首部字段的请求返回缓存。即使对相同资源发起请求，但由于 Vary 指定的首部字段不相同，因此必须要从源服务器重新获取资源。<br><img src="/2017/10/19/http/Vary.png" alt="Vary"></li>
+</ul>
+<h2 id="6-6-实体首部字段"><a href="#6-6-实体首部字段" class="headerlink" title="6.6 实体首部字段"></a>6.6 实体首部字段</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/10/17/Async_Await/" rel="prev" title="使用Async/Await优化Promise">
+      <i class="fa fa-chevron-left"></i> 使用Async/Await优化Promise
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/10/23/RFC/" rel="next" title="RFC 7234">
+      RFC 7234 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC3%E7%AB%A0-HTTP%E6%8A%A5%E6%96%87%E5%86%85%E7%9A%84HTTP%E4%BF%A1%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">第3章 HTTP报文内的HTTP信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%A5%E6%96%87%E5%92%8C%E5%AE%9E%E4%BD%93%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="nav-number">1.0.1.</span> <span class="nav-text">报文和实体的差异</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC4%E7%AB%A0-%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%84%E7%9A%84HTTP%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">第4章 返回结构的HTTP状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC5%E7%AB%A0-%E4%B8%8EHTTP%E5%8D%8F%E4%BD%9C%E7%9A%84web%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">第5章 与HTTP协作的web服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-1-%E4%BB%A3%E7%90%86"><span class="nav-number">3.0.1.</span> <span class="nav-text">5.2.1 代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-2-%E7%BD%91%E5%85%B3"><span class="nav-number">3.0.2.</span> <span class="nav-text">5.2.2 网关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-3-%E9%9A%A7%E9%81%93"><span class="nav-number">3.0.3.</span> <span class="nav-text">5.2.3 隧道</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E7%BC%93%E5%AD%98"><span class="nav-number">3.1.</span> <span class="nav-text">5.3 缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC6%E7%AB%A0-HTTP%E9%A6%96%E9%83%A8"><span class="nav-number">4.</span> <span class="nav-text">第6章 HTTP首部</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-2-Connection"><span class="nav-number">4.0.1.</span> <span class="nav-text">6.3.2 Connection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-3-Date"><span class="nav-number">4.0.2.</span> <span class="nav-text">6.3.3 Date</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-4-Pragma"><span class="nav-number">4.0.3.</span> <span class="nav-text">6.3.4 Pragma</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tralier"><span class="nav-number">4.0.4.</span> <span class="nav-text">Tralier</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Transfer-Encoding"><span class="nav-number">4.0.5.</span> <span class="nav-text">Transfer-Encoding</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-4-%E8%AF%B7%E6%B1%82%E9%A6%96%E9%83%A8"><span class="nav-number">5.</span> <span class="nav-text">6.4 请求首部</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Accept"><span class="nav-number">5.0.1.</span> <span class="nav-text">Accept</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Accept-Charset"><span class="nav-number">5.0.2.</span> <span class="nav-text">Accept-Charset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Accept-Encoding"><span class="nav-number">5.0.3.</span> <span class="nav-text">Accept-Encoding</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Accept-Languag"><span class="nav-number">5.0.4.</span> <span class="nav-text">Accept-Languag</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Authorization"><span class="nav-number">5.0.5.</span> <span class="nav-text">Authorization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Host"><span class="nav-number">5.0.6.</span> <span class="nav-text">Host</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#If-Match"><span class="nav-number">5.0.7.</span> <span class="nav-text">If-Match</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#If-Modified-Since"><span class="nav-number">5.0.8.</span> <span class="nav-text">If-Modified-Since</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#If-None-Match"><span class="nav-number">5.0.9.</span> <span class="nav-text">If-None-Match</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#If-Range"><span class="nav-number">5.0.10.</span> <span class="nav-text">If-Range</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#If-Unmodified-Since"><span class="nav-number">5.0.11.</span> <span class="nav-text">If-Unmodified-Since</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Referer"><span class="nav-number">5.0.12.</span> <span class="nav-text">Referer</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5-%E5%93%8D%E5%BA%94%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="nav-number">6.</span> <span class="nav-text">6.5 响应首部字段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Accept-Ranges"><span class="nav-number">6.0.1.</span> <span class="nav-text">Accept-Ranges</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#age"><span class="nav-number">6.0.2.</span> <span class="nav-text">age</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ETag"><span class="nav-number">6.0.3.</span> <span class="nav-text">ETag</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Location"><span class="nav-number">6.0.4.</span> <span class="nav-text">Location</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Proxy-Authenticate"><span class="nav-number">6.0.5.</span> <span class="nav-text">Proxy-Authenticate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Retry-After"><span class="nav-number">6.0.6.</span> <span class="nav-text">Retry-After</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vary"><span class="nav-number">6.0.7.</span> <span class="nav-text">Vary</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-6-%E5%AE%9E%E4%BD%93%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="nav-number">7.</span> <span class="nav-text">6.6 实体首部字段</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz","app_key":"AgFnrn2FODUJulhW3pUkvB8o","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz',
+      appKey     : 'AgFnrn2FODUJulhW3pUkvB8o',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

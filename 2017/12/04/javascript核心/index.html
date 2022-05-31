@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,34 +17,34 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="这是’javascript核心’概览第二版，文章内容主要是ECMAScript程序语言以及运行时系统核心部分. 面向阅读对象：专业开发者  对象(Object) 原型(Prototype) 类(Class) 执行上下文(Execution context) 环境(Environment) 闭包(Closure) This 范围(Realm) Job 代理(Agent)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Javscript.The Core：2nd Edition">
-<meta property="og:url" content="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/index.html">
+<meta property="og:url" content="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="这是’javascript核心’概览第二版，文章内容主要是ECMAScript程序语言以及运行时系统核心部分. 面向阅读对象：专业开发者  对象(Object) 原型(Prototype) 类(Class) 执行上下文(Execution context) 环境(Environment) 闭包(Closure) This 范围(Realm) Job 代理(Agent)">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/javascript%E6%A0%B8%E5%BF%83/js-object.png">
-<meta property="og:image" content="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/javascript%E6%A0%B8%E5%BF%83/prototype-chain.png">
-<meta property="og:image" content="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/javascript%E6%A0%B8%E5%BF%83/shared-prototype.png">
-<meta property="og:image" content="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/javascript%E6%A0%B8%E5%BF%83/js-constructor.png">
-<meta property="og:image" content="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/javascript%E6%A0%B8%E5%BF%83/execution-stack.png">
-<meta property="og:image" content="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/javascript%E6%A0%B8%E5%BF%83/environment-chain.png">
-<meta property="og:image" content="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/javascript%E6%A0%B8%E5%BF%83/env-binding-object.png">
-<meta property="og:image" content="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/javascript%E6%A0%B8%E5%BF%83/closure.png">
-<meta property="og:image" content="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/javascript%E6%A0%B8%E5%BF%83/shared-environment.png">
-<meta property="og:image" content="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/javascript%E6%A0%B8%E5%BF%83/context-realm.png">
-<meta property="og:image" content="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/javascript%E6%A0%B8%E5%BF%83/agents-1.png">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/js-object.png">
+<meta property="og:image" content="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/prototype-chain.png">
+<meta property="og:image" content="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/shared-prototype.png">
+<meta property="og:image" content="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/js-constructor.png">
+<meta property="og:image" content="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/execution-stack.png">
+<meta property="og:image" content="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/environment-chain.png">
+<meta property="og:image" content="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/env-binding-object.png">
+<meta property="og:image" content="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/closure.png">
+<meta property="og:image" content="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/shared-environment.png">
+<meta property="og:image" content="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/context-realm.png">
+<meta property="og:image" content="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/agents-1.png">
 <meta property="article:published_time" content="2017-12-03T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-05-06T06:06:49.896Z">
-<meta property="article:author" content="John Doe - zh-tw - en">
+<meta property="article:modified_time" content="2022-05-31T06:43:20.098Z">
+<meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/javascript%E6%A0%B8%E5%BF%83/js-object.png">
+<meta name="twitter:image" content="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/js-object.png">
 
-<link rel="canonical" href="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/">
+<link rel="canonical" href="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/">
 
 
 <script id="page-configurations">
@@ -53,7 +53,7 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'en'
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -97,7 +97,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -115,6 +115,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -126,19 +127,56 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -161,12 +199,12 @@
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/12/04/javascript%E6%A0%B8%E5%BF%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe - zh-tw - en">
+      <meta itemprop="name" content="John Doe">
       <meta itemprop="description" content="">
     </span>
 
@@ -183,28 +221,49 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="Created: 2017-12-04 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-04T00:00:00+08:00">2017-12-04</time>
+              <time title="创建时间：2017-12-04 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-04T00:00:00+08:00">2017-12-04</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-06 14:06:49" itemprop="dateModified" datetime="2020-05-06T14:06:49+08:00">2020-05-06</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-31 14:43:20" itemprop="dateModified" datetime="2022-05-31T14:43:20+08:00">2022-05-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javscript/" itemprop="url" rel="index"><span itemprop="name">javscript</span></a>
                 </span>
             </span>
 
           
+            <span id="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/" class="post-meta-item leancloud_visitors" data-flag-title="Javscript.The Core：2nd Edition" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -229,7 +288,7 @@
 <li><a href="#Job">Job</a></li>
 <li><a href="#agent">代理(Agent)</a></li>
 </ol>
-<a id="more"></a>
+<span id="more"></span>
 <p>第一版的文章主要覆盖了js语言以下这些方面，从es3中抽象的概念，以及一些在es5或es6中合适的改变。</p>
 <p>自从es2015开始，这些核心的概念已经发生了改变并且引入了新的模块，在这一版的文章中我们将聚焦一些新概念和新技术，但是同时也会兼顾那些不同文档间保持不变的js基础结构。  </p>
 <p>这篇文章将覆盖 ES2017+运行时系统</p>
@@ -243,143 +302,143 @@
 </ul>
 <p>让我们创造一个基本的对象，对象的原型是通过一个内部属性[[Prototype]]引用,在用户层面这个属性同过__proto__来引用.  </p>
 <p>看下面这段代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let point &#x3D; &#123;</span><br><span class="line">    x: 10,</span><br><span class="line">    y: 20</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let point = &#123;</span><br><span class="line">    x: 10,</span><br><span class="line">    y: 20</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>这个结构中有两个我们的显性属性很一个隐式属性__proto__,这个属性它指向point的原型:  </p>
-<p><img src="javascript%E6%A0%B8%E5%BF%83/js-object.png" alt="js-object"></p>
-<p>注意：对象也可以存储symbols,你可以从<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol" target="_blank" rel="noopener">这份文档</a>得到更多的信息.  </p>
+<p><img src="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/js-object.png" alt="js-object"></p>
+<p>注意：对象也可以存储symbols,你可以从<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol">这份文档</a>得到更多的信息.  </p>
 <p>原型对象通常用于实现继承来动态分发,让我们来看看原型链细节.  </p>
 <h2 id="原型-Prototype"><a href="#原型-Prototype" class="headerlink" title="原型(Prototype)"></a><span id="prototype">原型(Prototype)</span></h2><p>每个对象在其创建的时候接受一个原型.如果这个原型没有显式设置,那么这个对象会接受一个默认原型当做它的继承对象.  </p>
 <ul>
-<li>Def.2:原型:prototype是一个委托对象，这个对象通常用于实现基于原型的继承.  </li>
+<li>Def.2:原型:prototype是一个委托对象，这个对象通常用于实现基于原型的继承.</li>
 </ul>
 <p>原型可以通过__prot__属性或者Object.create方法进行显式设置:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Base object.</span><br><span class="line">let point &#x3D; &#123;</span><br><span class="line">  x: 10,</span><br><span class="line">  y: 20,</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Inherit from &#96;point&#96; object.</span><br><span class="line">let point3D &#x3D; &#123;</span><br><span class="line">  z: 30,</span><br><span class="line">  __proto__: point,</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  point3D.x, &#x2F;&#x2F; 10, inherited</span><br><span class="line">  point3D.y, &#x2F;&#x2F; 20, inherited</span><br><span class="line">  point3D.z  &#x2F;&#x2F; 30, own</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// Base object.</span><br><span class="line">let point = &#123;</span><br><span class="line">  x: 10,</span><br><span class="line">  y: 20,</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">// Inherit from `point` object.</span><br><span class="line">let point3D = &#123;</span><br><span class="line">  z: 30,</span><br><span class="line">  __proto__: point,</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  point3D.x, // 10, inherited</span><br><span class="line">  point3D.y, // 20, inherited</span><br><span class="line">  point3D.z  // 30, own</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
 <p>注意： 默认的原型继承自Object.prototype.  </p>
 <p>任何一个对象可以被当做另一个对象的原型,并且原型本身也可以有自己的原型.如果原型的原型指向一个非空(no-null)引用,以此类推，这样就形参了原型链.  </p>
 <ul>
-<li>Def.3: 原型链： 原型链是一个有限的对象链，这个对象链通常用于实现继承的属性共享.  </li>
+<li>Def.3: 原型链： 原型链是一个有限的对象链，这个对象链通常用于实现继承的属性共享.</li>
 </ul>
-<p><img src="javascript%E6%A0%B8%E5%BF%83/prototype-chain.png" alt="prototype-chain"></p>
+<p><img src="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/prototype-chain.png" alt="prototype-chain"></p>
 <p>原型链的规则也是相当简单: 如果一个属性在对象上没有找到,那么就从它的原型上找,然后再原型的原型上找,以此类推直到原型链都被遍历为止.  </p>
 <p>技术上来说这个机制通常以动态分发(dynamic dispatch)或者委托(delegation)而著称.  </p>
 <p>Def.4: 委托：一个用来在继承链上找寻属性的机制,它通常发生在运行时,因此也被称作动态分发(dynamic dispatch)</p>
 <ul>
-<li>注意：与动态分发在运行时求值相反的是,静态分发(static dispatch)在编译时确定引用值.  </li>
+<li>注意：与动态分发在运行时求值相反的是,静态分发(static dispatch)在编译时确定引用值.</li>
 </ul>
 <p>如果属性在原型链上并没有找到，那么undefined将作为值返回.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; An &quot;empty&quot; object.</span><br><span class="line">let empty &#x3D; &#123;&#125;;</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line"> </span><br><span class="line">  &#x2F;&#x2F; function, from default prototype</span><br><span class="line">  empty.toString,</span><br><span class="line">   </span><br><span class="line">  &#x2F;&#x2F; undefined</span><br><span class="line">  empty.x,</span><br><span class="line"> </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// An &quot;empty&quot; object.</span><br><span class="line">let empty = &#123;&#125;;</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line"> </span><br><span class="line">  // function, from default prototype</span><br><span class="line">  empty.toString,</span><br><span class="line">   </span><br><span class="line">  // undefined</span><br><span class="line">  empty.x,</span><br><span class="line"> </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <p>正如我所看到的，一个默认对象实际上永远都不是空的,它总是从Object.prototype继承一些东西.如果想继承一个空对象,我们可以显式的设置它的原型为null：   </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Doesn&#39;t inherit from anything.</span><br><span class="line">let dict &#x3D; Object.create(null);</span><br><span class="line"> </span><br><span class="line">console.log(dict.toString); &#x2F;&#x2F; undefined</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// Doesn&#x27;t inherit from anything.</span><br><span class="line">let dict = Object.create(null);</span><br><span class="line"> </span><br><span class="line">console.log(dict.toString); // undefined</span><br></pre></td></tr></table></figure>
 
 <p>动态分发机制允许其修改原型链上委托对象:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let protoA &#x3D; &#123;x: 10&#125;;</span><br><span class="line">let protoB &#x3D; &#123;x: 20&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Same as &#39;let objectC &#x3D; &#123;__proto__: protoA&#125;;&#39;</span><br><span class="line">let objectC &#x3D; Object,create(protoA);</span><br><span class="line">console.log(objectC.x); &#x2F;&#x2F; 10</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; change the delegate</span><br><span class="line">Object.setPrototypeOf(objctC, protoB);</span><br><span class="line">console.log(objectC.X); &#x2F;&#x2F; 20</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let protoA = &#123;x: 10&#125;;</span><br><span class="line">let protoB = &#123;x: 20&#125;;</span><br><span class="line"></span><br><span class="line">// Same as &#x27;let objectC = &#123;__proto__: protoA&#125;;&#x27;</span><br><span class="line">let objectC = Object,create(protoA);</span><br><span class="line">console.log(objectC.x); // 10</span><br><span class="line"></span><br><span class="line">// change the delegate</span><br><span class="line">Object.setPrototypeOf(objctC, protoB);</span><br><span class="line">console.log(objectC.X); // 20</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>注意： 经过在今天__proto__属性已经标准化了,但是实践和举例中人们更加愿意使用如Object.create,Object.getPrototypeOf,Object.setPrototypeOf 这样的API方法来操作原型.  </li>
+<li>注意： 经过在今天__proto__属性已经标准化了,但是实践和举例中人们更加愿意使用如Object.create,Object.getPrototypeOf,Object.setPrototypeOf 这样的API方法来操作原型.</li>
 </ul>
 <p>在上面的例子中我们看到Obejct.prototyep,被不同的对象共享为原型,这是ECMAScript以基于类继承的实现方式.让我们在看看JS中的类的概念.  </p>
 <h2 id="类-Class"><a href="#类-Class" class="headerlink" title="类(Class)"></a><span id="class">类(Class)</span></h2><p>当不同的对象拥有相同的初始状态和行为,这时它们共同的形成了一个类.  </p>
 <ul>
-<li>Def.5: 类： 类是一组拥有特定初始状态和行为的对象.  </li>
+<li>Def.5: 类： 类是一组拥有特定初始状态和行为的对象.</li>
 </ul>
 <p>当我们需要对多个对象继承自相同原型时,我们可以创建一个原型，然后显式的从这个创建的原型继承.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Generic prototype for all letters.</span><br><span class="line">let letter &#x3D; &#123;</span><br><span class="line">  getNumber() &#123;</span><br><span class="line">    return this.number;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">let a &#x3D; &#123;number: 1, __proto__: letter&#125;;</span><br><span class="line">let b &#x3D; &#123;number: 2, __proto__: letter&#125;;</span><br><span class="line">&#x2F;&#x2F; ...</span><br><span class="line">let z &#x3D; &#123;number: 26, __proto__: letter&#125;;</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  a.getNumber(), &#x2F;&#x2F; 1</span><br><span class="line">  b.getNumber(), &#x2F;&#x2F; 2</span><br><span class="line">  z.getNumber(), &#x2F;&#x2F; 26</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// Generic prototype for all letters.</span><br><span class="line">let letter = &#123;</span><br><span class="line">  getNumber() &#123;</span><br><span class="line">    return this.number;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">let a = &#123;number: 1, __proto__: letter&#125;;</span><br><span class="line">let b = &#123;number: 2, __proto__: letter&#125;;</span><br><span class="line">// ...</span><br><span class="line">let z = &#123;number: 26, __proto__: letter&#125;;</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  a.getNumber(), // 1</span><br><span class="line">  b.getNumber(), // 2</span><br><span class="line">  z.getNumber(), // 26</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
 <p>我们可以从下图中看他们之间的关系:  </p>
-<p><img src="javascript%E6%A0%B8%E5%BF%83/shared-prototype.png" alt="shared-prototype"></p>
+<p><img src="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/shared-prototype.png" alt="shared-prototype"></p>
 <p>然而这看起来相当笨重.并且类抽象刚好充当了句法糖的作用(i.e这个结构在语义上是相同的，但是是以一种更加词法化的形式),它让我们以一种方便的模式创建这样的对象.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Letter &#123;</span><br><span class="line">  constructor(number) &#123;</span><br><span class="line">    this.number &#x3D; number;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  getNumber() &#123;</span><br><span class="line">    return this.number;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let a &#x3D; new Letter(1);</span><br><span class="line">let b &#x3D; new Letter(2);</span><br><span class="line">&#x2F;&#x2F; ...</span><br><span class="line">let z &#x3D; new Letter(26);</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  a.getNumber(), &#x2F;&#x2F; 1</span><br><span class="line">  b.getNumber(), &#x2F;&#x2F; 2</span><br><span class="line">  z.getNumber(), &#x2F;&#x2F; 26</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Letter &#123;</span><br><span class="line">  constructor(number) &#123;</span><br><span class="line">    this.number = number;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  getNumber() &#123;</span><br><span class="line">    return this.number;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let a = new Letter(1);</span><br><span class="line">let b = new Letter(2);</span><br><span class="line">// ...</span><br><span class="line">let z = new Letter(26);</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  a.getNumber(), // 1</span><br><span class="line">  b.getNumber(), // 2</span><br><span class="line">  z.getNumber(), // 26</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>注意：基于类的继承在ES中是通过原型委托来实现的.  </p>
 </li>
-<li><p>注意：类只是一种理论上的抽象.理论上来说它既可以通过静态分发来实现,如在java或者c++,也可以通过动态分发(委托)来实现,如javascript,Python,Ruby.等等.  </p>
+<li><p>注意：类只是一种理论上的抽象.理论上来说它既可以通过静态分发来实现,如在java或者c++,也可以通过动态分发(委托)来实现,如javascript,Python,Ruby.等等.</p>
 </li>
 </ul>
 <p>理论上类可以由”构造函数+原型”来表示.构造函数在创建对象的同时自动的将为新创建的实例设置原型.它的原型被存储在ConstructorFunction.prototype(构造函数的原型)上.  </p>
 <ul>
-<li><p>Def.6: 构造器: 构造器是一个用于创建实例并且自动为实例设置原型的函数.   </p>
-<p>可以显示的使用一个构造器函数，而且在类抽象被引进之前,JS开发者并没有更好的选择(我们可以在因特网上看到许多这样遗留代码):</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> function Letter(number) &#123;</span><br><span class="line">  this.number &#x3D; number;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Letter.prototype.getNumber &#x3D; function() &#123;</span><br><span class="line">  return this.number;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">let a &#x3D; new Letter(1);</span><br><span class="line">let b &#x3D; new Letter(2);</span><br><span class="line">&#x2F;&#x2F; ...</span><br><span class="line">let z &#x3D; new Letter(26);</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  a.getNumber(), &#x2F;&#x2F; 1</span><br><span class="line">  b.getNumber(), &#x2F;&#x2F; 2</span><br><span class="line">  z.getNumber(), &#x2F;&#x2F; 26</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<li>Def.6: 构造器: 构造器是一个用于创建实例并且自动为实例设置原型的函数.</li>
+</ul>
+<p> 可以显示的使用一个构造器函数，而且在类抽象被引进之前,JS开发者并没有更好的选择(我们可以在因特网上看到许多这样遗留代码):</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> function Letter(number) &#123;</span><br><span class="line">  this.number = number;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Letter.prototype.getNumber = function() &#123;</span><br><span class="line">  return this.number;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">let a = new Letter(1);</span><br><span class="line">let b = new Letter(2);</span><br><span class="line">// ...</span><br><span class="line">let z = new Letter(26);</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  a.getNumber(), // 1</span><br><span class="line">  b.getNumber(), // 2</span><br><span class="line">  z.getNumber(), // 26</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <p>当创建一个单一层级的构造器是一件相当容易的事,从父类继承的模型需要更多的模板.当前这种模板的实现细节在我们创建JS类时已经被隐藏起来了.  </p>
-</li>
-<li><p>注意：构造器函数只是基于类继承的实现细节.  </p>
-</li>
+<ul>
+<li>注意：构造器函数只是基于类继承的实现细节.</li>
 </ul>
 <p>让我们看一下对象和类的关系:  </p>
-<p><img src="javascript%E6%A0%B8%E5%BF%83/js-constructor.png" alt="jsConstructor"></p>
+<p><img src="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/js-constructor.png" alt="jsConstructor"></p>
 <p>这张图展示了每个对象都和一个原型相关联,甚至构造器函数(class)Letter也有自己的原型,这个函数的原型指向Function.prototype. 注意Letter.prototype是Letter实例的原型也就是a,b,z.  </p>
 <ul>
-<li>注意:对于任何对象的实际原型都是指__proto__.同时在构造函数的显示属性prototype只是指向实例的原型的引用.其实实例的原型仍然是__proto__.可以从<a href="http://dmitrysoshnikov.com/ecmascript/chapter-7-2-oop-ecmascript-implementation/#explicit-codeprototypecode-and-implicit-codeprototypecode-properties" target="_blank" rel="noopener">这里</a>查看更多细节.  </li>
+<li>注意:对于任何对象的实际原型都是指__proto__.同时在构造函数的显示属性prototype只是指向实例的原型的引用.其实实例的原型仍然是__proto__.可以从<a target="_blank" rel="noopener" href="http://dmitrysoshnikov.com/ecmascript/chapter-7-2-oop-ecmascript-implementation/#explicit-codeprototypecode-and-implicit-codeprototypecode-properties">这里</a>查看更多细节.</li>
 </ul>
-<p>你可以从<a href="http://dmitrysoshnikov.com/ecmascript/chapter-7-1-oop-general-theory/" target="_blank" rel="noopener">ES3. 7.1 OOP: The general theory</a>文章中找到更多关于一般面向对象编程(OPP)的概念(包括基于类,基于原型的描述,等等)  </p>
+<p>你可以从<a target="_blank" rel="noopener" href="http://dmitrysoshnikov.com/ecmascript/chapter-7-1-oop-general-theory/">ES3. 7.1 OOP: The general theory</a>文章中找到更多关于一般面向对象编程(OPP)的概念(包括基于类,基于原型的描述,等等)  </p>
 <p>现在我们对ECMAScript对象有了基本的了解,让我们再看一下JS的运行系统,我们将看到,在那儿任何东西都将以对象呈现.  </p>
 <h2 id="执行上下文-Execution-context"><a href="#执行上下文-Execution-context" class="headerlink" title="执行上下文(Execution context)"></a><span id="executionContext">执行上下文(Execution context)</span></h2><p>为了执行JS代码的同时跟踪代码运行时的求值,ECMAScript 规范定义了执行上下文的概念.逻辑上来说执行上下文坚持使用栈(stack:执行上下文栈我们将很快看到),它对应的更广为人知的概念为调用栈.  </p>
 <ul>
-<li>Def.7: 执行上下文：执行上下文是一个用于跟踪运行时对代码求值的东西  </li>
+<li>Def.7: 执行上下文：执行上下文是一个用于跟踪运行时对代码求值的东西</li>
 </ul>
 <p>在ESCMScript中有几种类型的代码：全局代码, 函数代码,eval代码,模块代码.每一种代码都是在执行上下文中求值.不同的代码，在一定类型对象下会影响执行上下文的结构：如generator function在上下文中保存它们的genarator对象时.  </p>
 <p>让我们看一看下面的函数递归调用:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function recursive(flag) &#123;</span><br><span class="line"> </span><br><span class="line">  &#x2F;&#x2F; Exit condition.</span><br><span class="line">  if (flag &#x3D;&#x3D;&#x3D; 2) &#123;</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  &#x2F;&#x2F; Call recursively.</span><br><span class="line">  recursive(++flag);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Go.</span><br><span class="line">recursive(0);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function recursive(flag) &#123;</span><br><span class="line"> </span><br><span class="line">  // Exit condition.</span><br><span class="line">  if (flag === 2) &#123;</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  // Call recursively.</span><br><span class="line">  recursive(++flag);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">// Go.</span><br><span class="line">recursive(0);</span><br></pre></td></tr></table></figure>
 
 <p>一旦一个函数被调用时,一个新的执行上下文将被创建,同时将它推进栈中–这时就变成一个活动执行上下文(active execution context),当一个函数返回时,这个上下文就从栈中吐(poped)出来.  </p>
 <p>一个上下文调用另一个上下文时，前一个上下文被称做调用者(caller),当一个上下文被调用对应的被称作被调用者(callee).在上面的例子中recursive函数扮演着两个角色：调用者和被调用者.  </p>
 <ul>
-<li>Def.8: 执行上下文栈：执行上下文栈是一个后进先出(LIFO)的结构,这种结构被用来控制执行顺序和流.  </li>
+<li>Def.8: 执行上下文栈：执行上下文栈是一个后进先出(LIFO)的结构,这种结构被用来控制执行顺序和流.</li>
 </ul>
 <p>对于上面的例子我们遵循栈的”push-pop”限制：  </p>
-<p><img src="javascript%E6%A0%B8%E5%BF%83/execution-stack.png" alt="executionStack"> </p>
+<p><img src="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/execution-stack.png" alt="executionStack"> </p>
 <p>我们可以看到,全局上下文总是栈底部,它在执行所有其他上下文前就已经创建.  </p>
-<p>你可以在<a href="http://dmitrysoshnikov.com/ecmascript/chapter-1-execution-contexts/" target="_blank" rel="noopener">合适的章节</a>找到更多的细节.   </p>
+<p>你可以在<a target="_blank" rel="noopener" href="http://dmitrysoshnikov.com/ecmascript/chapter-1-execution-contexts/">合适的章节</a>找到更多的细节.   </p>
 <p>通常,上下文中代码将会运行完成，但是正如我所上面提到的–如generators也许会破坏后栈的进先出顺序.一个generator函数也许会暂停它的运行上下文,同时在它执行完之前将它从栈中移除.一旦generator被再次激活,它的上下文会再次回复并且将再次被推进栈中:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function *gen() &#123;</span><br><span class="line">  yield 1;</span><br><span class="line">  return 2;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let g &#x3D; gen();</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  g.next().value, &#x2F;&#x2F; 1</span><br><span class="line">  g.next().value, &#x2F;&#x2F; 2</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function *gen() &#123;</span><br><span class="line">  yield 1;</span><br><span class="line">  return 2;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let g = gen();</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  g.next().value, // 1</span><br><span class="line">  g.next().value, // 2</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
 <p>这里的yield语句将对调用者返回value值,同时上下文将被吐出.当第二个next调用时,相同的上下文将被推进栈中恢复.这样上下文将会在创建它的调用者之外存活,因此它破坏了后进先出的结构.  </p>
 <ul>
-<li>注意：你可以从这个<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators" target="_blank" rel="noopener">文档</a>阅读更多关于generators和iterators的细节.  </li>
+<li>注意：你可以从这个<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators">文档</a>阅读更多关于generators和iterators的细节.</li>
 </ul>
 <p>我们将现在讨论一个执行上下文的重要组成部分,特别是ECMACript运行中在嵌套代码块中如何管理变量存储和作用域.一般它们被称做词法环境：它们在JS中用来存储数据以及解决”函数作为参数问题(Funarg problem)”–和闭包机制.  </p>
 <h2 id="环境-Environment"><a href="#环境-Environment" class="headerlink" title="环境(Environment)"></a><span id="environment">环境(Environment)</span></h2><p>每个执行上下文都有一个与之相关联的词法环境.  </p>
 <ul>
-<li>Def.9: 词法环境： 词法环境是一个用于定义出现在上下文标识符和值之间关系.每个环境都一个指向可选父级环境的引用.  </li>
+<li>Def.9: 词法环境： 词法环境是一个用于定义出现在上下文标识符和值之间关系.每个环境都一个指向可选父级环境的引用.</li>
 </ul>
 <p>所以一个环境就是存储在一个作用域定义的变量,函数,类.  </p>
 <p>理论上来说,环境是由环境记录(一个实际上存储表,表的内容为标识符和值之间的映射),与可以指向父级环境(可能为null)的引用组成.  </p>
 <p>代码如下:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let x &#x3D; 10;</span><br><span class="line">let y &#x3D; 20;</span><br><span class="line"> </span><br><span class="line">function foo(z) &#123;</span><br><span class="line">  let x &#x3D; 100;</span><br><span class="line">  return x + y + z;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">foo(30); &#x2F;&#x2F; 150</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let x = 10;</span><br><span class="line">let y = 20;</span><br><span class="line"> </span><br><span class="line">function foo(z) &#123;</span><br><span class="line">  let x = 100;</span><br><span class="line">  return x + y + z;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">foo(30); // 150</span><br></pre></td></tr></table></figure>
 
 <p>全局上下文和foo函数上下文的环境解构关系如下：  </p>
-<p><img src="javascript%E6%A0%B8%E5%BF%83/environment-chain.png" alt="environmentChain">  </p>
+<p><img src="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/environment-chain.png" alt="environmentChain">  </p>
 <p>这让我们想起先前提到原型链.并且标识符求值规则与之相当相似: 如果一个变量在当前环监局没有找到,那么就向父级环境寻找,然后父级的父级,以此类推,直到整个环境链被遍历完了.  </p>
 <ul>
-<li>Def.10:标识符求值：它是一个在环境链求值的过程,如果没有找到相应的绑定就会抛出一个ReferenceError错误.  </li>
+<li>Def.10:标识符求值：它是一个在环境链求值的过程,如果没有找到相应的绑定就会抛出一个ReferenceError错误.</li>
 </ul>
 <p>这就解释了为什么变量x求值为100,而不是10–它被在自己的环境foo中找到;为什么我们可以访问参数z–它也是时被存储在激活环境中;同时也能解释我们可以获取y的值–这是因为它在父级环境中可以找到.  </p>
 <p>与原型相似的是,相同的父级环境可以被多个子级环境共享：如连个全局函数共享一个全局环境.  </p>
 <ul>
-<li>注意：你可以从<a href="http://dmitrysoshnikov.com/ecmascript/es5-chapter-3-2-lexical-environments-ecmascript-implementation/" target="_blank" rel="noopener">这篇文章</a>得到关于词法环境实现的细节.  </li>
+<li>注意：你可以从<a target="_blank" rel="noopener" href="http://dmitrysoshnikov.com/ecmascript/es5-chapter-3-2-lexical-environments-ecmascript-implementation/">这篇文章</a>得到关于词法环境实现的细节.</li>
 </ul>
 <p>环境记录根据类型被分为两种.一种是对象环境记录另一种是声明环境记录,在声明记录的上面也有函数环境记录，module环境记录.每一种记录都有对于自己属性的特征.但是对于标识符求值的一般机制它们是不分环境的,并且也不依赖记录的类型.  </p>
 <p>下面是一个关于对象环境记录可以是全局环境.这个记录与一个绑定对象相关联.绑定对象可以从这个记录存储一些属性,但是不可以从其他地方,反之亦然.这个绑定对象可以从this值中获取.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Legacy variables using &#96;var&#96;.</span><br><span class="line">var x &#x3D; 10;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Modern variables using &#96;let&#96;.</span><br><span class="line">let y &#x3D; 20;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Both are added to the environment record:</span><br><span class="line">console.log(</span><br><span class="line">  x, &#x2F;&#x2F; 10</span><br><span class="line">  y, &#x2F;&#x2F; 20</span><br><span class="line">);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; But only &#96;x&#96; is added to the &quot;binding object&quot;.</span><br><span class="line">&#x2F;&#x2F; The binding object of the global environment</span><br><span class="line">&#x2F;&#x2F; is the global object, and equals to &#96;this&#96;:</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  this.x, &#x2F;&#x2F; 10</span><br><span class="line">  this.y, &#x2F;&#x2F; undefined!</span><br><span class="line">);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Binding object can store a name which is not</span><br><span class="line">&#x2F;&#x2F; added to the environment record, since it&#39;s</span><br><span class="line">&#x2F;&#x2F; not a valid identifier:</span><br><span class="line"> </span><br><span class="line">this[&#39;not valid ID&#39;] &#x3D; 30;</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  this[&#39;not valid ID&#39;], &#x2F;&#x2F; 30</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">// Legacy variables using `var`.</span><br><span class="line">var x = 10;</span><br><span class="line"> </span><br><span class="line">// Modern variables using `let`.</span><br><span class="line">let y = 20;</span><br><span class="line"> </span><br><span class="line">// Both are added to the environment record:</span><br><span class="line">console.log(</span><br><span class="line">  x, // 10</span><br><span class="line">  y, // 20</span><br><span class="line">);</span><br><span class="line"> </span><br><span class="line">// But only `x` is added to the &quot;binding object&quot;.</span><br><span class="line">// The binding object of the global environment</span><br><span class="line">// is the global object, and equals to `this`:</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  this.x, // 10</span><br><span class="line">  this.y, // undefined!</span><br><span class="line">);</span><br><span class="line"> </span><br><span class="line">// Binding object can store a name which is not</span><br><span class="line">// added to the environment record, since it&#x27;s</span><br><span class="line">// not a valid identifier:</span><br><span class="line"> </span><br><span class="line">this[&#x27;not valid ID&#x27;] = 30;</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  this[&#x27;not valid ID&#x27;], // 30</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
 <p>上面代码可以描绘成下面图: </p>
-<p><img src="javascript%E6%A0%B8%E5%BF%83/env-binding-object.png" alt="envBindingObject"></p>
+<p><img src="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/env-binding-object.png" alt="envBindingObject"></p>
 <p>注意：绑定对象的存在是为可以覆盖一些遗留的解构,如var声明,with语句，它们被当做绑定对象.当环境以简单对象来呈现是有历史原因的.当前的环境模型是优化过后的，但是作为结果是我们不能通过属性来访问这些绑定了.  </p>
 <p>我们已经看到了环境如何通过父级连接相关联.现在我们来看一个环境怎样可以脱离创建它的上线文继续存活.这就就是我们将要讨论的闭包原理.  </p>
 <h2 id="闭包-Closure"><a href="#闭包-Closure" class="headerlink" title="闭包(Closure)"></a><span id="closure">闭包(Closure)</span></h2><p>函数在ECMAScript中是第一公民.这是函数式编程的重要的根基概念.这就意味着函数式编程在js中得到部分的实现.  </p>
 <ul>
-<li>Def. 11: 第一公民函数:一个函数可以充当普通的数据:可以被存储为变量,传做参数,从另一个函数中当做值返回.  </li>
+<li>Def. 11: 第一公民函数:一个函数可以充当普通的数据:可以被存储为变量,传做参数,从另一个函数中当做值返回.</li>
 </ul>
 <p>第一公民函数的概念和被叫做”Funcarg problem”(函数作为参数的问题)相关.这个问题引起函数如何处理自由变量.  </p>
 <ul>
-<li>Def.12 : 自由变量：一个既不是当前函数参数也不是当前函数本地变量的变量.  </li>
+<li>Def.12 : 自由变量：一个既不是当前函数参数也不是当前函数本地变量的变量.</li>
 </ul>
 <p>让我们看看”Funcarg problem”,然后看ECMAScript是如何解决的.  </p>
 <p>看如下代码: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">let x &#x3D; 10;</span><br><span class="line"> </span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log(x);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">function bar(funArg) &#123;</span><br><span class="line">  let x &#x3D; 20;</span><br><span class="line">  funArg(); &#x2F;&#x2F; 10, not 20!</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Pass &#96;foo&#96; as an argument to &#96;bar&#96;.</span><br><span class="line">bar(foo);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">let x = 10;</span><br><span class="line"> </span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log(x);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">function bar(funArg) &#123;</span><br><span class="line">  let x = 20;</span><br><span class="line">  funArg(); // 10, not 20!</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">// Pass `foo` as an argument to `bar`.</span><br><span class="line">bar(foo);</span><br></pre></td></tr></table></figure>
 
 <p>变量x对于函数foo是自由变量. 当foo函数调用时(通过函数参数传递)–x的值是那里绑定的?是函数创建的地方,或者是调用者作用域,也就是函数调用的地方?正如我们所见x的值为20.  </p>
 <p>上面用例描述了广为人知的”下放函数参数问题(downward funarg problem)”,i.e 一个关于如何决定环境绑定的问题：是应该绑定创建时的环境,或者是调用时的环境.  </p>
@@ -387,89 +446,88 @@
 <p>Def.13:静态作用域:一个实现静态作用域的语言,是通过其源码位置决定环境绑定.  </p>
 <p>静态作用也叫词法环境,因此以词法环境命名.  </p>
 <ul>
-<li>注意：你可以通过<a href="https://codeburst.io/js-scope-static-dynamic-and-runtime-augmented-5abfee6223fe" target="_blank" rel="noopener">这篇文章</a>了解静态和动态作用域.  </li>
+<li>注意：你可以通过<a target="_blank" rel="noopener" href="https://codeburst.io/js-scope-static-dynamic-and-runtime-augmented-5abfee6223fe">这篇文章</a>了解静态和动态作用域.</li>
 </ul>
 <p>在我们的例子中,foo函数捕获的环境就是全局环境.  </p>
-<p><img src="javascript%E6%A0%B8%E5%BF%83/closure.png" alt="closure"></p>
+<p><img src="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/closure.png" alt="closure"></p>
 <p>Def. 14: closure: 闭包就是函数对定义时环境的捕获,这个环境通常用来对标识符的求值.  </p>
 <p>对于函数参数的另一种问题被称为”上升函数参数问题(upward funarg problem)”.它们唯一不同的是捕获环境在脱离创建环境时任然存活.  </p>
 <p>让我们看下这个例子：  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  let x &#x3D; 10;</span><br><span class="line">   </span><br><span class="line">  &#x2F;&#x2F; Closure, capturing environment of &#96;foo&#96;.</span><br><span class="line">  function bar() &#123;</span><br><span class="line">    return x;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  &#x2F;&#x2F; Upward funarg.</span><br><span class="line">  return bar;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let x &#x3D; 20;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Call to &#96;foo&#96; returns &#96;bar&#96; closure.</span><br><span class="line">let bar &#x3D; foo();</span><br><span class="line"> </span><br><span class="line">bar(); &#x2F;&#x2F; 10, not 20!</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  let x = 10;</span><br><span class="line">   </span><br><span class="line">  // Closure, capturing environment of `foo`.</span><br><span class="line">  function bar() &#123;</span><br><span class="line">    return x;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  // Upward funarg.</span><br><span class="line">  return bar;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let x = 20;</span><br><span class="line"> </span><br><span class="line">// Call to `foo` returns `bar` closure.</span><br><span class="line">let bar = foo();</span><br><span class="line"> </span><br><span class="line">bar(); // 10, not 20!</span><br></pre></td></tr></table></figure>
 
 <p>理论上它的捕获环境机制并没有变.只是在这种情况下,我们没闭包了吗?foo的激活环境将被销毁.但是我们捕获了它,所以它被保存起来–来支持静态作用域语义.  </p>
 <p>这里常常存在对闭包不完整的理解. –通常开发者认为的闭包只是”上升函数参数问题”.但是,正如我们可以看到,理论上来说上升和下钻参数问题都是一样的–静态作用域机制.  </p>
 <p>如上所述,和原型相似的是–相同的父环境可以被多个闭包所共享,这让我们获取和改变共享数据:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function createCounter() &#123;</span><br><span class="line">  let count &#x3D; 0;</span><br><span class="line"> </span><br><span class="line">  return &#123;</span><br><span class="line">    increment() &#123; count++; return count; &#125;,</span><br><span class="line">    decrement() &#123; count--; return count; &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let counter &#x3D; createCounter();</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  counter.increment(), &#x2F;&#x2F; 1</span><br><span class="line">  counter.decrement(), &#x2F;&#x2F; 0</span><br><span class="line">  counter.increment(), &#x2F;&#x2F; 1</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function createCounter() &#123;</span><br><span class="line">  let count = 0;</span><br><span class="line"> </span><br><span class="line">  return &#123;</span><br><span class="line">    increment() &#123; count++; return count; &#125;,</span><br><span class="line">    decrement() &#123; count--; return count; &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let counter = createCounter();</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  counter.increment(), // 1</span><br><span class="line">  counter.decrement(), // 0</span><br><span class="line">  counter.increment(), // 1</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
 <p>因为两个闭包，increment和decrement都在同一个包含变量count的环境创建,所以它们共享同一个父级作用域,总是通过引用–意味着引用对全部的父级环境保持存储.</p>
-<p><img src="javascript%E6%A0%B8%E5%BF%83/shared-environment.png" alt="sharedEnvironment">  </p>
+<p><img src="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/shared-environment.png" alt="sharedEnvironment">  </p>
 <p>一些语言也许只是捕获值,也就是制作一份捕获变量的副本,并且不允许其对父级作用域的改变.但是在js中,总是父级作用域总是通过引用.</p>
 <p>注意：在实现上也许会对这个步骤进行优化.并且不会捕获整个环境.只会捕获’自由变量’,但是它们仍会保持对父级作用域数据改变的能力.  </p>
-<p>你可以从<a href="http://dmitrysoshnikov.com/ecmascript/chapter-6-closures/" target="_blank" rel="noopener">合适的文章</a>找到闭包和函数参数问题相关细节.  </p>
+<p>你可以从<a target="_blank" rel="noopener" href="http://dmitrysoshnikov.com/ecmascript/chapter-6-closures/">合适的文章</a>找到闭包和函数参数问题相关细节.  </p>
 <p>可以说所有的标识符都是静态绑定的.但是在ECMAScript中任然有一个是动态绑定的值this. </p>
 <h2 id="this"><a href="#this" class="headerlink" title="this"></a><span id="this">this</span></h2><p> this的值是一个动态的并且是隐式传入代码上下文的.我们可以将它当做一个隐式额外参数，它可以被访问但是不能被改变.  </p>
 <p> this值的目的在于相同代码给多个对象使用.  </p>
 <ul>
-<li><p>Def. 15: This: 一个用于访问执行上下文的隐式上下文对象–它的目的在于让相同代码可以被多个对象使用.  </p>
-<p>它的主要用例为基于类的面向对象编程(OOP).一个存于实例上的方法(定义在原型上),实际上要被所有基于这个类的实例使用.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> class Point &#123;</span><br><span class="line">  constructor(x, y) &#123;</span><br><span class="line">    this._x &#x3D; x;</span><br><span class="line">    this._y &#x3D; y;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  getX() &#123;</span><br><span class="line">    return this._x;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  getY() &#123;</span><br><span class="line">    return this._y;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let p1 &#x3D; new Point(1, 2);</span><br><span class="line">let p2 &#x3D; new Point(3, 4);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Can access &#96;getX&#96;, and &#96;getY&#96; from</span><br><span class="line">&#x2F;&#x2F; both instances (they are passed as &#96;this&#96;).</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  p1.getX(), &#x2F;&#x2F; 1</span><br><span class="line">  p2.getX(), &#x2F;&#x2F; 3</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<p>当开始激活getX方法时,一个用于创建本地变量和参数的环境被创建.此外，一个[[ThisValue]]被传递到函数环境记录,这个值动态的绑定函数调用者.当调用者为p1时,this的值就是p1,第二种情况就是p2.  </p>
-<p>this的另一应用,是通用接口函数的混合与覆盖.</p>
-</li>
+<li>Def. 15: This: 一个用于访问执行上下文的隐式上下文对象–它的目的在于让相同代码可以被多个对象使用.</li>
 </ul>
+<p> 它的主要用例为基于类的面向对象编程(OOP).一个存于实例上的方法(定义在原型上),实际上要被所有基于这个类的实例使用.  </p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> class Point &#123;</span><br><span class="line">  constructor(x, y) &#123;</span><br><span class="line">    this._x = x;</span><br><span class="line">    this._y = y;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  getX() &#123;</span><br><span class="line">    return this._x;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  getY() &#123;</span><br><span class="line">    return this._y;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let p1 = new Point(1, 2);</span><br><span class="line">let p2 = new Point(3, 4);</span><br><span class="line"> </span><br><span class="line">// Can access `getX`, and `getY` from</span><br><span class="line">// both instances (they are passed as `this`).</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  p1.getX(), // 1</span><br><span class="line">  p2.getX(), // 3</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p> 当开始激活getX方法时,一个用于创建本地变量和参数的环境被创建.此外，一个[[ThisValue]]被传递到函数环境记录,这个值动态的绑定函数调用者.当调用者为p1时,this的值就是p1,第二种情况就是p2.  </p>
+<p> this的另一应用,是通用接口函数的混合与覆盖.</p>
 <p>在下面例子中,Movable包含一个通用接口函数move,这个函数期望使用者对_x和_y的混合(mixin).  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Generic Movable interface (mixin).</span><br><span class="line">let Movable &#x3D; &#123;</span><br><span class="line"> </span><br><span class="line">  &#x2F;**</span><br><span class="line">   * This function is generic, and works with any</span><br><span class="line">   * object, which provides &#96;_x&#96;, and &#96;_y&#96; properties,</span><br><span class="line">   * regardless of the class of this object.</span><br><span class="line">   *&#x2F;</span><br><span class="line">  move(x, y) &#123;</span><br><span class="line">    this._x &#x3D; x;</span><br><span class="line">    this._y &#x3D; y;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">let p1 &#x3D; new Point(1, 2);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Make &#96;p1&#96; movable.</span><br><span class="line">Object.assign(p1, Movable);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Can access &#96;move&#96; method.</span><br><span class="line">p1.move(100, 200);</span><br><span class="line"> </span><br><span class="line">console.log(p1.getX()); &#x2F;&#x2F; 100</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// Generic Movable interface (mixin).</span><br><span class="line">let Movable = &#123;</span><br><span class="line"> </span><br><span class="line">  /**</span><br><span class="line">   * This function is generic, and works with any</span><br><span class="line">   * object, which provides `_x`, and `_y` properties,</span><br><span class="line">   * regardless of the class of this object.</span><br><span class="line">   */</span><br><span class="line">  move(x, y) &#123;</span><br><span class="line">    this._x = x;</span><br><span class="line">    this._y = y;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">let p1 = new Point(1, 2);</span><br><span class="line"> </span><br><span class="line">// Make `p1` movable.</span><br><span class="line">Object.assign(p1, Movable);</span><br><span class="line"> </span><br><span class="line">// Can access `move` method.</span><br><span class="line">p1.move(100, 200);</span><br><span class="line"> </span><br><span class="line">console.log(p1.getX()); // 100</span><br></pre></td></tr></table></figure>
 
 <p>另一方面.混合也可以应用于原型级别而不只是实例.  </p>
 <p>为了展示this值的动态属性,看下面的这个例子.我们将留给读者当做一个练习解决:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  return this;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let bar &#x3D; &#123;</span><br><span class="line">  foo,</span><br><span class="line"> </span><br><span class="line">  baz() &#123;</span><br><span class="line">    return this;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; &#96;foo&#96;</span><br><span class="line">console.log(</span><br><span class="line">  foo(),       &#x2F;&#x2F; global or undefined</span><br><span class="line"> </span><br><span class="line">  bar.foo(),   &#x2F;&#x2F; bar</span><br><span class="line">  (bar.foo)(), &#x2F;&#x2F; bar</span><br><span class="line"> </span><br><span class="line">  (bar.foo &#x3D; bar.foo)(), &#x2F;&#x2F; global</span><br><span class="line">);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; &#96;bar.baz&#96;</span><br><span class="line">console.log(bar.baz()); &#x2F;&#x2F; bar</span><br><span class="line"> </span><br><span class="line">let savedBaz &#x3D; bar.baz;</span><br><span class="line">console.log(savedBaz()); &#x2F;&#x2F; global</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  return this;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let bar = &#123;</span><br><span class="line">  foo,</span><br><span class="line"> </span><br><span class="line">  baz() &#123;</span><br><span class="line">    return this;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">// `foo`</span><br><span class="line">console.log(</span><br><span class="line">  foo(),       // global or undefined</span><br><span class="line"> </span><br><span class="line">  bar.foo(),   // bar</span><br><span class="line">  (bar.foo)(), // bar</span><br><span class="line"> </span><br><span class="line">  (bar.foo = bar.foo)(), // global</span><br><span class="line">);</span><br><span class="line"> </span><br><span class="line">// `bar.baz`</span><br><span class="line">console.log(bar.baz()); // bar</span><br><span class="line"> </span><br><span class="line">let savedBaz = bar.baz;</span><br><span class="line">console.log(savedBaz()); // global</span><br></pre></td></tr></table></figure>
 
 <p>因为只是看foo函数的源码是无法区分this的值的.所以我们说this值动态的.  </p>
 <ul>
-<li>你可以在相应的<a href="http://dmitrysoshnikov.com/ecmascript/chapter-3-this/" target="_blank" rel="noopener">章节</a>找到答案.  </li>
+<li>你可以在相应的<a target="_blank" rel="noopener" href="http://dmitrysoshnikov.com/ecmascript/chapter-3-this/">章节</a>找到答案.</li>
 </ul>
 <p>在箭头函数里this的值很特殊:this值是词法的(静态的),而不是动态的.I.e.它们函数环境记录不提供this的值,而且它们是从父级环境获取.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var x &#x3D; 10;</span><br><span class="line"> </span><br><span class="line">let foo &#x3D; &#123;</span><br><span class="line">  x: 20,</span><br><span class="line"> </span><br><span class="line">  &#x2F;&#x2F; Dynamic &#96;this&#96;.</span><br><span class="line">  bar() &#123;</span><br><span class="line">    return this.x;</span><br><span class="line">  &#125;,</span><br><span class="line"> </span><br><span class="line">  &#x2F;&#x2F; Lexical &#96;this&#96;.</span><br><span class="line">  baz: () &#x3D;&gt; this.x,</span><br><span class="line"> </span><br><span class="line">  qux() &#123;</span><br><span class="line">    &#x2F;&#x2F; Lexical this within the invocation.</span><br><span class="line">    let arrow &#x3D; () &#x3D;&gt; this.x;</span><br><span class="line"> </span><br><span class="line">    return arrow();</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  foo.bar(), &#x2F;&#x2F; 20, from &#96;foo&#96;</span><br><span class="line">  foo.baz(), &#x2F;&#x2F; 10, from global</span><br><span class="line">  foo.qux(), &#x2F;&#x2F; 20, from &#96;foo&#96; and arrow</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var x = 10;</span><br><span class="line"> </span><br><span class="line">let foo = &#123;</span><br><span class="line">  x: 20,</span><br><span class="line"> </span><br><span class="line">  // Dynamic `this`.</span><br><span class="line">  bar() &#123;</span><br><span class="line">    return this.x;</span><br><span class="line">  &#125;,</span><br><span class="line"> </span><br><span class="line">  // Lexical `this`.</span><br><span class="line">  baz: () =&gt; this.x,</span><br><span class="line"> </span><br><span class="line">  qux() &#123;</span><br><span class="line">    // Lexical this within the invocation.</span><br><span class="line">    let arrow = () =&gt; this.x;</span><br><span class="line"> </span><br><span class="line">    return arrow();</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">console.log(</span><br><span class="line">  foo.bar(), // 20, from `foo`</span><br><span class="line">  foo.baz(), // 10, from global</span><br><span class="line">  foo.qux(), // 20, from `foo` and arrow</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
 <p>正如我们所说,在全局上下文中this的值是全局对象(它绑定着全局环境记录的对象),先前全局对象只有一个.但是现在版本的规范里也许有多个全局对象.这些全局对象只针对部分代码范围.让我们看看这种结构.  </p>
 <h2 id="范围"><a href="#范围" class="headerlink" title="范围"></a><span id="realm">范围</span></h2><p>在求值之前,所有的ECMAScript代码都和一个范围相关联.理论上范围只是为一个上下文提供一个全局环境.  </p>
 <p>当一个执行上下文被创建时它就和一个特别代码范围相关联.这个代码范围只是为这个上下文提供一个全局环境.这个关联是不可变的.  </p>
 <ul>
-<li>注意： 在浏览器环境中一个最直接的返回为iframe,她恰好体同一个全局环境,在Node.js中最接近的是沙箱的<a href="https://nodejs.org/api/vm.html" target="_blank" rel="noopener">vm module</a>   </li>
+<li>注意： 在浏览器环境中一个最直接的返回为iframe,她恰好体同一个全局环境,在Node.js中最接近的是沙箱的<a target="_blank" rel="noopener" href="https://nodejs.org/api/vm.html">vm module</a></li>
 </ul>
-<p>当前版本的规范并没有提供一个realms创建的具体方法,但是它们可以由实现环境隐式实现. 这里有一个关于暴露给用户使用API的<a href="https://github.com/tc39/proposal-realms/" target="_blank" rel="noopener">提议</a>  </p>
+<p>当前版本的规范并没有提供一个realms创建的具体方法,但是它们可以由实现环境隐式实现. 这里有一个关于暴露给用户使用API的<a target="_blank" rel="noopener" href="https://github.com/tc39/proposal-realms/">提议</a>  </p>
 <p>理论上每个在栈中上下文都和自己的范围相关联.  </p>
-<p><img src="javascript%E6%A0%B8%E5%BF%83/context-realm.png" alt="contextRealm"></p>
+<p><img src="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/context-realm.png" alt="contextRealm"></p>
 <p>现在我们对运行时ECMAScript的大地图更靠近了. 但是我们任然需要看一看入口代码和初始化过程.它们都由一个叫jobs和job序列的机制管理.  </p>
 <h2 id="job"><a href="#job" class="headerlink" title="job"></a><span id="job">job</span></h2><p>一些操作可以被推迟,并且只有在执行上下文栈有空的时候就可以执行.  </p>
 <ul>
-<li>Def.17:Job:job是一种抽象的操作,它在当前进程中没有其他ECMAScript计算时发起一个ECMAScript计算.  </li>
+<li>Def.17:Job:job是一种抽象的操作,它在当前进程中没有其他ECMAScript计算时发起一个ECMAScript计算.</li>
 </ul>
 <p>jobs在job序列中排序,在当前规范版本中有两种job序列:ScriptJobs,和PromiseJobs.  </p>
 <p>在ScriptJobs上的初始化job是我们程序的主入口–就是对我们的初始化脚本加载和求值：范围(realm)创建，全局上下文与范围相关联,推入调用栈，全局代码执行.  </p>
 <ul>
-<li>注意，ScriptJobs序列同时管理脚本和modules.  </li>
+<li>注意，ScriptJobs序列同时管理脚本和modules.</li>
 </ul>
 <p>接着这个上下文可以执行其他上下文，或者其他排队的jobs. </p>
 <p>当么有运行的执行上下文同时执行上下文栈为空时，ECMAScript将在job系列的第一个等待job移除,同时创建一个执行上下开始执行这个job.  </p>
 <ul>
-<li>注意：job序列通常被称为”event loop”的管理.ECMAScript标准并没有明确规定这个”event loop”,它的实现都留给了实现环境了.但是你可以发现一个启发式的例子在这儿.  </li>
+<li>注意：job序列通常被称为”event loop”的管理.ECMAScript标准并没有明确规定这个”event loop”,它的实现都留给了实现环境了.但是你可以发现一个启发式的例子在这儿.</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Enqueue a new promise on the PromiseJobs queue.</span><br><span class="line">new Promise(resolve &#x3D;&gt; setTimeout(() &#x3D;&gt; resolve(10), 0))</span><br><span class="line">  .then(value &#x3D;&gt; console.log(value));</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; This log is executed earlier, since it&#39;s still a</span><br><span class="line">&#x2F;&#x2F; running context, and job cannot start executing first</span><br><span class="line">console.log(20);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Output: 20, 10</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// Enqueue a new promise on the PromiseJobs queue.</span><br><span class="line">new Promise(resolve =&gt; setTimeout(() =&gt; resolve(10), 0))</span><br><span class="line">  .then(value =&gt; console.log(value));</span><br><span class="line"> </span><br><span class="line">// This log is executed earlier, since it&#x27;s still a</span><br><span class="line">// running context, and job cannot start executing first</span><br><span class="line">console.log(20);</span><br><span class="line"> </span><br><span class="line">// Output: 20, 10</span><br></pre></td></tr></table></figure>
 
 <p>async 函数可以对promise进行await,所以它们也是排队序列: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">async function later() &#123;</span><br><span class="line">  return await Promise.resolve(10);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">(async () &#x3D;&gt; &#123;</span><br><span class="line">  let data &#x3D; await later();</span><br><span class="line">  console.log(data); &#x2F;&#x2F; 10</span><br><span class="line">&#125;)();</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Also happens earlier, since async execution</span><br><span class="line">&#x2F;&#x2F; is queued on the PromiseJobs queue.</span><br><span class="line">console.log(20);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">async function later() &#123;</span><br><span class="line">  return await Promise.resolve(10);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">(async () =&gt; &#123;</span><br><span class="line">  let data = await later();</span><br><span class="line">  console.log(data); // 10</span><br><span class="line">&#125;)();</span><br><span class="line"> </span><br><span class="line">// Also happens earlier, since async execution</span><br><span class="line">// is queued on the PromiseJobs queue.</span><br><span class="line">console.log(20);</span><br></pre></td></tr></table></figure>
 
 <p>现在我们相当接近JS的全貌了,现在我们将看这些组件的主要拥有者,代理.  </p>
-<h2 id="代理-agent"><a href="#代理-agent" class="headerlink" title="代理(agent)"></a><span id="agent">代理(agent)</span></h2><p>在ECMAScript中并发和并行是通过代理模式实现. 代理模式与<a href="https://en.wikipedia.org/wiki/Actor_model" target="_blank" rel="noopener">演员模式</a>相当接近–一种轻量的处理消息传递方式的过程.  </p>
+<h2 id="代理-agent"><a href="#代理-agent" class="headerlink" title="代理(agent)"></a><span id="agent">代理(agent)</span></h2><p>在ECMAScript中并发和并行是通过代理模式实现. 代理模式与<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Actor_model">演员模式</a>相当接近–一种轻量的处理消息传递方式的过程.  </p>
 <ul>
-<li>Def.18: Agent: 代理是一种对执行上下文栈,一系列job队列,代码范围的抽象.  </li>
+<li>Def.18: Agent: 代理是一种对执行上下文栈,一系列job队列,代码范围的抽象.</li>
 </ul>
 <p>实现者依赖代理究竟是可以允许在单一线程,还是多线程.如在浏览器环境中worker agent就是代理概念的例子.  </p>
 <p>代理们的状态是相互独立的,它们可以通过发送消息来沟通.一些数据可以在不同代理之间共享,如sharedArrayBuffer.代理们可以组成集群.  </p>
 <p>所以下面是ECMAScript运行时的全貌:  </p>
-<p><img src="javascript%E6%A0%B8%E5%BF%83/agents-1.png" alt="agents"></p>
+<p><img src="/2017/12/04/javascript%E6%A0%B8%E5%BF%83/agents-1.png" alt="agents"></p>
 <p>这就是发生在ECMAScript引擎下全图.  </p>
 <p>现在我们来到了文章结尾处.这是篇文章有很多关于js核心的信息.如我们提到的JS代码可以将它分为modules，对象属性通过proxy跟踪等等分类–这儿有很多用户级别的细节你可以从不同文档读到.  </p>
 <p>但是这里我们尽力展现ECMAScript程序本身的逻辑结构,同时希望澄清它们一些的细节.如果你有任何问题,建议或者反馈–我将很乐意在评论中讨论.  </p>
@@ -507,6 +565,7 @@
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -544,22 +603,22 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Object"><span class="nav-number">1.</span> <span class="nav-text">Object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型-Prototype"><span class="nav-number">2.</span> <span class="nav-text">原型(Prototype)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类-Class"><span class="nav-number">3.</span> <span class="nav-text">类(Class)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行上下文-Execution-context"><span class="nav-number">4.</span> <span class="nav-text">执行上下文(Execution context)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境-Environment"><span class="nav-number">5.</span> <span class="nav-text">环境(Environment)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#闭包-Closure"><span class="nav-number">6.</span> <span class="nav-text">闭包(Closure)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this"><span class="nav-number">7.</span> <span class="nav-text">this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#范围"><span class="nav-number">8.</span> <span class="nav-text">范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#job"><span class="nav-number">9.</span> <span class="nav-text">job</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理-agent"><span class="nav-number">10.</span> <span class="nav-text">代理(agent)</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Object"><span class="nav-number">1.</span> <span class="nav-text">Object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B-Prototype"><span class="nav-number">2.</span> <span class="nav-text">原型(Prototype)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB-Class"><span class="nav-number">3.</span> <span class="nav-text">类(Class)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87-Execution-context"><span class="nav-number">4.</span> <span class="nav-text">执行上下文(Execution context)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83-Environment"><span class="nav-number">5.</span> <span class="nav-text">环境(Environment)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AD%E5%8C%85-Closure"><span class="nav-number">6.</span> <span class="nav-text">闭包(Closure)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this"><span class="nav-number">7.</span> <span class="nav-text">this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8C%83%E5%9B%B4"><span class="nav-number">8.</span> <span class="nav-text">范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#job"><span class="nav-number">9.</span> <span class="nav-text">job</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%90%86-agent"><span class="nav-number">10.</span> <span class="nav-text">代理(agent)</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe - zh-tw - en</p>
+  <p class="site-author-name" itemprop="name">John Doe</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -568,16 +627,16 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">30</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
         <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">categories</span>
+        <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
         <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
@@ -600,18 +659,6 @@
 
         
 
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">John Doe - zh-tw - en</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
-
         
 
 
@@ -619,6 +666,92 @@
 
 
 
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz","app_key":"AgFnrn2FODUJulhW3pUkvB8o","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
 
 
       </div>
@@ -648,6 +781,10 @@
 
 
 
+  
+<script src="/js/local-search.js"></script>
+
+
 
 
 
@@ -662,6 +799,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz',
+      appKey     : 'AgFnrn2FODUJulhW3pUkvB8o',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>

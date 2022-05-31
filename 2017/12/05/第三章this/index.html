@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,22 +17,22 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="1 导言 2 定义 3 全局环境下的this值 4 函数中的this值 1 引用类型 2  函数调用与非引用类型 3  引用类型与this的值为null 4  构造器函数中的this值 5  手动设置函数调用时this的值">
 <meta property="og:type" content="article">
 <meta property="og:title" content="this">
-<meta property="og:url" content="http://yoursite.com/2017/12/05/%E7%AC%AC%E4%B8%89%E7%AB%A0this/index.html">
+<meta property="og:url" content="http://example.com/2017/12/05/%E7%AC%AC%E4%B8%89%E7%AB%A0this/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1 导言 2 定义 3 全局环境下的this值 4 函数中的this值 1 引用类型 2  函数调用与非引用类型 3  引用类型与this的值为null 4  构造器函数中的this值 5  手动设置函数调用时this的值">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-12-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-05-06T06:06:49.983Z">
-<meta property="article:author" content="John Doe - zh-tw - en">
+<meta property="article:modified_time" content="2022-05-31T06:42:28.608Z">
+<meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2017/12/05/%E7%AC%AC%E4%B8%89%E7%AB%A0this/">
+<link rel="canonical" href="http://example.com/2017/12/05/%E7%AC%AC%E4%B8%89%E7%AB%A0this/">
 
 
 <script id="page-configurations">
@@ -41,7 +41,7 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'en'
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -85,7 +85,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -103,6 +103,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -114,19 +115,56 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -149,12 +187,12 @@
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/05/%E7%AC%AC%E4%B8%89%E7%AB%A0this/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/12/05/%E7%AC%AC%E4%B8%89%E7%AB%A0this/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe - zh-tw - en">
+      <meta itemprop="name" content="John Doe">
       <meta itemprop="description" content="">
     </span>
 
@@ -171,28 +209,49 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="Created: 2017-12-05 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-05T00:00:00+08:00">2017-12-05</time>
+              <time title="创建时间：2017-12-05 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-05T00:00:00+08:00">2017-12-05</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-06 14:06:49" itemprop="dateModified" datetime="2020-05-06T14:06:49+08:00">2020-05-06</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-31 14:42:28" itemprop="dateModified" datetime="2022-05-31T14:42:28+08:00">2022-05-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
             </span>
 
           
+            <span id="/2017/12/05/%E7%AC%AC%E4%B8%89%E7%AB%A0this/" class="post-meta-item leancloud_visitors" data-flag-title="this" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2017/12/05/%E7%AC%AC%E4%B8%89%E7%AB%A0this/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/12/05/%E7%AC%AC%E4%B8%89%E7%AB%A0this/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -212,141 +271,138 @@
 <li>2  <a href="#4.2">函数调用与非引用类型</a></li>
 <li>3  <a href="#4.3">引用类型与this的值为null</a></li>
 <li>4  <a href="#4.4">构造器函数中的this值</a></li>
-<li>5  <a href="#4.5">手动设置函数调用时this的值</a><a id="more"></a>
-
-
-</li>
+<li>5  <a href="#4.5">手动设置函数调用时this的值</a><span id="more"></span></li>
 </ul>
 </li>
 </ul>
-<h2 id="导言"><a href="#导言" class="headerlink" title="导言"></a><span id="1">导言</span></h2><p>在这篇文章中我们将讨论更多和<a href="http://dmitrysoshnikov.com/ecmascript/chapter-1-execution-contexts/" target="_blank" rel="noopener">执行上下文</a>相关的细节.这次我们讨论的话题为this关键字.  </p>
+<h2 id="导言"><a href="#导言" class="headerlink" title="导言"></a><span id="1">导言</span></h2><p>在这篇文章中我们将讨论更多和<a target="_blank" rel="noopener" href="http://dmitrysoshnikov.com/ecmascript/chapter-1-execution-contexts/">执行上下文</a>相关的细节.这次我们讨论的话题为this关键字.  </p>
 <p>实践表明,this在不同执行上下文的值常常引起讨论. </p>
 <p>许多的开发者常常认为关键字this在编程语言中只和面向对象编程相关,也就是this只是指向由构造函数创建的对象.在ECMAScript中this概念也的确是这样实现了，但是如我们所见到了,this并不止止于新创建的对象.  </p>
 <p>让我们看看this值在ECMAScript中的具体细节.  </p>
 <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a><span id="2">定义</span></h2><p>this是执行上下文的一个属性.它是上下文代码执行时的一个特别对象.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">activeExecutionContext &#x3D; &#123;</span><br><span class="line">    VO: &#123;...&#125;,</span><br><span class="line">    this: thisValue</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">activeExecutionContext = &#123;</span><br><span class="line">    VO: &#123;...&#125;,</span><br><span class="line">    this: thisValue</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>在这里VO是<a href="http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/" target="_blank" rel="noopener">变量对象</a>,它在我们先前章节中有讨论.  </p>
-<p>this直接和这个上下文的<a href="http://dmitrysoshnikov.com/ecmascript/chapter-1-execution-contexts/#types-of-executable-code" target="_blank" rel="noopener">可执行代码类型</a>相关.它的值在进入上下文时决定,且在代码运行时不可改变.  </p>
+<p>在这里VO是<a target="_blank" rel="noopener" href="http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/">变量对象</a>,它在我们先前章节中有讨论.  </p>
+<p>this直接和这个上下文的<a target="_blank" rel="noopener" href="http://dmitrysoshnikov.com/ecmascript/chapter-1-execution-contexts/#types-of-executable-code">可执行代码类型</a>相关.它的值在进入上下文时决定,且在代码运行时不可改变.  </p>
 <p>让我们仔细看这些例子.</p>
 <h2 id="在全局环境下this的值"><a href="#在全局环境下this的值" class="headerlink" title="在全局环境下this的值"></a><span id='3'>在全局环境下this的值</span></h2><p>在这里所有的东西都足够简单.在全局环境下,this的值总是全局对象本身.因此可以直接引用它.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; explicit property definition of</span><br><span class="line">&#x2F;&#x2F; the global object</span><br><span class="line">this.a &#x3D; 10; &#x2F;&#x2F; global.a &#x3D; 10</span><br><span class="line">console.log(a); &#x2F;&#x2F; 10</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; implicit definition via assigning</span><br><span class="line">&#x2F;&#x2F; to unqualified identifier</span><br><span class="line">b &#x3D; 20;</span><br><span class="line">console.log(this.b); &#x2F;&#x2F; 20</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; also implicit via variable declaration</span><br><span class="line">&#x2F;&#x2F; because variable object of the global context</span><br><span class="line">&#x2F;&#x2F; is the global object itself</span><br><span class="line">var c &#x3D; 30;</span><br><span class="line">console.log(this.c); &#x2F;&#x2F; 30</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// explicit property definition of</span><br><span class="line">// the global object</span><br><span class="line">this.a = 10; // global.a = 10</span><br><span class="line">console.log(a); // 10</span><br><span class="line"> </span><br><span class="line">// implicit definition via assigning</span><br><span class="line">// to unqualified identifier</span><br><span class="line">b = 20;</span><br><span class="line">console.log(this.b); // 20</span><br><span class="line"> </span><br><span class="line">// also implicit via variable declaration</span><br><span class="line">// because variable object of the global context</span><br><span class="line">// is the global object itself</span><br><span class="line">var c = 30;</span><br><span class="line">console.log(this.c); // 30</span><br></pre></td></tr></table></figure>
 
 
 <h2 id="在函数中this的值"><a href="#在函数中this的值" class="headerlink" title="在函数中this的值"></a><span id="4">在函数中this的值</span></h2><p>当this在函数中就变得有趣了,这种情况将更难和引起更多讨论.  </p>
 <p>this在这种代码里最主要的特点是它的值是动态绑定到函数的.  </p>
 <p>如上面所提到的一样,this值是在进入上下文时决定的.并且在函数代码中this值可以每次都绝对不一样.  </p>
 <p>但是,在运行时的this值是不变的.i.e你绝对不可能对它赋予一个新的值,那是因为它不是一个变量值(相反的是,在Python中它被明确定义为self对象,且这个对象可以在运行时改变):  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var foo &#x3D; &#123;x: 10&#125;;</span><br><span class="line"> </span><br><span class="line">var bar &#x3D; &#123;</span><br><span class="line">  x: 20,</span><br><span class="line">  test: function () &#123;</span><br><span class="line"> </span><br><span class="line">    console.log(this &#x3D;&#x3D;&#x3D; bar); &#x2F;&#x2F; true</span><br><span class="line">    console.log(this.x); &#x2F;&#x2F; 20</span><br><span class="line">     </span><br><span class="line">    this &#x3D; foo; &#x2F;&#x2F; error, can&#39;t change this value</span><br><span class="line">  </span><br><span class="line">    console.log(this.x); &#x2F;&#x2F; if there wasn&#39;t an error, then would be 10, not 20</span><br><span class="line"> </span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; on entering the context this value is</span><br><span class="line">&#x2F;&#x2F; determined as &quot;bar&quot; object; why so - will</span><br><span class="line">&#x2F;&#x2F; be discussed below in detail</span><br><span class="line"> </span><br><span class="line">bar.test(); &#x2F;&#x2F; true, 20</span><br><span class="line"> </span><br><span class="line">foo.test &#x3D; bar.test;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; however here this value will now refer</span><br><span class="line">&#x2F;&#x2F; to &quot;foo&quot; – even though we&#39;re calling the same function</span><br><span class="line"> </span><br><span class="line">foo.test(); &#x2F;&#x2F; false, 10</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var foo = &#123;x: 10&#125;;</span><br><span class="line"> </span><br><span class="line">var bar = &#123;</span><br><span class="line">  x: 20,</span><br><span class="line">  test: function () &#123;</span><br><span class="line"> </span><br><span class="line">    console.log(this === bar); // true</span><br><span class="line">    console.log(this.x); // 20</span><br><span class="line">     </span><br><span class="line">    this = foo; // error, can&#x27;t change this value</span><br><span class="line">  </span><br><span class="line">    console.log(this.x); // if there wasn&#x27;t an error, then would be 10, not 20</span><br><span class="line"> </span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">// on entering the context this value is</span><br><span class="line">// determined as &quot;bar&quot; object; why so - will</span><br><span class="line">// be discussed below in detail</span><br><span class="line"> </span><br><span class="line">bar.test(); // true, 20</span><br><span class="line"> </span><br><span class="line">foo.test = bar.test;</span><br><span class="line"> </span><br><span class="line">// however here this value will now refer</span><br><span class="line">// to &quot;foo&quot; – even though we&#x27;re calling the same function</span><br><span class="line"> </span><br><span class="line">foo.test(); // false, 10</span><br></pre></td></tr></table></figure>
 
 <p>所以什么样的因素决定在函数代码中this的值?这里主要有几个因素.  </p>
 <p>首先,通常的一个函数调用,this的值由调用者(激活上下文的代码)决定.i.e.在父级上下文中调用函数，this的值由调用表达式的形式决定(换句话说也是就函数如何语法上调用).  </p>
 <p>将这个概念记住和理解是很重要的，因为只有这样你才能对this在任何上下文的值都准确知道. 这个概念准确的说是调用表达式的形式(the form of a call expression),i.e.调用函数的方式影响这个上下文this值.  </p>
 <p>(我们在一些js文章甚至书上看到,this的值依赖于函数是如何定义的：如果一个全局函数那么this值就设置为全局对象,如果函数是一个对象的方法那么this的值总是设置为这个对象–多么错误的描述).我们继续,我们看到甚至普通全局函数通过不同形式的调用表达式this的也会有不同.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log(this);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">foo(); &#x2F;&#x2F; global</span><br><span class="line"> </span><br><span class="line">console.log(foo &#x3D;&#x3D;&#x3D; foo.prototype.constructor); &#x2F;&#x2F; true</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; but with another form of the call expression</span><br><span class="line">&#x2F;&#x2F; of the same function, this value is different</span><br><span class="line"> </span><br><span class="line">foo.prototype.constructor(); &#x2F;&#x2F; foo.prototype</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log(this);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">foo(); // global</span><br><span class="line"> </span><br><span class="line">console.log(foo === foo.prototype.constructor); // true</span><br><span class="line"> </span><br><span class="line">// but with another form of the call expression</span><br><span class="line">// of the same function, this value is different</span><br><span class="line"> </span><br><span class="line">foo.prototype.constructor(); // foo.prototype</span><br></pre></td></tr></table></figure>
 
 <p>这和对象上定义的方法相似，this的值不总是为那个对象: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var foo &#x3D; &#123;</span><br><span class="line">  bar: function () &#123;</span><br><span class="line">    console.log(this);</span><br><span class="line">    console.log(this &#x3D;&#x3D;&#x3D; foo);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">foo.bar(); &#x2F;&#x2F; foo, true</span><br><span class="line"> </span><br><span class="line">var exampleFunc &#x3D; foo.bar;</span><br><span class="line"> </span><br><span class="line">console.log(exampleFunc &#x3D;&#x3D;&#x3D; foo.bar); &#x2F;&#x2F; true</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; again with another form of the call expression</span><br><span class="line">&#x2F;&#x2F; of the same function, we have different this value</span><br><span class="line"> </span><br><span class="line">exampleFunc(); &#x2F;&#x2F; global, false</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var foo = &#123;</span><br><span class="line">  bar: function () &#123;</span><br><span class="line">    console.log(this);</span><br><span class="line">    console.log(this === foo);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">foo.bar(); // foo, true</span><br><span class="line"> </span><br><span class="line">var exampleFunc = foo.bar;</span><br><span class="line"> </span><br><span class="line">console.log(exampleFunc === foo.bar); // true</span><br><span class="line"> </span><br><span class="line">// again with another form of the call expression</span><br><span class="line">// of the same function, we have different this value</span><br><span class="line"> </span><br><span class="line">exampleFunc(); // global, false</span><br></pre></td></tr></table></figure>
 
 
 <p>所以调用表达式是如何影响this的值?为了完全的理解如何影响this值,我们需要了解一种内部类型– 引用类型( Referece type ).  </p>
 <h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a><span id="4.1">引用类型</span></h3><p>用伪代码表示引用类型可以把它当成一个拥有两个属性的对象:base(i.e.属性所属与对象)和属性名：  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var valueOfReferenceType &#x3D; &#123;</span><br><span class="line">  base: &lt;base object&gt;,</span><br><span class="line">  propertyName: &lt;property name&gt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var valueOfReferenceType = &#123;</span><br><span class="line">  base: &lt;base object&gt;,</span><br><span class="line">  propertyName: &lt;property name&gt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>注意：从ES5开始引用包含属性可以使用”严格(stirct)”–这个标识决定引用是否在严格模式里求值.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#39;use strict&#39;;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Access foo.</span><br><span class="line">foo;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; Reference for &#96;foo&#96;.</span><br><span class="line">const fooReference &#x3D; &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#39;foo&#39;,</span><br><span class="line">  strict: true,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x27;use strict&#x27;;</span><br><span class="line"> </span><br><span class="line">// Access foo.</span><br><span class="line">foo;</span><br><span class="line"> </span><br><span class="line">// Reference for `foo`.</span><br><span class="line">const fooReference = &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#x27;foo&#x27;,</span><br><span class="line">  strict: true,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>为引用类型(Reference type)的值只有两种情况中：</p>
 <ul>
 <li>1 当处理一个标识符时</li>
-<li>2 或者处理一个属性访问符  </li>
+<li>2 或者处理一个属性访问符</li>
 </ul>
-<p>标识符在标识符求值过程决定. 且具体可以参考<a href="http://dmitrysoshnikov.com/ecmascript/chapter-4-scope-chain/" target="_blank" rel="noopener">第4章.作用域链</a>,最终会返回一个为引用类型的值(它对this很重要).  </p>
+<p>标识符在标识符求值过程决定. 且具体可以参考<a target="_blank" rel="noopener" href="http://dmitrysoshnikov.com/ecmascript/chapter-4-scope-chain/">第4章.作用域链</a>,最终会返回一个为引用类型的值(它对this很重要).  </p>
 <p>标识符有这些类型：变量名,函数名，函数参数，在全局对象上的不规范属性,如下例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var foo &#x3D; 10;</span><br><span class="line">function bar() &#123;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var foo = 10;</span><br><span class="line">function bar() &#123;&#125;</span><br></pre></td></tr></table></figure>
 
 <p>作为处理标识符的中间结果引用类型值,如下:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var fooReference &#x3D; &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#39;foo&#39;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">var barReference &#x3D; &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#39;bar&#39;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var fooReference = &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#x27;foo&#x27;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">var barReference = &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#x27;bar&#x27;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>为了从引用类型的到对象真正的值，还需要经过getValue方法,伪代码如下: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function GetValue(value) &#123;</span><br><span class="line"> </span><br><span class="line">  if (Type(value) !&#x3D; Reference) &#123;</span><br><span class="line">    return value;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  var base &#x3D; GetBase(value);</span><br><span class="line"> </span><br><span class="line">  if (base &#x3D;&#x3D;&#x3D; null) &#123;</span><br><span class="line">    throw new ReferenceError;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  return base.[[Get]](GetPropertyName(value));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function GetValue(value) &#123;</span><br><span class="line"> </span><br><span class="line">  if (Type(value) != Reference) &#123;</span><br><span class="line">    return value;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  var base = GetBase(value);</span><br><span class="line"> </span><br><span class="line">  if (base === null) &#123;</span><br><span class="line">    throw new ReferenceError;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  return base.[[Get]](GetPropertyName(value));</span><br></pre></td></tr></table></figure>
 
 <p>其中的内部方法[[Get]]返回这个对象属性的真正值,这和从原型链上获取属性的分析相同.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GetValue(fooReference); &#x2F;&#x2F; 10</span><br><span class="line">GetValue(barReference); &#x2F;&#x2F; function object &quot;bar&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GetValue(fooReference); // 10</span><br><span class="line">GetValue(barReference); // function object &quot;bar&quot;</span><br></pre></td></tr></table></figure>
 
 <p>属性访问器也有两种类型：点标记(当提前知道属性名为一个合理的标识符名时),或者方括号标记:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo.bar();</span><br><span class="line">foo[&#39;bar&#39;]();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo.bar();</span><br><span class="line">foo[&#x27;bar&#x27;]();</span><br></pre></td></tr></table></figure>
 
 <p>在返回的中间计算过程中,我们可以得到也可以得到引用类型的值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var fooBarReference &#x3D; &#123;</span><br><span class="line">  base: foo,</span><br><span class="line">  propertyName: &#39;bar&#39;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">GetValue(fooBarReference); &#x2F;&#x2F; function object &quot;bar&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var fooBarReference = &#123;</span><br><span class="line">  base: foo,</span><br><span class="line">  propertyName: &#x27;bar&#x27;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">GetValue(fooBarReference); // function object &quot;bar&quot;</span><br></pre></td></tr></table></figure>
 
 <p>所以在函数上下文中引用类型是如何与this的值相关联的?–重要的时刻来到了.在函数上下文中this值的一般准信规则如下:  </p>
 <ul>
-<li>在函数上下文中this的值是头调用者提供,并且由当前调用表达式形式决定(函数是如何语法上调用).  </li>
+<li>在函数上下文中this的值是头调用者提供,并且由当前调用表达式形式决定(函数是如何语法上调用).</li>
 </ul>
 <p>如果在调用圆括号(…)的右边,是一个引用类型的值那么this的值就被设定为引用类型的base对象.  </p>
 <p>剩余的其他情况(i.e:和引用类型不一样的值),this值被设置为null.但是因为this的值为null没有任何道理,所以就隐式转为全局对象.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  return this;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">foo(); &#x2F;&#x2F; global</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  return this;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">foo(); // global</span><br></pre></td></tr></table></figure>
 
 <p>在调用圆括号的左边是一个引用类型值(因为foo是一个标识符):  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var fooReference &#x3D; &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#39;foo&#39;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var fooReference = &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#x27;foo&#x27;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>对应的this值为引用类型的bese对象,type i.e. 全局对象.  </p>
 <p>和属性访问器相似的:   </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var foo &#x3D; &#123;</span><br><span class="line">  bar: function () &#123;</span><br><span class="line">    return this;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">foo.bar(); &#x2F;&#x2F; foo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var foo = &#123;</span><br><span class="line">  bar: function () &#123;</span><br><span class="line">    return this;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">foo.bar(); // foo</span><br></pre></td></tr></table></figure>
 
 <p>我们这个引用类型值的base就是foo对象.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var fooBarReference &#x3D; &#123;</span><br><span class="line">  base: foo,</span><br><span class="line">  propertyName: &#39;bar&#39;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var fooBarReference = &#123;</span><br><span class="line">  base: foo,</span><br><span class="line">  propertyName: &#x27;bar&#x27;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>但是,对同一个函数用另一调用表达式调用那么this的值就不一样了:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var test &#x3D; foo.bar;</span><br><span class="line">test(); &#x2F;&#x2F; global</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var test = foo.bar;</span><br><span class="line">test(); // global</span><br></pre></td></tr></table></figure>
 
 <p>因为tests是一个标识符,也就会产生另外的引用类型,它的base对象(全局对象)就会被当做this的值:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var testReference &#x3D; &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#39;test&#39;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var testReference = &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#x27;test&#x27;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>注意:在ES5中的严格模式,this的值在不是全局对象而是undefined</li>
 </ul>
 <p>现在我们可以准确的知道,为什么同样的函数用不同的调用表达式激活,拥有不同的this值–答案是有不同中间引用类型值:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log(this);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">foo(); &#x2F;&#x2F; global, because</span><br><span class="line"> </span><br><span class="line">var fooReference &#x3D; &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#39;foo&#39;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">console.log(foo &#x3D;&#x3D;&#x3D; foo.prototype.constructor); &#x2F;&#x2F; true</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; another form of the call expression</span><br><span class="line"> </span><br><span class="line">foo.prototype.constructor(); &#x2F;&#x2F; foo.prototype, because</span><br><span class="line"> </span><br><span class="line">var fooPrototypeConstructorReference &#x3D; &#123;</span><br><span class="line">  base: foo.prototype,</span><br><span class="line">  propertyName: &#39;constructor&#39;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log(this);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">foo(); // global, because</span><br><span class="line"> </span><br><span class="line">var fooReference = &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#x27;foo&#x27;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">console.log(foo === foo.prototype.constructor); // true</span><br><span class="line"> </span><br><span class="line">// another form of the call expression</span><br><span class="line"> </span><br><span class="line">foo.prototype.constructor(); // foo.prototype, because</span><br><span class="line"> </span><br><span class="line">var fooPrototypeConstructorReference = &#123;</span><br><span class="line">  base: foo.prototype,</span><br><span class="line">  propertyName: &#x27;constructor&#x27;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>其他this值例子:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log(this.bar);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">var x &#x3D; &#123;bar: 10&#125;;</span><br><span class="line">var y &#x3D; &#123;bar: 20&#125;;</span><br><span class="line"> </span><br><span class="line">x.test &#x3D; foo;</span><br><span class="line">y.test &#x3D; foo;</span><br><span class="line"> </span><br><span class="line">x.test(); &#x2F;&#x2F; 10</span><br><span class="line">y.test(); &#x2F;&#x2F; 20</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log(this.bar);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">var x = &#123;bar: 10&#125;;</span><br><span class="line">var y = &#123;bar: 20&#125;;</span><br><span class="line"> </span><br><span class="line">x.test = foo;</span><br><span class="line">y.test = foo;</span><br><span class="line"> </span><br><span class="line">x.test(); // 10</span><br><span class="line">y.test(); // 20</span><br></pre></td></tr></table></figure>
 
 <h3 id="函数调用与非引用类型"><a href="#函数调用与非引用类型" class="headerlink" title="函数调用与非引用类型"></a><span id="4.2">函数调用与非引用类型</span></h3><p>如我们所提到的,在调用圆括号的左边不是一个引用类型值时,this的值自动设置为null,并且最后被设置为全局对象.  </p>
 <p>让我们看看下面表达式:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;</span><br><span class="line">  console.log(this); &#x2F;&#x2F; null &#x3D;&gt; global</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;</span><br><span class="line">  console.log(this); // null =&gt; global</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
 
 <p>在上面的情况中,我们的函数对象那个不是引用类型(不是标识符也不是属性访问器),相应的this的值最终被设置为全局对象.  </p>
 <p>看一些复杂的例子:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var foo &#x3D; &#123;</span><br><span class="line">  bar: function () &#123;</span><br><span class="line">    console.log(this);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">foo.bar(); &#x2F;&#x2F; Reference, OK &#x3D;&gt; foo</span><br><span class="line">(foo.bar)(); &#x2F;&#x2F; Reference, OK &#x3D;&gt; foo</span><br><span class="line"> </span><br><span class="line">(foo.bar &#x3D; foo.bar)(); &#x2F;&#x2F; global?</span><br><span class="line">(false || foo.bar)(); &#x2F;&#x2F; global?</span><br><span class="line">(foo.bar, foo.bar)(); &#x2F;&#x2F; global?</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var foo = &#123;</span><br><span class="line">  bar: function () &#123;</span><br><span class="line">    console.log(this);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">foo.bar(); // Reference, OK =&gt; foo</span><br><span class="line">(foo.bar)(); // Reference, OK =&gt; foo</span><br><span class="line"> </span><br><span class="line">(foo.bar = foo.bar)(); // global?</span><br><span class="line">(false || foo.bar)(); // global?</span><br><span class="line">(foo.bar, foo.bar)(); // global?</span><br></pre></td></tr></table></figure>
 
 <p>为什么一个属性访问器,在某些时候this的值不是bese对象而是全局对象?</p>
 <p>最后三个调用,在进行某些操作后,调用圆括号的左边已经不是引用类型了.  </p>
 <p>第一个调用比较明显就不说了.</p>
 <p>第二种情况有一个圆括号运算符,没有什么副作用,调用圆括号的左边任然是引用类型值,所以返回foo.  </p>
-<p>第三种情况中,赋值运算符不和圆括号运算符一样,它会调用GetValue方法(<a href="http://bclary.com/2004/11/07/#a-11.13.1" target="_blank" rel="noopener">11.13.1</a>的第三步),返回一个函数对象本身(而不是引用类型值)这意味着this的值为设置为null最终设置为全局.  </p>
+<p>第三种情况中,赋值运算符不和圆括号运算符一样,它会调用GetValue方法(<a target="_blank" rel="noopener" href="http://bclary.com/2004/11/07/#a-11.13.1">11.13.1</a>的第三步),返回一个函数对象本身(而不是引用类型值)这意味着this的值为设置为null最终设置为全局.  </p>
 <p>和第四种和第五种情况相似的–逗号运算符与逻辑或表达式调用GetValue方法,响应的会返回函数本身值而不是引用类型值,this最终设置为全局对象.  </p>
-<h3 id="引用类型与this的值为null"><a href="#引用类型与this的值为null" class="headerlink" title="引用类型与this的值为null"></a><span id="4.3">引用类型与this的值为null</span></h3><p>这里存在一种情况：当调用圆括号左边是一个引用类型值,但是this值任然全局对象.这是因为引用类型的base对象为一个<a href="http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/#variable-object-in-function-context" target="_blank" rel="noopener">激活对象(activation object)</a>.   </p>
+<h3 id="引用类型与this的值为null"><a href="#引用类型与this的值为null" class="headerlink" title="引用类型与this的值为null"></a><span id="4.3">引用类型与this的值为null</span></h3><p>这里存在一种情况：当调用圆括号左边是一个引用类型值,但是this值任然全局对象.这是因为引用类型的base对象为一个<a target="_blank" rel="noopener" href="http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/#variable-object-in-function-context">激活对象(activation object)</a>.   </p>
 <p>我们可以在内部函数调用发现这种情况,如我们所知本地变量,内部函数,形参都被存储在函数的一个激活对象中:  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  function bar() &#123;</span><br><span class="line">    console.log(this); &#x2F;&#x2F; global</span><br><span class="line">  &#125;</span><br><span class="line">  bar(); &#x2F;&#x2F; the same as AO.bar()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  function bar() &#123;</span><br><span class="line">    console.log(this); // global</span><br><span class="line">  &#125;</span><br><span class="line">  bar(); // the same as AO.bar()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>激活对象返回this的值总是null(i.e.伪代码AO.bar()与null.bar()等价).最终this值被转换为全局对象.</p>
 <p>如果在一个with语句中,那就不一样了. 这是因为with语句将一个对象添加到作用域链的前端.i.e.这个对象那个在激活对象前.所以对应拥有引用类型值(要么通过标识符要么通过属性访问器).它的base对象就不和激活对象的bese对象相同了.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var x &#x3D; 10;</span><br><span class="line"> </span><br><span class="line">with (&#123;</span><br><span class="line"> </span><br><span class="line">  foo: function () &#123;</span><br><span class="line">    console.log(this.x);</span><br><span class="line">  &#125;,</span><br><span class="line">  x: 20</span><br><span class="line"> </span><br><span class="line">&#125;) &#123;</span><br><span class="line"> </span><br><span class="line">  foo(); &#x2F;&#x2F; 20</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; because</span><br><span class="line"> </span><br><span class="line">var  fooReference &#x3D; &#123;</span><br><span class="line">  base: __withObject,</span><br><span class="line">  propertyName: &#39;foo&#39;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var x = 10;</span><br><span class="line"> </span><br><span class="line">with (&#123;</span><br><span class="line"> </span><br><span class="line">  foo: function () &#123;</span><br><span class="line">    console.log(this.x);</span><br><span class="line">  &#125;,</span><br><span class="line">  x: 20</span><br><span class="line"> </span><br><span class="line">&#125;) &#123;</span><br><span class="line"> </span><br><span class="line">  foo(); // 20</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">// because</span><br><span class="line"> </span><br><span class="line">var  fooReference = &#123;</span><br><span class="line">  base: __withObject,</span><br><span class="line">  propertyName: &#x27;foo&#x27;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>和catch从句相似,但是ES5与ES3表现不一致.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  throw function () &#123;</span><br><span class="line">    console.log(this);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">  e(); &#x2F;&#x2F; __catchObject - in ES3, global - fixed in ES5</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; on idea</span><br><span class="line"> </span><br><span class="line">var eReference &#x3D; &#123;</span><br><span class="line">  base: __catchObject,</span><br><span class="line">  propertyName: &#39;e&#39;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; but, as this is a bug</span><br><span class="line">&#x2F;&#x2F; then this value is forced to global</span><br><span class="line">&#x2F;&#x2F; null &#x3D;&gt; global</span><br><span class="line"> </span><br><span class="line">var eReference &#x3D; &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#39;e&#39;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  throw function () &#123;</span><br><span class="line">    console.log(this);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">  e(); // __catchObject - in ES3, global - fixed in ES5</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">// on idea</span><br><span class="line"> </span><br><span class="line">var eReference = &#123;</span><br><span class="line">  base: __catchObject,</span><br><span class="line">  propertyName: &#x27;e&#x27;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">// but, as this is a bug</span><br><span class="line">// then this value is forced to global</span><br><span class="line">// null =&gt; global</span><br><span class="line"> </span><br><span class="line">var eReference = &#123;</span><br><span class="line">  base: global,</span><br><span class="line">  propertyName: &#x27;e&#x27;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>同样的也发生在具名函数表达式递归调用中. </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(function foo(bar) &#123;</span><br><span class="line"> </span><br><span class="line">  console.log(this);</span><br><span class="line"> </span><br><span class="line">  !bar &amp;&amp; foo(1); &#x2F;&#x2F; &quot;should&quot; be special object, but always (correct) global</span><br><span class="line"> </span><br><span class="line">&#125;)(); &#x2F;&#x2F; global</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(function foo(bar) &#123;</span><br><span class="line"> </span><br><span class="line">  console.log(this);</span><br><span class="line"> </span><br><span class="line">  !bar &amp;&amp; foo(1); // &quot;should&quot; be special object, but always (correct) global</span><br><span class="line"> </span><br><span class="line">&#125;)(); // global</span><br></pre></td></tr></table></figure>
 
 <h3 id="构造器函数中的this值"><a href="#构造器函数中的this值" class="headerlink" title="构造器函数中的this值"></a><span id="4.4">构造器函数中的this值</span></h3><p>和this相关的更多是在构造函数中this值.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function A() &#123;</span><br><span class="line">  console.log(this); &#x2F;&#x2F; newly created object, below - &quot;a&quot; object</span><br><span class="line">  this.x &#x3D; 10;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">var a &#x3D; new A();</span><br><span class="line">console.log(a.x); &#x2F;&#x2F; 10</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function A() &#123;</span><br><span class="line">  console.log(this); // newly created object, below - &quot;a&quot; object</span><br><span class="line">  this.x = 10;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">var a = new A();</span><br><span class="line">console.log(a.x); // 10</span><br></pre></td></tr></table></figure>
 
 <p>在这种情况,new 操作符会调用函数内部方法[[Construct]],依次,在对象创建好后,调用内部方法[[Call]],所有A函数创建的对象都指向this.  </p>
 <h3 id="手动设置函数调用时this的值"><a href="#手动设置函数调用时this的值" class="headerlink" title="手动设置函数调用时this的值"></a><span id="4.5">手动设置函数调用时this的值</span></h3><p>在Function.prototype定义了两个可以改变this值的方法，call,apply.  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var b &#x3D; 10;</span><br><span class="line"> </span><br><span class="line">function a(c) &#123;</span><br><span class="line">  console.log(this.b);</span><br><span class="line">  console.log(c);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">a(20); &#x2F;&#x2F; this &#x3D;&#x3D;&#x3D; global, this.b &#x3D;&#x3D; 10, c &#x3D;&#x3D; 20</span><br><span class="line"> </span><br><span class="line">a.call(&#123;b: 20&#125;, 30); &#x2F;&#x2F; this &#x3D;&#x3D;&#x3D; &#123;b: 20&#125;, this.b &#x3D;&#x3D; 20, c &#x3D;&#x3D; 30</span><br><span class="line">a.apply(&#123;b: 30&#125;, [40]) &#x2F;&#x2F; this &#x3D;&#x3D;&#x3D; &#123;b: 30&#125;, this.b &#x3D;&#x3D; 30, c &#x3D;&#x3D; 40</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var b = 10;</span><br><span class="line"> </span><br><span class="line">function a(c) &#123;</span><br><span class="line">  console.log(this.b);</span><br><span class="line">  console.log(c);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">a(20); // this === global, this.b == 10, c == 20</span><br><span class="line"> </span><br><span class="line">a.call(&#123;b: 20&#125;, 30); // this === &#123;b: 20&#125;, this.b == 20, c == 30</span><br><span class="line">a.apply(&#123;b: 30&#125;, [40]) // this === &#123;b: 30&#125;, this.b == 30, c == 40</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -380,6 +436,7 @@
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -417,22 +474,22 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导言"><span class="nav-number">1.</span> <span class="nav-text">导言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在全局环境下this的值"><span class="nav-number">3.</span> <span class="nav-text">在全局环境下this的值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在函数中this的值"><span class="nav-number">4.</span> <span class="nav-text">在函数中this的值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引用类型"><span class="nav-number">4.1.</span> <span class="nav-text">引用类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数调用与非引用类型"><span class="nav-number">4.2.</span> <span class="nav-text">函数调用与非引用类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用类型与this的值为null"><span class="nav-number">4.3.</span> <span class="nav-text">引用类型与this的值为null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造器函数中的this值"><span class="nav-number">4.4.</span> <span class="nav-text">构造器函数中的this值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动设置函数调用时this的值"><span class="nav-number">4.5.</span> <span class="nav-text">手动设置函数调用时this的值</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">导言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%85%A8%E5%B1%80%E7%8E%AF%E5%A2%83%E4%B8%8Bthis%E7%9A%84%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">在全局环境下this的值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%87%BD%E6%95%B0%E4%B8%ADthis%E7%9A%84%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">在函数中this的值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.</span> <span class="nav-text">引用类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E4%B8%8E%E9%9D%9E%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.2.</span> <span class="nav-text">函数调用与非引用类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%B8%8Ethis%E7%9A%84%E5%80%BC%E4%B8%BAnull"><span class="nav-number">4.3.</span> <span class="nav-text">引用类型与this的值为null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9A%84this%E5%80%BC"><span class="nav-number">4.4.</span> <span class="nav-text">构造器函数中的this值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E8%AE%BE%E7%BD%AE%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%97%B6this%E7%9A%84%E5%80%BC"><span class="nav-number">4.5.</span> <span class="nav-text">手动设置函数调用时this的值</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe - zh-tw - en</p>
+  <p class="site-author-name" itemprop="name">John Doe</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -441,16 +498,16 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">30</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
         <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">categories</span>
+        <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
         <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
@@ -473,18 +530,6 @@
 
         
 
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">John Doe - zh-tw - en</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
-
         
 
 
@@ -492,6 +537,92 @@
 
 
 
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz","app_key":"AgFnrn2FODUJulhW3pUkvB8o","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
 
 
       </div>
@@ -521,6 +652,10 @@
 
 
 
+  
+<script src="/js/local-search.js"></script>
+
+
 
 
 
@@ -535,6 +670,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz',
+      appKey     : 'AgFnrn2FODUJulhW3pUkvB8o',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>

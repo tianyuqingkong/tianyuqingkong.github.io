@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,25 +17,25 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="本文主要是基于浏览器标准(html5)介绍macrotask和microtask. 由于事件循环和执行环境相关所以在node中执行结果稍有不同。   首先了解我们知道js的特性是单线程、非阻塞I&#x2F;O，不用考虑并发,死锁等问题。但是js的执行会导致多个线程同时在跑，如我们同时触发了异步http请求线程,以及定时器线程，如何管理他们之间的关系就需要even-loop。 1：首先我们的js线程在调用栈中">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器异步之macrotask与microtask">
-<meta property="og:url" content="http://yoursite.com/2017/08/09/event-loop/index.html">
+<meta property="og:url" content="http://example.com/2017/08/09/event-loop/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="本文主要是基于浏览器标准(html5)介绍macrotask和microtask. 由于事件循环和执行环境相关所以在node中执行结果稍有不同。   首先了解我们知道js的特性是单线程、非阻塞I&#x2F;O，不用考虑并发,死锁等问题。但是js的执行会导致多个线程同时在跑，如我们同时触发了异步http请求线程,以及定时器线程，如何管理他们之间的关系就需要even-loop。 1：首先我们的js线程在调用栈中">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2017/08/09/event-loop/event-loop/event-loop.jpg">
-<meta property="og:image" content="http://yoursite.com/2017/08/09/event-loop/event-loop/flow">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2017/08/09/event-loop/event-loop.jpg">
+<meta property="og:image" content="http://example.com/2017/08/09/event-loop/flow">
 <meta property="article:published_time" content="2017-08-09T02:36:06.000Z">
-<meta property="article:modified_time" content="2020-05-06T06:06:49.884Z">
-<meta property="article:author" content="John Doe - zh-tw - en">
+<meta property="article:modified_time" content="2022-05-31T06:43:12.850Z">
+<meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2017/08/09/event-loop/event-loop/event-loop.jpg">
+<meta name="twitter:image" content="http://example.com/2017/08/09/event-loop/event-loop.jpg">
 
-<link rel="canonical" href="http://yoursite.com/2017/08/09/event-loop/">
+<link rel="canonical" href="http://example.com/2017/08/09/event-loop/">
 
 
 <script id="page-configurations">
@@ -44,7 +44,7 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'en'
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -88,7 +88,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -106,6 +106,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -117,19 +118,56 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -152,12 +190,12 @@
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/09/event-loop/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/08/09/event-loop/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe - zh-tw - en">
+      <meta itemprop="name" content="John Doe">
       <meta itemprop="description" content="">
     </span>
 
@@ -174,19 +212,40 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="Created: 2017-08-09 10:36:06" itemprop="dateCreated datePublished" datetime="2017-08-09T10:36:06+08:00">2017-08-09</time>
+              <time title="创建时间：2017-08-09 10:36:06" itemprop="dateCreated datePublished" datetime="2017-08-09T10:36:06+08:00">2017-08-09</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-06 14:06:49" itemprop="dateModified" datetime="2020-05-06T14:06:49+08:00">2020-05-06</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-31 14:43:12" itemprop="dateModified" datetime="2022-05-31T14:43:12+08:00">2022-05-31</time>
               </span>
 
           
+            <span id="/2017/08/09/event-loop/" class="post-meta-item leancloud_visitors" data-flag-title="浏览器异步之macrotask与microtask" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2017/08/09/event-loop/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/08/09/event-loop/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -200,15 +259,15 @@
         <p>本文主要是基于浏览器标准(html5)介绍macrotask和microtask. 由于事件循环和执行环境相关所以在node中执行结果稍有不同。  </p>
 <p><code>首先了解我们知道js的特性是单线程、非阻塞I/O，不用考虑并发,死锁等问题。但是js的执行会导致多个线程同时在跑，如我们同时触发了异步http请求线程,以及定时器线程，如何管理他们之间的关系就需要even-loop。</code></p>
 <p>1：首先我们的js线程在调用栈中触发了各种异步线程<br>2：异步线程执行完毕后放到异步任务对应源的队列中（Queue）<br>3：最后由event-loop将队列中（Queue）需要执行的任务按照一定策略取到js调用栈中执行</p>
-<p><img src="event-loop/event-loop.jpg" alt="event-loop"></p>
-<p>接下来就是<a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model" target="_blank" rel="noopener">event-loop的执行的一些细节(html标准)</a>，大概分三步</p>
-<p>1: 执行最旧的task（一次）<br>2：检查是否存在microtask，然后不停执行，直到清空队列（有可能多次）<br>3：检测是否执行render，如果可以就执行<br><img src="event-loop/flow" alt="flow"></p>
+<p><img src="/2017/08/09/event-loop/event-loop.jpg" alt="event-loop"></p>
+<p>接下来就是<a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model">event-loop的执行的一些细节(html标准)</a>，大概分三步</p>
+<p>1: 执行最旧的task（一次）<br>2：检查是否存在microtask，然后不停执行，直到清空队列（有可能多次）<br>3：检测是否执行render，如果可以就执行<br><img src="/2017/08/09/event-loop/flow" alt="flow"></p>
 <ul>
 <li><p>一个线程中，事件循环(event-loop)是唯一的，但是根据任务源(tasks source)做区分的任务队列(tasks queued)可以拥有多个。</p>
 </li>
 <li><p>任务队列又分为macrostask(宏任务)与microtask(微任务)，在最新标准中，它们被分别称为task与jobs。</p>
 </li>
-<li><p>macrotask大概包括：script(整体代码), setTimeout, setInterval, setImmediate, I/O, UI rendering, networking(如ajax，fetch)。</p>
+<li><p>macrotask大概包括：script(整体代码), setTimeout, setInterval, setImmediate, I&#x2F;O, UI rendering, networking(如ajax，fetch)。</p>
 </li>
 <li><p>microtasks大概包括: process.nextTick, Promise, Object.observe(已废弃), MutationObserver(html5新特性)</p>
 </li>
@@ -216,7 +275,7 @@
 </li>
 <li><p>在执行macrotask(宏任务)的时候遇到一个新的macrotasks(宏任务)会将任务分发到对应队列中等待下一次事件循环执行</p>
 </li>
-<li><p>mircrotask在两种情况会执行<br>1在回调函数中函数栈没有正在执行中的其他js<br>2在每个task的后面</p>
+<li><p>mircrotask在两种情况会执行<br> 1在回调函数中函数栈没有正在执行中的其他js<br> 2在每个task的后面</p>
 </li>
 <li><p>处理 microtask 队列期间，新添加的 microtask 添加到队列的末尾并且也被执行</p>
 </li>
@@ -225,7 +284,7 @@
 <li><p>在每一次事件循环(event-loop)中，macrotask 只会提取一个执行，而 microtask 会一直提取，直到 microtask 队列清空。</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">console.log(&#39;glob1&#39;);</span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">      setTimeout(function()&#123;</span><br><span class="line">		console.log(&#39;test1&#39;);</span><br><span class="line">		Promise.resolve().then(function()&#123;</span><br><span class="line">            console.log(&#39;test1_promise&#39;)</span><br><span class="line">        &#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">    console.log(&#39;timeout1&#39;);</span><br><span class="line">    new Promise(function(resolve) &#123;</span><br><span class="line">        console.log(&#39;timeout1_promise&#39;);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).then(function() &#123;</span><br><span class="line">        console.log(&#39;timeout1_then&#39;)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">new Promise(function(resolve) &#123;</span><br><span class="line">    console.log(&#39;glob1_promise&#39;);</span><br><span class="line">    resolve();</span><br><span class="line">    console.log(&#39;glob2_promise&#39;);</span><br><span class="line">&#125;).then(function() &#123;</span><br><span class="line">    console.log(&#39;glob1_then&#39;)</span><br><span class="line">&#125;).then(function()&#123;</span><br><span class="line">	Promise.resolve().then(function()&#123;</span><br><span class="line">		console.log(&#39;glob1_then_test&#39;)</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; glob1</span><br><span class="line">&#x2F;&#x2F; glob1_promise</span><br><span class="line">&#x2F;&#x2F; glob2_promise</span><br><span class="line">&#x2F;&#x2F; glob1_then</span><br><span class="line">&#x2F;&#x2F; glob1_then_test</span><br><span class="line">&#x2F;&#x2F; timeout1</span><br><span class="line">&#x2F;&#x2F; timeout1_promise</span><br><span class="line">&#x2F;&#x2F; timeout1_then</span><br><span class="line">&#x2F;&#x2F; test1</span><br><span class="line">&#x2F;&#x2F; test1_promise</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">console.log(&#x27;glob1&#x27;);</span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">      setTimeout(function()&#123;</span><br><span class="line">		console.log(&#x27;test1&#x27;);</span><br><span class="line">		Promise.resolve().then(function()&#123;</span><br><span class="line">            console.log(&#x27;test1_promise&#x27;)</span><br><span class="line">        &#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">    console.log(&#x27;timeout1&#x27;);</span><br><span class="line">    new Promise(function(resolve) &#123;</span><br><span class="line">        console.log(&#x27;timeout1_promise&#x27;);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).then(function() &#123;</span><br><span class="line">        console.log(&#x27;timeout1_then&#x27;)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">new Promise(function(resolve) &#123;</span><br><span class="line">    console.log(&#x27;glob1_promise&#x27;);</span><br><span class="line">    resolve();</span><br><span class="line">    console.log(&#x27;glob2_promise&#x27;);</span><br><span class="line">&#125;).then(function() &#123;</span><br><span class="line">    console.log(&#x27;glob1_then&#x27;)</span><br><span class="line">&#125;).then(function()&#123;</span><br><span class="line">	Promise.resolve().then(function()&#123;</span><br><span class="line">		console.log(&#x27;glob1_then_test&#x27;)</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// glob1</span><br><span class="line">// glob1_promise</span><br><span class="line">// glob2_promise</span><br><span class="line">// glob1_then</span><br><span class="line">// glob1_then_test</span><br><span class="line">// timeout1</span><br><span class="line">// timeout1_promise</span><br><span class="line">// timeout1_then</span><br><span class="line">// test1</span><br><span class="line">// test1_promise</span><br></pre></td></tr></table></figure>
 <p>分析下上面执行的结果：<br>1： golb1 第一个task（js script）中执行的同步console<br>2： glob1_promise 第一个task（js script）中执行promise构造函数的同步console<br>3： glob2_promise 第一个task（js script）中执行promise构造函数的同步console<br>4:  glob1_then 第一个task执行完毕后检测先microtask队列中有一个Promise<br>5： glob1_then_test 第4步Promise执行过程中插入的microtask，也会继续执行<br>6： timeout1 执行第二个task（setTimeout）里面的同步console<br>7： timeout1_promise 第二个task中执行Promose构造函数的console<br>8： timeout1_then 第二个task执行完毕后检测microtask队列中有一个Promise<br>9： test1 第三个task（setTimeout）中同步执行的console<br>10： test1_promise 第三个task执行完毕后检测microtask队列中的Promise</p>
 
     </div>
@@ -261,6 +320,7 @@
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -298,10 +358,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
@@ -312,7 +372,7 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe - zh-tw - en</p>
+  <p class="site-author-name" itemprop="name">John Doe</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -321,16 +381,16 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">30</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
         <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">categories</span>
+        <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
         <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
@@ -353,18 +413,6 @@
 
         
 
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">John Doe - zh-tw - en</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
-
         
 
 
@@ -372,6 +420,92 @@
 
 
 
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz","app_key":"AgFnrn2FODUJulhW3pUkvB8o","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
 
 
       </div>
@@ -401,6 +535,10 @@
 
 
 
+  
+<script src="/js/local-search.js"></script>
+
+
 
 
 
@@ -415,6 +553,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'UgjoKCWtW0OaW37lajh28TzU-gzGzoHsz',
+      appKey     : 'AgFnrn2FODUJulhW3pUkvB8o',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>
